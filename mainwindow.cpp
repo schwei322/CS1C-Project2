@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->displayHome();
 
-    ui->loginPanel->raise();
+    ui->adminLogin->raise();
 }
 
 MainWindow::~MainWindow()
@@ -21,22 +21,33 @@ void MainWindow::userAuthenticate()
 {
     if (this->ui->usernameInput->text() == "admin" && this->ui->passwordInput->text() == "password")
     {
-        this->ui->loginPanel->hide();
+        this->ui->adminLogin->hide();
     }
 }
 
 void MainWindow::displayHome()
 {
     this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
-    this->ui->manageBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
-    this->ui->home->raise();
+    this->ui->homePanel->raise();
 }
 
-void MainWindow::displayManage()
+void MainWindow::displaySales()
 {
     this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
-    this->ui->manageBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
-    this->ui->manage->raise();
+    this->ui->salesPanel->raise();
+}
+
+void MainWindow::displayAdmin()
+{
+    this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+
+    this->ui->adminPanel->raise();
 }
