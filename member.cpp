@@ -1,33 +1,45 @@
 #include "member.h"
 
 /****************************************************************************//**
- *      Constructor
- *******************************************************************************/
-
-Member::Member()
-{
-
-}
-/*******************************************************************************/
-
-
-
-/****************************************************************************//**
  *      Overloaded Constructor
  *____________________________________________________________________________
  *
  *******************************************************************************/
 
-Member::Member(QString name, int* membership_number, QString membership_type, Date membership_expirationDate, double total_amountSpend, double rebateAmount)
+Member::Member(QString name, int* membership_number, QString membership_type,
+               Date membership_expiration_date, double total_amount_spent, double rebate_amount)
+{
+    this->name = name;
+    this->membership_number = membership_number;
+    this->membership_type = membership_type;
+    this->membership_expiration_date = membership_expiration_date;
+    this->total_amount_spent = total_amount_spent;
+    this->rebate_amount = rebate_amount;
+}
+/********************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      Copy Constructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
+
+Member::Member(Member& mem)
 {
 
 }
-********************************************************************************/
+/********************************************************************************/
 
-Member::~Member()
-{
 
-}
+
+/****************************************************************************//**
+ *      Deconstructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
+Member::~Member(){}
 /*******************************************************************************/
 
 
@@ -46,7 +58,8 @@ Member::~Member()
 
 double Member::calc_rebate() const
 {
-
+    qDebug() << "calc_annual_dues() | NOT IMPLIMENTED YET!\n";
+    return -1;
 }
 /*******************************************************************************/
 
@@ -66,7 +79,8 @@ double Member::calc_rebate() const
 
 double Member::calc_annual_dues() const
 {
-
+    qDebug() << "calc_annual_dues() | NOT IMPLIMENTED YET!\n";
+    return -1;
 }
 /*******************************************************************************/
 
@@ -84,9 +98,9 @@ double Member::calc_annual_dues() const
  *      @return N/A
 ********************************************************************************/
 
-QString Member::get_name()
+QString Member::get_name() const
 {
-
+    return name;
 }
 /*******************************************************************************/
 
@@ -104,9 +118,9 @@ QString Member::get_name()
  *      @return N/A
 ********************************************************************************/
 
-int* Member::get_membership_number()
+int* Member::get_membership_number() const
 {
-
+    return membership_number;
 }
 /*******************************************************************************/
 
@@ -124,9 +138,9 @@ int* Member::get_membership_number()
  *      @return N/A
 ********************************************************************************/
 
-QString Member::get_membership_type()
+QString Member::get_membership_type() const
 {
-
+    return membership_type;
 }
 /*******************************************************************************/
 
@@ -144,9 +158,9 @@ QString Member::get_membership_type()
  *      @return N/A
 ********************************************************************************/
 
-Date Member::get_membership_expiration_date()
+Date Member::get_membership_expiration_date() const
 {
-
+    return membership_expiration_date;
 }
 /*******************************************************************************/
 
@@ -164,9 +178,9 @@ Date Member::get_membership_expiration_date()
  *      @return N/A
 ********************************************************************************/
 
-double Member::get_total_amount_spent()
+double Member::get_total_amount_spent() const
 {
-
+    return total_amount_spent;
 }
 /*******************************************************************************/
 
@@ -184,9 +198,9 @@ double Member::get_total_amount_spent()
  *      @return N/A
 ********************************************************************************/
 
-double Member::get_rebate_amount()
+double Member::get_rebate_amount() const
 {
-
+    return rebate_amount;
 }
 /*******************************************************************************/
 
@@ -204,9 +218,9 @@ double Member::get_rebate_amount()
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_name() const
+void Member::set_name(QString name)
 {
-
+    this->name = name;
 }
 /*******************************************************************************/
 
@@ -224,9 +238,9 @@ void Member::set_name() const
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_membership_number() const
+void Member::set_membership_number(int* membership_number)
 {
-
+    this->membership_number = membership_number;
 }
 /*******************************************************************************/
 
@@ -245,9 +259,9 @@ void Member::set_membership_number() const
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_membership_type() const
+void Member::set_membership_type(QString membership_type)
 {
-
+    this->membership_type = membership_type;
 }
 /*******************************************************************************/
 
@@ -264,9 +278,9 @@ void Member::set_membership_type() const
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_membership_expiration_date() const
+void Member::set_membership_expiration_date(Date membership_expiration_date)
 {
-
+    this->membership_expiration_date = membership_expiration_date;
 }
 /*******************************************************************************/
 
@@ -284,9 +298,9 @@ void Member::set_membership_expiration_date() const
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_total_amount_spent() const
+void Member::set_total_amount_spent(double total_amount_spent)
 {
-
+    this->total_amount_spent = total_amount_spent;
 }
 /*******************************************************************************/
 
@@ -302,9 +316,9 @@ void Member::set_total_amount_spent() const
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_rebate_amount() const
+void Member::set_rebate_amount(double rebate_amount)
 {
-
+    this->rebate_amount = rebate_amount;
 }
 /*******************************************************************************/
 
