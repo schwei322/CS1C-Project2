@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->displayHome();
 
+    ui->adminBtn->hide();
     ui->loginPanel->raise();
 }
 
@@ -19,7 +20,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::userAuthenticate()
 {
-    if (this->ui->usernameInput->text() == "admin" && this->ui->passwordInput->text() == "password")
+    if (this->ui->usernameInput->text() == "admin" && this->ui->passwordInput->text() == "admin")
+    {
+        this->ui->adminBtn->show();
+        this->ui->loginPanel->hide();
+    }
+    else if (this->ui->usernameInput->text() == "manager" && this->ui->passwordInput->text() == "manager")
     {
         this->ui->loginPanel->hide();
     }
@@ -28,15 +34,26 @@ void MainWindow::userAuthenticate()
 void MainWindow::displayHome()
 {
     this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
-    this->ui->manageBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
     this->ui->home->raise();
 }
 
-void MainWindow::displayManage()
+void MainWindow::displaySales()
 {
     this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
-    this->ui->manageBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
-    this->ui->manage->raise();
+    this->ui->sales->raise();
+}
+
+void MainWindow::displayAdmin()
+{
+    this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+
+    this->ui->admin->raise();
 }
