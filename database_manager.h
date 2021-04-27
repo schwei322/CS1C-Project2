@@ -25,5 +25,9 @@ public:
     QVector<QStringList> get_memberPurchases(QString membership_number) const;
     QStringList get_itemInfo(QString item_name) const;
 
+    void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
+    void insert_row_in_inventory(QString name, QString sellQuantity, QString totalRevenue) const;
+    void delete_row_in_inventory(QString name) const;
+
 };
 #endif // DATABASE_MANAGER_H

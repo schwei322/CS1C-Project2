@@ -1,5 +1,6 @@
 #include "database_manager.h"
-
+#include <QVariant>
+#include <QSqlField>
 /****************************************************************************//**
  *      Constructor
  *____________________________________________________________________________
@@ -51,11 +52,21 @@ QStringList Database_manager::get_memberInfo(QString membership_number) const
     QSqlQuery query;
     QStringList membersData;
     QString command = "SELECT Name, MembershipNumber, Type, ExpirationDate FROM Membership WHERE MembershipNumber IN(" + membership_number +")";
+    int columnNum;
+
+    // Find out number of columns in Membership table
+    query.prepare("SELECT * FROM Membership");
+    if (!query.exec())
+    {
+        qDebug() << "Error = " << database.lastError();
+    }
+    columnNum = query.record().count();
+
     if (query.exec(command))
     {
         while (query.next())
         {
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < columnNum; i++)
             {
                 membersData.append( query.value(i).toString() );
             }
@@ -193,7 +204,7 @@ QStringList Database_manager::get_itemInfo(QString item_name) const
 
 
 /****************************************************************************//**
- *      ~~~~~~~
+ *      update_totalAmountSpent
  * ____________________________________________________________________________
  * ___Description___
  * ____________________________________________________________________________
@@ -204,5 +215,83 @@ QStringList Database_manager::get_itemInfo(QString item_name) const
  *      @return N/A
 *******************************************************************************/
 
+void Database_manager::update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const
+{
+    QSqlQuery query;
+    QStringList membersData;
+    //QString sql_command = "UPDATE Membership SET TotalAmountSpent='" + totalAmountSpent +"' WHERE MembershipNumber='" + membership_number + "'";
+    QString sql_command = "UPDATE Membership SET TotalAmountSpent='222' WHERE MembershipNumber='12121'";
 
+    if (!query.exec(sql_command))
+    {
+
+        qDebug() << "Error = " << database.lastError();
+
+    }
+}
 /*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      update_totalAmountSpent
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::insert_row_in_inventory(QString name, QString sellQuantity, QString totalRevenue) const
+{
+    QSqlQuery query;
+
+    query.prepare("INSERT INTO Inventory (Name, SellQuantity, TotalRevenue)"
+                    "VALUES (:Name, :SellQuantity, :TotalRevenue)");
+    query.bindValue(":Name", name);
+    query.bindValue(":SellQuantity", sellQuantity);
+    query.bindValue(":TotalRevenue", totalRevenue);
+
+    if (!query.exec())
+    {
+        qDebug() << query.lastError();
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      delete_row_in_inventory
+ * ____________________________________________________________________________
+ * Deletes row in inventory given a name. NOTE: if inventory has
+ * two or more rows with the same name, ALL OF THEM WILL BE DELETED!!!
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::delete_row_in_inventory(QString name) const
+{
+    QSqlQuery query;
+    QString sql_command = "DELETE FROM Inventory WHERE Name='" + name + "'";
+
+    query.prepare(sql_command);
+    if (!query.exec())
+    {
+        qDebug() << query.lastError();
+    }
+}
+/*******************************************************************************/
+
+
+
+
+
+

@@ -13,12 +13,13 @@ int main(int argc, char *argv[])
 
     Database_manager db;
 
-    //qDebug() << db.get_memberInfo("88888");
-    //qDebug() <<db.get_memberPurchases("88888") << "\n\n";
-    qDebug() <<db.get_itemInfo("Coke");
+    qDebug() << db.get_memberInfo("88888") << "\n";
+    //qDebug() <<db.get_memberPurchases("88888") << "\n";
+    //qDebug() <<db.get_itemInfo("Coke");
 
-
-
+    //db.update_totalAmountSpent("88888", "123");
+    //db.insert_row_in_inventory("a_name", "a_sellQuantity", "a_totalRevenue");
+    //db.delete_row_in_inventory("a_name");
 
     /**********************************************/
 
