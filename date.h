@@ -8,15 +8,44 @@
 
 #include <iostream>
 #include <QDateTimeEdit>
+#include <QString>
 
 using namespace std;
-
-///@param date class
 class date
 {
 
 public:
-    PurchaseData queryWithDate(QDate date);
+    // 1
+    PurchaseData *queryPurchasesByDay(QDate date);
+    // 2
+    PurchaseData *queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership);
+
+    // 3
+    MemberData *getPurchaseDataOfMembers();
+
+    // 4
+    PurchaseData *getAllPurchases();
+
+    // 6
+    MemberData *getExpiredMembersByMonth(int month);
+
+    // 7
+    void deleteMember(int customerId);
+
+    // 8
+    void addNewPurchase(PurchaseData purchaseData);
+
+    // 9
+    void deleteItem(ItemData item);
+
+    // 9
+    void changeItemPrice(int price);
+
+    // 10
+    PurchaseData *queryPurchasesByItemName(QString string);
+
+    // 11, 12, 13
+    MemberData *getMemberById(int id);
 
 };
 
