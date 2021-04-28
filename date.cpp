@@ -10,3 +10,15 @@ PurchaseData * date::queryByDayAndMembershipType(QDate date, bool executiveMembe
 
 }
 
+void Date::setMonth(int newMonth)
+{
+    month = newMonth;
+}
+void Date::setDay(int newDay)
+{
+    day = newDay;
+}
+void Date::setYear(int newYear)
+{
+    year = newYear;
+}

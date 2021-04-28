@@ -4,17 +4,26 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QSqlQuery>
+#include "database_manager.h"
 
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
     MainWindow w;
 
-    w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
-    w.show();
+    /**********************************************/
+    // Querying database using database_manager class.
 
+    Database_manager db;
+
+    qDebug() << db.get_memberInfo("88888") << "\n";
+    //qDebug() <<db.get_memberPurchases("88888") << "\n";
+    //qDebug() <<db.get_itemInfo("Coke");
+
+    //db.update_totalAmountSpent("88888", "123");
+    //db.insert_row_in_inventory("a_name", "a_sellQuantity", "a_totalRevenue");
+    //db.delete_row_in_inventory("a_name");
 
     // sqlite code
         QSqlDatabase database;
@@ -28,6 +37,7 @@ int main(int argc, char *argv[])
         {
             qDebug() << "Succeed to connect database." ;
         }
+    /**********************************************/
 
         QSqlQuery sql_query;
         if(!sql_query.exec("create table student(id int primary key, name text, age int)"))
@@ -38,7 +48,6 @@ int main(int argc, char *argv[])
         {
             qDebug() << "Table created!";
         }
-
         //insert data
         if(!sql_query.exec("INSERT INTO student VALUES(1, \"Ming\", 23)"))
         {
@@ -109,5 +118,9 @@ int main(int argc, char *argv[])
 
         //close database
         database.close();
+
+    exit(0); // Prevents window from opening
+    w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    w.show();
     return a.exec();
 }

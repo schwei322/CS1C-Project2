@@ -10,7 +10,6 @@
 #include <QDateTimeEdit>
 #include <QString>
 
-
 using namespace std;
 class date
 {
