@@ -44,88 +44,146 @@
    <property name="styleSheet">
     <string notr="true">background-color: rgb(0, 128, 128);</string>
    </property>
-   <widget class="QWidget" name="loginPanel" native="true">
+   <widget class="QFrame" name="salesPanel">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>1280</width>
-      <height>800</height>
+      <x>120</x>
+      <y>10</y>
+      <width>1151</width>
+      <height>781</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>1280</width>
-      <height>800</height>
-     </size>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(178, 216, 216);
+border-radius: 5px;</string>
     </property>
-    <property name="maximumSize">
-     <size>
-      <width>1280</width>
-      <height>800</height>
-     </size>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QFrame" name="adminPanel">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>10</y>
+      <width>1151</width>
+      <height>781</height>
+     </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(0, 128, 128);</string>
+     <string notr="true">background-color: rgb(178, 216, 216);
+border-radius: 5px;</string>
     </property>
-    <widget class="QLineEdit" name="usernameInput">
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QFrame" name="adminContent">
      <property name="geometry">
       <rect>
-       <x>520</x>
-       <y>310</y>
-       <width>251</width>
-       <height>41</height>
+       <x>0</x>
+       <y>0</y>
+       <width>1151</width>
+       <height>781</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 102, 102);
+      <string notr="true">background-color: rgb(178, 216, 216);
+border-radius: 5px;</string>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <widget class="QWidget" name="adminLogin" native="true">
+      <property name="geometry">
+       <rect>
+        <x>-10</x>
+        <y>-20</y>
+        <width>1151</width>
+        <height>781</height>
+       </rect>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1151</width>
+        <height>781</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 128, 128);</string>
+      </property>
+      <widget class="QLineEdit" name="usernameInput">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>310</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 102, 102);
 border-radius: 5px;
 color: rgb(102, 178, 178);
 font: 87 12pt &quot;Segoe UI Black&quot;;</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="placeholderText">
-      <string>Username</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="passwordInput">
-     <property name="geometry">
-      <rect>
-       <x>520</x>
-       <y>360</y>
-       <width>251</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 102, 102);
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="placeholderText">
+        <string>Username</string>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="passwordInput">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>360</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 102, 102);
 border-radius: 5px;
 color: rgb(102, 178, 178);
 font: 87 12pt &quot;Segoe UI Black&quot;;</string>
-     </property>
-     <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-     <property name="placeholderText">
-      <string>Password</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="loginBtn">
-     <property name="geometry">
-      <rect>
-       <x>520</x>
-       <y>410</y>
-       <width>251</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton {
+       </property>
+       <property name="echoMode">
+        <enum>QLineEdit::Password</enum>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="placeholderText">
+        <string>Password</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="loginBtn">
+       <property name="geometry">
+        <rect>
+         <x>450</x>
+         <y>410</y>
+         <width>251</width>
+         <height>41</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
 	background-color: rgb(178, 216, 216);
 	border-radius: 5px;
 	color: rgb(0, 76, 76);
@@ -138,66 +196,54 @@ QPushButton:hover {
 	color: rgb(178, 216, 216);
 	font: 87 12pt &quot;Segoe UI Black&quot;;
 }</string>
-     </property>
-     <property name="text">
-      <string>Log In</string>
-     </property>
+       </property>
+       <property name="text">
+        <string>Log In</string>
+       </property>
+      </widget>
+      <widget class="QDateEdit" name="dateEdit">
+       <property name="geometry">
+        <rect>
+         <x>969</x>
+         <y>30</y>
+         <width>161</width>
+         <height>26</height>
+        </rect>
+       </property>
+      </widget>
+     </widget>
     </widget>
    </widget>
-   <widget class="QWidget" name="mainPanel" native="true">
+   <widget class="QFrame" name="sidebar">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>1280</width>
-      <height>800</height>
+      <width>111</width>
+      <height>801</height>
      </rect>
     </property>
-    <property name="minimumSize">
-     <size>
-      <width>1280</width>
-      <height>800</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>1280</width>
-      <height>800</height>
-     </size>
-    </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(0, 128, 128);</string>
+     <string notr="true">background-color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
     </property>
-    <widget class="QFrame" name="sidebar">
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QPushButton" name="homeBtn">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
        <width>111</width>
-       <height>801</height>
+       <height>91</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI Black&quot;;</string>
-     </property>
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-     <widget class="QPushButton" name="homeBtn">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>111</width>
-        <height>91</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
+      <string notr="true">QPushButton {
 	border: none;
 	background-color: rgb(0, 76, 76);
 	color: rgb(178, 216, 216);
@@ -211,32 +257,6 @@ QPushButton:hover {
       </property>
       <property name="text">
        <string>Home</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="manageBtn">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>90</y>
-        <width>111</width>
-        <height>91</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-	border: none;
-	background-color: rgb(0, 76, 76);
-	color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-	border: none;
-	background-color: rgb(0, 128, 128);
-	color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Manage</string>
       </property>
      </widget>
      <widget class="QPushButton" name="closeBtn">
@@ -265,14 +285,66 @@ QPushButton:hover {
        <string>Close</string>
       </property>
      </widget>
+     <widget class="QPushButton" name="salesBtn">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>90</y>
+        <width>111</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(0, 76, 76);
+	color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+	border: none;
+	background-color: rgb(0, 128, 128);
+	color: rgb(178, 216, 216);
+}</string>
+      </property>
+      <property name="text">
+       <string>Sales</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="adminBtn">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>180</y>
+        <width>111</width>
+        <height>91</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(0, 76, 76);
+	color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+	border: none;
+	background-color: rgb(0, 128, 128);
+	color: rgb(178, 216, 216);
+}</string>
+      </property>
+      <property name="text">
+       <string>Admin</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QFrame" name="home">
      <property name="geometry">
       <rect>
-       <x>119</x>
-       <y>9</y>
-       <width>1153</width>
-       <height>783</height>
+       <x>121</x>
+       <y>11</y>
+       <width>1151</width>
+       <height>781</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -286,13 +358,13 @@ border-radius: 5px;</string>
       <enum>QFrame::Raised</enum>
      </property>
     </widget>
-    <widget class="QFrame" name="manage">
+    <widget class="QFrame" name="admin">
      <property name="geometry">
       <rect>
-       <x>119</x>
-       <y>9</y>
-       <width>1153</width>
-       <height>783</height>
+       <x>120</x>
+       <y>10</y>
+       <width>1151</width>
+       <height>781</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -302,31 +374,65 @@ border-radius: 5px;</string>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
      </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+     <property name="text">
+      <string>Admin</string>
+     </property>
+    </widget>
+    <widget class="QFrame" name="sales">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>10</y>
+       <width>1151</width>
+       <height>781</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	border: none;
+	background-color: rgb(0, 76, 76);
+	color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+	border: none;
+	background-color: rgb(0, 128, 128);
+	color: rgb(178, 216, 216);
+}</string>
+     </property>
+     <property name="text">
+      <string>Sales</string>
      </property>
     </widget>
    </widget>
+   <widget class="QFrame" name="homePanel">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>10</y>
+      <width>1151</width>
+      <height>781</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(178, 216, 216);
+border-radius: 5px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <zorder>salesPanel</zorder>
+   <zorder>sidebar</zorder>
+   <zorder>homePanel</zorder>
+   <zorder>adminPanel</zorder>
   </widget>
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>loginBtn</sender>
-   <signal>clicked()</signal>
-   <receiver>MainWindow</receiver>
-   <slot>userAuthenticate()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>699</x>
-     <y>439</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>684</x>
-     <y>807</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>homeBtn</sender>
    <signal>clicked()</signal>
@@ -334,28 +440,44 @@ border-radius: 5px;</string>
    <slot>displayHome()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>52</x>
-     <y>64</y>
+     <x>54</x>
+     <y>50</y>
     </hint>
     <hint type="destinationlabel">
-     <x>-2</x>
-     <y>43</y>
+     <x>-4</x>
+     <y>44</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>manageBtn</sender>
+   <sender>adminBtn</sender>
    <signal>clicked()</signal>
    <receiver>MainWindow</receiver>
-   <slot>displayManage()</slot>
+   <slot>displayAdmin()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>56</x>
-     <y>135</y>
+     <x>40</x>
+     <y>225</y>
     </hint>
     <hint type="destinationlabel">
      <x>-1</x>
-     <y>132</y>
+     <y>216</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>loginBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>userAuthenticate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>749</x>
+     <y>444</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1279</x>
+     <y>449</y>
     </hint>
    </hints>
   </connection>
@@ -375,10 +497,43 @@ border-radius: 5px;</string>
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>salesBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>displaySales()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>32</x>
+     <y>142</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-5</x>
+     <y>127</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>adminBtn</sender>
+   <signal>clicked()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>displayAdmin()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>17</x>
+     <y>236</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>-1</x>
+     <y>218</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>userAuthenticate()</slot>
   <slot>displayHome()</slot>
-  <slot>displayManage()</slot>
+  <slot>displaySales()</slot>
+  <slot>displayAdmin()</slot>
  </slots>
 </ui>

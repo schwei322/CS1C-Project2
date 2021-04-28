@@ -17,7 +17,8 @@ public:
 
 public slots:
     void displayHome();
-    void displayManage();
+    void displaySales();
+    void displayAdmin();
     void userAuthenticate();
 
 private:

@@ -1,7 +1,7 @@
 #include "mainwindow.h"
-
 #include <QApplication>
 #include "database_manager.h"
+
 
 int main(int argc, char *argv[])
 {
@@ -28,5 +28,6 @@ int main(int argc, char *argv[])
     exit(0); // Prevents window from opening
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     w.show();
+
     return a.exec();
 }

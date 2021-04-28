@@ -10,12 +10,14 @@ CONFIG += c++11
 
 SOURCES += \
     database_manager.cpp \
+    date.cpp \
     main.cpp \
     mainwindow.cpp \
     member.cpp
 
 HEADERS += \
     database_manager.h \
+    date.h \
     mainwindow.h \
     member.h
 
