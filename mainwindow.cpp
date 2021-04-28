@@ -27,7 +27,7 @@ void MainWindow::userAuthenticate()
     }
     else if (this->ui->usernameInput->text() == "manager" && this->ui->passwordInput->text() == "manager")
     {
-        this->ui->adminLogin->hide();
+        this->ui->loginPanel->hide();
     }
 }
 
@@ -37,7 +37,7 @@ void MainWindow::displayHome()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
-    this->ui->homePanel->raise();
+    this->ui->home->raise();
 }
 
 void MainWindow::displaySales()
