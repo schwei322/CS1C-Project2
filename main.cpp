@@ -16,10 +16,6 @@ int main(int argc, char *argv[])
     w.show();
 
 
-<<<<<<< HEAD
-
-
-=======
     // sqlite code
         QSqlDatabase database;
         database = QSqlDatabase::addDatabase("QSQLITE");
@@ -113,6 +109,5 @@ int main(int argc, char *argv[])
 
         //close database
         database.close();
->>>>>>> origin/Ming-dev
     return a.exec();
 }

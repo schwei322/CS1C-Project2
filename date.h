@@ -1,7 +1,7 @@
-/**
+/*
  *  @file date.h
  *  @brief handle the data according the date
- */
+
 
 #ifndef DATE_H
 #define DATE_H
@@ -10,10 +10,10 @@
 #include <QDateTimeEdit>
 #include <QString>
 
+
 using namespace std;
 class date
 {
-
 public:
     // 1
     PurchaseData *queryPurchasesByDay(QDate date);
@@ -50,3 +50,4 @@ public:
 };
 
 #endif // DATE_H
+ */
