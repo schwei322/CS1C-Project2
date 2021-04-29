@@ -26,8 +26,8 @@ public:
     QStringList get_itemInfo(QString item_name) const;
 
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
-    void insert_row_in_inventory(QString name, QString sellQuantity, QString totalRevenue) const;
-    void delete_row_in_inventory(QString name) const;
+    void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
+    void delete_row_in_inventory(QString item_name) const;
 
 };
 #endif // DATABASE_MANAGER_H

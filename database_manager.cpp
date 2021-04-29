@@ -1,6 +1,7 @@
 #include "database_manager.h"
 #include <QVariant>
 #include <QSqlField>
+
 /****************************************************************************//**
  *      Constructor
  *____________________________________________________________________________
@@ -51,11 +52,11 @@ QStringList Database_manager::get_memberInfo(QString membership_number) const
 {
     QSqlQuery query;
     QStringList membersData;
-    QString command = "SELECT Name, MembershipNumber, Type, ExpirationDate FROM Membership WHERE MembershipNumber IN(" + membership_number +")";
+    QString command = "SELECT name, membership_number, membership_type, expiration_date FROM Member WHERE membership_number IN(" + membership_number +")";
     int columnNum;
 
     // Find out number of columns in Membership table
-    query.prepare("SELECT * FROM Membership");
+    query.prepare("SELECT * FROM Member");
     if (!query.exec())
     {
         qDebug() << "Error = " << database.lastError();
@@ -105,11 +106,12 @@ QVector<QStringList> Database_manager::get_memberPurchases(QString membership_nu
     QString sql_command;
     int columnNum;
     int numof_purchases_made_by_member;
+    QStringList buff;
 
     // Find out how many purchases made by member.
 
     // First, find out number of purchases made by member.
-    sql_command = "SELECT COUNT(MembershipNumber) FROM Purchase WHERE MembershipNumber='" + membership_number +"';";
+    sql_command = "SELECT COUNT(membership_number) FROM Purchase WHERE membership_number='" + membership_number +"';";
     query.prepare(sql_command);
     if( !query.exec())
     {
@@ -130,7 +132,7 @@ QVector<QStringList> Database_manager::get_memberPurchases(QString membership_nu
     // Resize vector
     purchases.resize(numof_purchases_made_by_member);
 
-    sql_command = "SELECT Date, MembershipNumber, Product, Price, Quantity FROM Purchase WHERE MembershipNumber IN(" + membership_number +")";
+    sql_command = "SELECT date, membership_number, product, price, quantity FROM Purchase WHERE membership_number IN(" + membership_number +")";
     // Get QStringList of all purchases
     if (query.exec(sql_command))
     {
@@ -147,15 +149,30 @@ QVector<QStringList> Database_manager::get_memberPurchases(QString membership_nu
         qDebug() << "Error = " << database.lastError();
     }
 
-    // Split QStringList into multiple QStringLists;
-    // Each individual QStringList is stored in vector.
-    for (int i = 0; i < numof_purchases_made_by_member; i++)
+    /*
+    qDebug() << "PurchaseData:\n" << purchaseData;
+    qDebug() << "numof_purchases_made_by_member: " << numof_purchases_made_by_member;
+    qDebug() << "column num: " << columnNum;
+    qDebug() << "vector size: " << purchases.size();
+    qDebug() << "\n\n\n";
+    */
+
+    // Assign every item's data to its own QStringList. All QStringLists are assigned to a QVector.
+    int j = 0;
+    buff.clear();
+    for (int i = 0; i < purchaseData.size(); i++)
     {
-        for (int j = 0; j < columnNum; j++)
+        if(((i % columnNum == 0) && (i != 0 )))
         {
-            purchases[i].append(purchaseData[j]);
+            purchases[j].append(buff);
+            j++;
+            buff.clear();
         }
+        buff.append(purchaseData[i]);
     }
+    purchases[j].append(buff);
+    j++;
+    buff.clear();
 
     return purchases;
 }
@@ -180,7 +197,7 @@ QStringList Database_manager::get_itemInfo(QString item_name) const
 {
     QSqlQuery query;
     QStringList item_data_list;
-    QString command = "SELECT Name, Price FROM Items WHERE Name='" + item_name +"'";
+    QString command = "SELECT item_name, item_price FROM Items WHERE item_name='" + item_name +"'";
 
     if (query.exec(command))
     {
@@ -215,12 +232,11 @@ QStringList Database_manager::get_itemInfo(QString item_name) const
  *      @return N/A
 *******************************************************************************/
 
-void Database_manager::update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const
+void Database_manager::update_totalAmountSpent(QString membership_number, QString total_amount_spent) const
 {
     QSqlQuery query;
     QStringList membersData;
-    //QString sql_command = "UPDATE Membership SET TotalAmountSpent='" + totalAmountSpent +"' WHERE MembershipNumber='" + membership_number + "'";
-    QString sql_command = "UPDATE Membership SET TotalAmountSpent='222' WHERE MembershipNumber='12121'";
+    QString sql_command = "UPDATE Member SET total_amount_spent='" + total_amount_spent +"' WHERE membership_number='" + membership_number + "'";
 
     if (!query.exec(sql_command))
     {
@@ -245,15 +261,16 @@ void Database_manager::update_totalAmountSpent(QString membership_number, QStrin
  *      @return N/A
 *******************************************************************************/
 
-void Database_manager::insert_row_in_inventory(QString name, QString sellQuantity, QString totalRevenue) const
+void Database_manager::insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const
 {
     QSqlQuery query;
 
-    query.prepare("INSERT INTO Inventory (Name, SellQuantity, TotalRevenue)"
-                    "VALUES (:Name, :SellQuantity, :TotalRevenue)");
-    query.bindValue(":Name", name);
-    query.bindValue(":SellQuantity", sellQuantity);
-    query.bindValue(":TotalRevenue", totalRevenue);
+    query.prepare("INSERT INTO Inventory (item_name, num_of_items, sell_quantity, total_revenue)"
+                    "VALUES (:item_name, :num_of_items, :sell_quantity, :total_revenue)");
+    query.bindValue(":item_name", item_name);
+    query.bindValue(":num_of_items", num_of_items);
+    query.bindValue(":sell_quantity", sell_quantity);
+    query.bindValue(":total_revenue", total_revenue);
 
     if (!query.exec())
     {
@@ -277,10 +294,10 @@ void Database_manager::insert_row_in_inventory(QString name, QString sellQuantit
  *      @return N/A
 *******************************************************************************/
 
-void Database_manager::delete_row_in_inventory(QString name) const
+void Database_manager::delete_row_in_inventory(QString item_name) const
 {
     QSqlQuery query;
-    QString sql_command = "DELETE FROM Inventory WHERE Name='" + name + "'";
+    QString sql_command = "DELETE FROM Inventory WHERE item_name='" + item_name + "'";
 
     query.prepare(sql_command);
     if (!query.exec())
