@@ -25,6 +25,7 @@ HEADERS += \
     purchasedata.h \
     miscellaneous_functions.h
 
+
 FORMS += \
     mainwindow.ui
 
