@@ -11,20 +11,20 @@
 #include <QString>
 #include <member.h>
 #include <QtSql/QSqlDatabase>
-
+#include "database_initializer.h"
+#include "purchasedata.h"
 
 using namespace std;
 class date
 {
 public:
-    date();
+    date(Database_initializer database_initializer);
     // 1 ONLY FOCUS ON THIS FOR NOW
-    PurchaseData *queryPurchasesByDay(QDate date);
+    QVector<PurchaseData> queryPurchasesByDay(QDate date);
     // 2 ONLY FOCUS ON THIS FOR NOW
-    PurchaseData *queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership);
+    QVector<PurchaseData> queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership);
 
-    // 3
-    MemberData *getPurchaseDataOfMembers();
+    /*// 3
 
     // 4
     PurchaseData *getAllPurchases();
@@ -48,10 +48,12 @@ public:
     PurchaseData *queryPurchasesByItemName(QString string);
 
     // 11, 12, 13
-    MemberData *getMemberById(int id);
+   MemberData *getMemberById(int id);*/
 
 private:
     QSqlDatabase database;
+    QVector<PurchaseData> aggregateData(QSqlQuery query);
+    QVector<PurchaseData> issueQuery(QString command);
 };
 
 #endif // DATE_H

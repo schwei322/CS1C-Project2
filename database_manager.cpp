@@ -1,3 +1,4 @@
+#include "database_initializer.h"
 #include "database_manager.h"
 #include <QVariant>
 #include <QSqlField>
@@ -7,15 +8,9 @@
  *
  *******************************************************************************/
 
-Database_manager::Database_manager()
+Database_manager::Database_manager(Database_initializer database_instance)
 {
-    QSqlDatabase database;
-    database = QSqlDatabase::addDatabase("QSQLITE");
-    database.setDatabaseName("bulk_club_database.db");
-    if (!database.open())
-    {
-        qDebug() << "Error: Failed to connect database." << database.lastError();
-    }
+    database_instance.getDatabase(database);
 }
 /********************************************************************************/
 

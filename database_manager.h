@@ -1,6 +1,8 @@
 #ifndef DATABASE_MANAGER_H
 #define DATABASE_MANAGER_H
 
+#include "database_initializer.h"
+
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlError>
 #include <QSqlQuery>
@@ -18,7 +20,7 @@ private:
     QSqlDatabase database;
 
 public:
-    Database_manager();
+    Database_manager(Database_initializer database_instance);
     ~Database_manager();
 
     QStringList get_memberInfo(QString membership_number) const;
