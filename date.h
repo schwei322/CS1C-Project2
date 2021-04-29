@@ -1,7 +1,7 @@
 /*
  *  @file date.h
  *  @brief handle the data according the date
-
+ *   */
 
 #ifndef DATE_H
 #define DATE_H
@@ -9,14 +9,18 @@
 #include <iostream>
 #include <QDateTimeEdit>
 #include <QString>
+#include <member.h>
+#include <QtSql/QSqlDatabase>
+
 
 using namespace std;
 class date
 {
 public:
-    // 1
+    date();
+    // 1 ONLY FOCUS ON THIS FOR NOW
     PurchaseData *queryPurchasesByDay(QDate date);
-    // 2
+    // 2 ONLY FOCUS ON THIS FOR NOW
     PurchaseData *queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership);
 
     // 3
@@ -46,7 +50,8 @@ public:
     // 11, 12, 13
     MemberData *getMemberById(int id);
 
+private:
+    QSqlDatabase database;
 };
 
 #endif // DATE_H
- */
