@@ -13,13 +13,15 @@ SOURCES += \
     date.cpp \
     main.cpp \
     mainwindow.cpp \
-    member.cpp
+    member.cpp \
+    miscellaneous_functions.cpp
 
 HEADERS += \
     database_manager.h \
     date.h \
     mainwindow.h \
-    member.h
+    member.h \
+    miscellaneous_functions.h
 
 FORMS += \
     mainwindow.ui
