@@ -1,6 +1,12 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#ifdef QT_DEBUG
+    bool debugMode = true;
+#else
+    bool debugMode = false;
+#endif
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -9,8 +15,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->displayHome();
 
-    ui->adminBtn->hide();
-    ui->loginPanel->raise();
+    if (debugMode)
+    {
+        ui->loginPanel->hide();
+    }
+    else
+    {
+        ui->loginPanel->raise();
+        ui->adminBtn->hide();
+    }
 }
 
 MainWindow::~MainWindow()
