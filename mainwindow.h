@@ -16,8 +16,8 @@ public:
     ~MainWindow();
 
 public slots:
-    void displayHome();
     void displaySales();
+    void displayMembers();
     void displayAdmin();
     void userAuthenticate();
 
