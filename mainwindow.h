@@ -16,12 +16,14 @@ public:
     ~MainWindow();
 
 public slots:
+    void userLogin();
+    void userLogout();
     void displaySales();
     void displayMembers();
     void displayAdmin();
-    void userAuthenticate();
 
 private:
     Ui::MainWindow *ui;
+
 };
 #endif // MAINWINDOW_H

@@ -37,18 +37,29 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::userAuthenticate()
+void MainWindow::userLogin()
 {
-    if (this->ui->usernameInput->text() == "admin" && this->ui->passwordInput->text() == "admin")
+    const QString adminUsername = "admin";
+    const QString adminPassword = "admin";
+    const QString managerUsername = "manager";
+    const QString managerPassword = "manager";
+
+    if (this->ui->usernameInput->text() == adminUsername && this->ui->passwordInput->text() == adminPassword)
     {
         this->ui->adminBtn->show();
         this->ui->loginPanel->hide();
     }
-    else if (this->ui->usernameInput->text() == "manager" && this->ui->passwordInput->text() == "manager")
+    else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
         this->ui->adminBtn->hide();
         this->ui->loginPanel->hide();
     }
+}
+
+void MainWindow::userLogout()
+{
+    this->ui->adminBtn->hide();
+    this->ui->loginPanel->show();
 }
 
 void MainWindow::displaySales()
