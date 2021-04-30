@@ -11,9 +11,9 @@ int main(int argc, char *argv[])
     /**********************************************/
     // Querying database using database_manager class.
 
-    Database_manager db;
+    // Database_manager db;
 
-    qDebug() << db.get_memberInfo("88888") << "\n";
+    // qDebug() << db.get_memberInfo("88888") << "\n";
     //qDebug() <<db.get_memberPurchases("88888") << "\n";
     //qDebug() <<db.get_itemInfo("Coke");
 
@@ -23,9 +23,8 @@ int main(int argc, char *argv[])
 
     /**********************************************/
 
+    // exit(0); // Prevents window from opening
 
-
-    exit(0); // Prevents window from opening
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     w.show();
 
