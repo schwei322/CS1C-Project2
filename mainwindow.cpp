@@ -13,7 +13,13 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    this->displayHome();
+    ui->salesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->membersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->adminInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->adminMembersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+
+
+    this->displaySales();
 
     if (debugMode)
     {
@@ -31,41 +37,53 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::userAuthenticate()
+void MainWindow::userLogin()
 {
-    if (this->ui->usernameInput->text() == "admin" && this->ui->passwordInput->text() == "admin")
+    const QString adminUsername = "admin";
+    const QString adminPassword = "admin";
+    const QString managerUsername = "manager";
+    const QString managerPassword = "manager";
+
+    if (this->ui->usernameInput->text() == adminUsername && this->ui->passwordInput->text() == adminPassword)
     {
         this->ui->adminBtn->show();
         this->ui->loginPanel->hide();
     }
-    else if (this->ui->usernameInput->text() == "manager" && this->ui->passwordInput->text() == "manager")
+    else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
+        this->ui->adminBtn->hide();
         this->ui->loginPanel->hide();
     }
 }
 
-void MainWindow::displayHome()
+void MainWindow::userLogout()
 {
-    this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
-    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
-    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
-
-    this->ui->home->raise();
+    this->ui->adminBtn->hide();
+    this->ui->loginPanel->show();
 }
 
 void MainWindow::displaySales()
 {
-    this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+    this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
     this->ui->sales->raise();
 }
 
+void MainWindow::displayMembers()
+{
+    this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+    this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+
+    this->ui->members->raise();
+}
+
 void MainWindow::displayAdmin()
 {
-    this->ui->homeBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+    this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
 
     this->ui->admin->raise();
