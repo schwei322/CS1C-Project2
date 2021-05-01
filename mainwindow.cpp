@@ -1,12 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#ifdef QT_DEBUG
-    bool debugMode = true;
-#else
-    bool debugMode = false;
-#endif
-
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -15,15 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->displayHome();
 
-    if (debugMode)
-    {
-        ui->loginPanel->hide();
-    }
-    else
-    {
-        ui->loginPanel->raise();
-        ui->adminBtn->hide();
-    }
+    ui->adminLogin->raise();
 }
 
 MainWindow::~MainWindow()
@@ -50,7 +36,7 @@ void MainWindow::displayHome()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
-    this->ui->home->raise();
+    this->ui->homePanel->raise();
 }
 
 void MainWindow::displaySales()
@@ -59,7 +45,7 @@ void MainWindow::displaySales()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
 
-    this->ui->sales->raise();
+    this->ui->salesPanel->raise();
 }
 
 void MainWindow::displayAdmin()
@@ -68,5 +54,10 @@ void MainWindow::displayAdmin()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
 
-    this->ui->admin->raise();
+    this->ui->loginPanel->raise();
+}
+void MainWindow::on_pushButton_clicked()
+{
+    this->adminWindow = new Admin();
+    this->adminWindow->show();
 }

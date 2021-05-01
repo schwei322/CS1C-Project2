@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "admin.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -9,6 +10,7 @@ QT_END_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
+    Admin * adminWindow;
     Q_OBJECT
 
 public:
@@ -20,6 +22,9 @@ public slots:
     void displaySales();
     void displayAdmin();
     void userAuthenticate();
+
+private slots:
+    void on_pushButton_clicked();
 
 private:
     Ui::MainWindow *ui;
