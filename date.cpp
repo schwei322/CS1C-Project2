@@ -22,12 +22,12 @@ QVector<PurchaseData> date::queryPurchasesByDay(QDate date)
 
 QVector<PurchaseData> date::queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership)
 {
-    string dateCondition = "Purchase.Date =" + to_string(date.month()) + "/" + to_string(date.day()) + "/" + to_string(date.year());
+    string dateCondition = "p.Date = " + to_string(date.month()) + "/" + to_string(date.day()) + "/" + to_string(date.year());
     string executive = executiveMembership ? "Executive" : "Regular";
-    string membershipTypeCondition = "Membership.Type =" + executive;
+    string membershipTypeCondition = "m.Type = " + executive;
     string fullCondition = dateCondition + " AND " + membershipTypeCondition;
-    string join = "(Purchase JOIN Membership ON Purchase.MembershipNumber = Membership.MembershipNumber)";
-    string str = "SELECT Purchase.Date, Purchase.MembershipNumber, Purchase.Product, Purchase.Price, Purchase.Quantity FROM " + join + " WHERE " + fullCondition + ")";
+    string join = "(Purchase as p JOIN Membership as m ON p.MembershipNumber = m.MembershipNumber)";
+    string str = "SELECT p.Date, p.MembershipNumber, p.Product, p.Price, p.Quantity FROM " + join + " WHERE " + fullCondition + ")";
     return issueQuery(str.c_str());
 }
 
