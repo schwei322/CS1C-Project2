@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
         //close database
         database.close();
 
-    exit(0); // Prevents window from opening
+    //exit(0); // Prevents window from opening
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     w.show();
     return a.exec();

@@ -10,6 +10,9 @@
 *.dll
 *.dylib
 
+# Database files
+*.db
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug

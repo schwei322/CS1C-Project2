@@ -15,7 +15,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     member.cpp \
-    purchasedata.cpp
+    purchasedata.cpp \
+    miscellaneous_functions.cpp
 
 HEADERS += \
     database_initializer.h \
@@ -23,7 +24,8 @@ HEADERS += \
     date.h \
     mainwindow.h \
     member.h \
-    purchasedata.h
+    purchasedata.h \
+    miscellaneous_functions.h
 
 FORMS += \
     mainwindow.ui
