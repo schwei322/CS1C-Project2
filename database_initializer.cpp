@@ -23,7 +23,11 @@ bool Database_initializer::getDatabase(QSqlDatabase &database)
 {
     if(isDataBaseInitialized)
     {
-        database = this->database;
+        database = Database_initializer::database;
     }
     return isDataBaseInitialized;
 }
+
+bool Database_initializer::isDataBaseInitialized = false;
+QSqlDatabase Database_initializer::database;
+

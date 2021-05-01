@@ -11,7 +11,6 @@ class Database_initializer
     static QSqlDatabase database;
 public:
     Database_initializer();
-    bool Database_initializer::getDatabase(QSqlDatabase &database);
+    bool getDatabase(QSqlDatabase &database);
 };
-
 #endif // DATABASE_INITIALIZER_H
