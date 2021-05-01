@@ -2,6 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "additemdialog.h"
+#include "deleteitemdialog.h"
+#include "addmemberdialog.h"
+#include "deletememberdialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,6 +25,15 @@ public slots:
     void displaySales();
     void displayMembers();
     void displayAdmin();
+
+private slots:
+    void on_adminAddItemBtn_clicked();
+
+    void on_adminDelItemBtn_clicked();
+
+    void on_adminAddMemBtn_clicked();
+
+    void on_adminDelMemBtn_clicked();
 
 private:
     Ui::MainWindow *ui;

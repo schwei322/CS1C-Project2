@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QApplication>
+#include "database_manager.h"
 
 int main(int argc, char *argv[])
 {
@@ -23,16 +24,16 @@ int main(int argc, char *argv[])
     //db.insert_row_in_inventory("ccc", "ccc", "ccc", "ccc");
     //db.insert_row_in_inventory("ddd", "ddd", "dddd", "dddd");
 
-    db.delete_row_in_inventory("someItem");
-    db.delete_row_in_inventory("bbb");
-    db.delete_row_in_inventory("ccc");
-    db.delete_row_in_inventory("ddd");
+    //db.delete_row_in_inventory("someItem");
+    //db.delete_row_in_inventory("bbb");
+    //db.delete_row_in_inventory("ccc");
+    //db.delete_row_in_inventory("ddd");
 
     //db.delete_row_in_inventory("a_name");
 
+    //exit(0); // Prevents window from opening
     /**********************************************/
 
-    exit(0); // Prevents window from opening
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     w.show();
 

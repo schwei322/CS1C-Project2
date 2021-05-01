@@ -88,3 +88,28 @@ void MainWindow::displayAdmin()
 
     this->ui->admin->raise();
 }
+
+void MainWindow::on_adminAddItemBtn_clicked()
+{
+    AddItemDialog dialog;
+    dialog.palette();
+    dialog.exec();
+}
+
+void MainWindow::on_adminDelItemBtn_clicked()
+{
+    DeleteItemDialog widget;
+    widget.exec();
+}
+
+void MainWindow::on_adminAddMemBtn_clicked()
+{
+    AddMemberDialog dialog;
+    dialog.exec();
+}
+
+void MainWindow::on_adminDelMemBtn_clicked()
+{
+    DeleteMemberDialog dialog;
+    dialog.exec();
+}
