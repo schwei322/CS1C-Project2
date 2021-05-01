@@ -11,13 +11,19 @@ class PurchaseData
 public:
     PurchaseData();
     void setDate(QString date);
-    void setMembershipNumber(QVariant memberShipNumber);
+    void setMembershipNumber(QVariant membershipNumber);
     void setProduct(QString product);
     void setPrice(float price);
     void setQuantity(QVariant quantity);
+
+    QString getDate();
+    QVariant getMembershipNumber();
+    QString getProduct();
+    float getPrice();
+    QVariant getQuantity();
 private:
     QString date;
-    QVariant memberShipNumber;
+    QVariant membershipNumber;
     QString product;
     float price;
     QVariant quantity;

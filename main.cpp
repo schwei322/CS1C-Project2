@@ -16,8 +16,8 @@ int main(int argc, char *argv[])
     // Querying database using database_manager class.
 
     // data base initializer is so that we use (or begin to use) the same database connect across our classes and in our main for the "bulk_club_database.db"
-    Database_initializer database_initializer;
-    Database_manager db = {database_initializer};
+
+    Database_manager db;
 
     qDebug() << db.get_memberInfo("88888") << "\n";
     //qDebug() <<db.get_memberPurchases("88888") << "\n";
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
         }
 
         //close database
-        database.close();
+        //database.close();
 
     //exit(0); // Prevents window from opening
     w.setWindowFlags(Qt::Window | Qt::FramelessWindowHint);

@@ -1,4 +1,3 @@
-#include "database_initializer.h"
 #include "database_manager.h"
 #include <QVariant>
 #include <QSqlField>
@@ -9,9 +8,14 @@
  *
  *******************************************************************************/
 
-Database_manager::Database_manager(Database_initializer database_instance)
+Database_manager::Database_manager()
 {
-    database_instance.getDatabase(database);
+    database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+    database.setDatabaseName("C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db");
+    if (!database.open())
+    {
+        qDebug() << "Error: Failed to connect database." << database.lastError();
+    }
 }
 /********************************************************************************/
 
@@ -45,7 +49,7 @@ Database_manager::~Database_manager()
 
 QStringList Database_manager::get_memberInfo(QString membership_number) const
 {
-    QSqlQuery query;
+    QSqlQuery query(database);
     QStringList membersData;
     QString command = "SELECT name, membership_number, membership_type, expiration_date FROM Member WHERE membership_number IN(" + membership_number +")";
     int columnNum;
@@ -95,7 +99,7 @@ QStringList Database_manager::get_memberInfo(QString membership_number) const
 
 QVector<QStringList> Database_manager::get_memberPurchases(QString membership_number) const
 {
-    QSqlQuery query;
+    QSqlQuery query(database);
     QStringList purchaseData;
     QVector<QStringList> purchases;
     QString sql_command;
@@ -190,7 +194,7 @@ QVector<QStringList> Database_manager::get_memberPurchases(QString membership_nu
 
 QStringList Database_manager::get_itemInfo(QString item_name) const
 {
-    QSqlQuery query;
+    QSqlQuery query(database);
     QStringList item_data_list;
     QString command = "SELECT item_name, item_price FROM Items WHERE item_name='" + item_name +"'";
 
@@ -229,7 +233,7 @@ QStringList Database_manager::get_itemInfo(QString item_name) const
 
 void Database_manager::update_totalAmountSpent(QString membership_number, QString total_amount_spent) const
 {
-    QSqlQuery query;
+    QSqlQuery query(database);
     QStringList membersData;
     QString sql_command = "UPDATE Member SET total_amount_spent='" + total_amount_spent +"' WHERE membership_number='" + membership_number + "'";
 
@@ -258,7 +262,7 @@ void Database_manager::update_totalAmountSpent(QString membership_number, QStrin
 
 void Database_manager::insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const
 {
-    QSqlQuery query;
+    QSqlQuery query(database);
 
     query.prepare("INSERT INTO Inventory (item_name, num_of_items, sell_quantity, total_revenue)"
                     "VALUES (:item_name, :num_of_items, :sell_quantity, :total_revenue)");
@@ -291,7 +295,7 @@ void Database_manager::insert_row_in_inventory(QString item_name, QString num_of
 
 void Database_manager::delete_row_in_inventory(QString item_name) const
 {
-    QSqlQuery query;
+    QSqlQuery query(database);
     QString sql_command = "DELETE FROM Inventory WHERE item_name='" + item_name + "'";
 
     query.prepare(sql_command);

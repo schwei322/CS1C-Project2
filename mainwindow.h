@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "date.h"
+#include "purchasedata.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -21,9 +23,17 @@ public slots:
     void displaySales();
     void displayMembers();
     void displayAdmin();
+    void displaySalesByDate();
+    void displaySalesByDayAndMembershipType();
+
+private slots:
+    //void on_dateEdit_editingFinished();
+
+    //void on_sales_customContextMenuRequested(const QPoint &pos);
 
 private:
     Ui::MainWindow *ui;
+    date date;
 
 };
 #endif // MAINWINDOW_H

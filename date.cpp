@@ -6,43 +6,64 @@
 #include <QSqlError>
 #include <QVector>
 #include<iostream>
-#include "database_initializer.h"
 #include "purchasedata.h"
 
-date::date(Database_initializer database_initializer)
+date::date()
 {
-    database_initializer.getDatabase(database);
+    database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+    database.setDatabaseName("C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db");
+    if (!database.open())
+    {
+        qDebug() << "Error: Failed to connect database." << database.lastError();
+    }
+}
+
+date::~date()
+{
+    database.close();
 }
 
 QVector<PurchaseData> date::queryPurchasesByDay(QDate date)
 {
-    string str = "SELECT Date, MembershipNumber, Product, Price, Quantity FROM Purchase WHERE Date =" + to_string(date.month()) + "/" + to_string(date.day()) + "/" + to_string(date.year()) + ")";
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName("C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db");
+        database.open();
+    }
+    string str = "SELECT date, membership_number, product, price, quantity FROM Purchase WHERE date = '" + to_string(date.month()) + "/" + to_string(date.day()) + "/" + to_string(date.year()) + "'";
     return issueQuery(str.c_str());
 }
 
-QVector<PurchaseData> date::queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership)
+QVector<PurchaseData> date::queryPurchasesByDayAndMembershipType(QDate date, QString membershipType)
 {
-    string dateCondition = "p.Date = " + to_string(date.month()) + "/" + to_string(date.day()) + "/" + to_string(date.year());
-    string executive = executiveMembership ? "Executive" : "Regular";
-    string membershipTypeCondition = "m.Type = " + executive;
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName("C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db");
+        database.open();
+    }
+    string dateCondition = "p.date = '" + to_string(date.month()) + "/" + to_string(date.day()) + "/" + to_string(date.year()) + "'";
+    string membershipTypeCondition = "m.membership_type = '" + membershipType.toStdString() + "'";
     string fullCondition = dateCondition + " AND " + membershipTypeCondition;
-    string join = "(Purchase as p JOIN Membership as m ON p.MembershipNumber = m.MembershipNumber)";
-    string str = "SELECT p.Date, p.MembershipNumber, p.Product, p.Price, p.Quantity FROM " + join + " WHERE " + fullCondition + ")";
+    string join = "(Purchase as p JOIN Member as m ON p.membership_number = m.membership_number)";
+    string str = "SELECT date, p.membership_number, p.product, p.price, p.quantity FROM " + join + " WHERE (" + fullCondition + ")";
     return issueQuery(str.c_str());
 }
 
 QVector<PurchaseData> date::issueQuery(QString command)
 {
     QVector<PurchaseData> result;
-    QSqlQuery query;
+    QSqlQuery query(database);
     query.prepare(command);
+    qDebug() << command << "\n";
     if(query.exec())
     {
         result = aggregateData(query);
     }
     else
     {
-        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError();
+        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
     }
     return result;
 }

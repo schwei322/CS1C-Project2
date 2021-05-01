@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "date.h"
 
 #ifdef QT_DEBUG
 bool debugMode = true;
@@ -7,9 +8,12 @@ bool debugMode = true;
 bool debugMode = false;
 #endif
 
+#include <iostream>
+using namespace std;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+    , ui(new Ui::MainWindow), date()
 {
     ui->setupUi(this);
 
@@ -87,4 +91,22 @@ void MainWindow::displayAdmin()
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
 
     this->ui->admin->raise();
+}
+
+void MainWindow::displaySalesByDate()
+{
+    QVector<PurchaseData> purchaseData = this->date.queryPurchasesByDay(this->ui->dateEdit->date());
+    for(PurchaseData& p : purchaseData)
+    {
+        cout << p.getProduct().toStdString() << " " << p.getMembershipNumber().toInt() << " " << p.getQuantity().toInt() << endl;
+    }
+}
+
+void MainWindow::displaySalesByDayAndMembershipType()
+{
+    QVector<PurchaseData> purchaseData = this->date.queryPurchasesByDayAndMembershipType(this->ui->dateEdit->date(), this->ui->comboBox->currentText());
+    for(PurchaseData& p : purchaseData)
+    {
+        cout << p.getProduct().toStdString() << " " << p.getMembershipNumber().toInt() << " " << p.getQuantity().toInt() << endl;
+    }
 }

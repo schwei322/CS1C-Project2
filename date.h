@@ -11,18 +11,18 @@
 #include <QString>
 #include <member.h>
 #include <QtSql/QSqlDatabase>
-#include "database_initializer.h"
 #include "purchasedata.h"
 
 using namespace std;
 class date
 {
 public:
-    date(Database_initializer database_initializer);
+    date();
+    ~date();
     // 1 ONLY FOCUS ON THIS FOR NOW
     QVector<PurchaseData> queryPurchasesByDay(QDate date);
     // 2 ONLY FOCUS ON THIS FOR NOW
-    QVector<PurchaseData> queryPurchasesByDayAndMembershipType(QDate date, bool executiveMembership);
+    QVector<PurchaseData> queryPurchasesByDayAndMembershipType(QDate date, QString membershipType);
 
     /*// 3
 
