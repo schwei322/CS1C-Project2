@@ -918,6 +918,19 @@ color: rgb(0, 76, 76);
 font: 87 12pt &quot;Segoe UI&quot;;</string>
       </property>
      </widget>
+     <widget class="QDateEdit" name="dateEdit">
+      <property name="geometry">
+       <rect>
+        <x>599</x>
+        <y>10</y>
+        <width>81</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="calendarPopup">
+       <bool>true</bool>
+      </property>
+     </widget>
     </widget>
     <zorder>admin</zorder>
     <zorder>sales</zorder>
