@@ -17,6 +17,10 @@ Database_manager::Database_manager()
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
     }
+    else
+    {
+        // qDebug() << "Success: Database connected to database when Database_manager obj created.";
+    }
 }
 /********************************************************************************/
 
@@ -32,6 +36,102 @@ Database_manager::~Database_manager()
 {
     database.close();
 }/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      add_member
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::add_member(QString member_name, QString membership_type) const
+{
+    QSqlQuery sql_query;
+
+    if(!sql_query.exec("INSERT INTO Member (name, membership_type) VALUES('"+member_name+"','"+membership_type+"')"))
+    {
+        qDebug() << sql_query.lastError();
+    }
+    else
+    {
+        qDebug() << "Inserted Successful!";
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      delete_member
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::delete_member(QString member_name, QString membership_id) const
+{
+    QSqlQuery query;
+    QString sql_command = "DELETE FROM Member WHERE name='" + member_name + "' AND membership_number='"+membership_id+"'";
+    query.prepare(sql_command);
+    if (!query.exec())
+    {
+        qDebug() << query.lastError();
+    }
+    else
+    {
+        qDebug() << "Member "+member_name+" (ID# "+membership_id+") deleted sucessfully.\n";
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      check_member_existance
+ * ____________________________________________________________________________
+ * Method checks if member exists of corresponding arguements exists. Returns
+ * true if member exists; otherwise method returns false.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+bool Database_manager::check_member_existance(QString member_name, QString membership_number) const
+{
+    QString command = "SELECT EXISTS(SELECT 1 FROM Member WHERE name='"+member_name+"' AND membership_number='"+membership_number+"')";
+    QSqlQuery sql_query;
+    QString item_exists;
+
+    if(sql_query.exec(command))
+    {
+        while (sql_query.next())
+        {
+            item_exists.append( sql_query.value(0).toString() );
+        }
+    }
+    else
+    {
+        qDebug() << "Check NOT successful!";
+    }
+
+    return item_exists.toInt();
+}
+/*******************************************************************************/
 
 
 
@@ -303,6 +403,171 @@ void Database_manager::delete_row_in_inventory(QString item_name) const
     if (!query.exec())
     {
         qDebug() << query.lastError();
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      add_item
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::add_item(QString item_name, QString item_price) const
+{
+    QSqlQuery sql_query;
+
+    if(!sql_query.exec("INSERT INTO Items (item_name, item_price) VALUES('"+item_name+"','"+item_price+"')"))
+    {
+        qDebug() << sql_query.lastError();
+    }
+    else
+    {
+        qDebug() << "Inserted Successful!";
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      delete_item
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::delete_item(QString item_name, QString item_id)
+{
+    QSqlQuery sql_query;
+
+    if(!sql_query.exec("DELETE FROM Items WHERE item_name = '"+item_name+"' and item_id = '"+item_id+"'"))
+    {
+        qDebug() << sql_query.lastError();
+    }
+    else
+    {
+        qDebug() << "Delete Successful!";
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      check_item_existance
+ * ____________________________________________________________________________
+ * Checks if item exists in database. Returns true if item already exists.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param item_name
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+bool Database_manager::check_item_existance(QString item_name)
+{
+    QString command = "SELECT EXISTS(SELECT 1 FROM Items WHERE item_name='"+item_name+"')";
+    QSqlQuery sql_query;
+    QString item_exists;
+
+    if(sql_query.exec(command))
+    {
+        while (sql_query.next())
+        {
+            item_exists.append( sql_query.value(0).toString() );
+        }
+    }
+    else
+    {
+        qDebug() << "Check NOT successful!";
+    }
+
+    return item_exists.toInt();
+
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      check_item_existance
+ * ____________________________________________________________________________
+ * Checks if item exists in database. Returns true if item already exists.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param item_name
+ *      @param item_id
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+bool Database_manager::check_item_existance(QString item_name, QString item_id)
+{
+    QString command = "SELECT EXISTS(SELECT 1 FROM Items WHERE item_name='"+item_name+"' AND item_id='"+item_id+"')";
+    QSqlQuery sql_query;
+    QString item_exists;
+
+    if(sql_query.exec(command))
+    {
+        while (sql_query.next())
+        {
+            item_exists.append( sql_query.value(0).toString() );
+        }
+    }
+    else
+    {
+        qDebug() << "Check NOT successful!";
+    }
+
+    return item_exists.toInt();
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      update_item
+ * ____________________________________________________________________________
+ * Checks if item exists in database. Returns true if item already exists.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::update_item(QString item_name, QString item_price)
+{
+
+    QSqlQuery sql_query;
+
+    //SQLite command if you want to include item_id
+    //if(!sql_query.exec("UPDATE Items SET Price = '"+item_price+"' WHERE Name = '"+item_name+"' AND item_id='"+item_id+"'"))
+    if(!sql_query.exec("UPDATE Items SET item_price = '"+item_price+"' WHERE item_name = '"+item_name+"'"))
+
+    {
+        qDebug() << sql_query.lastError();
+    }
+    else
+    {
+        qDebug() << "Update Successful!";
     }
 }
 /*******************************************************************************/

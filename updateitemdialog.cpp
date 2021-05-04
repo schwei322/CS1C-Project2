@@ -1,36 +1,9 @@
-#include "addmemberdialog.h"
-#include "ui_addmemberdialog.h"
-
-/****************************************************************************//**
- *      Constructor
- * ____________________________________________________________________________
-*******************************************************************************/
-
-AddMemberDialog::AddMemberDialog(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::AddMemberDialog)
-{
-    ui->setupUi(this);
-}
-/*******************************************************************************/
-
+#include "updateitemdialog.h"
+#include "ui_updateitemdialog.h"
 
 
 /****************************************************************************//**
- *      Decontructor
- * ____________________________________________________________________________
-*******************************************************************************/
-
-AddMemberDialog::~AddMemberDialog()
-{
-    delete ui;
-}
-/*******************************************************************************/
-
-
-
-/****************************************************************************//**
- *      on_btn_OK_clicked
+ *      Overloaded Constructor
  * ____________________________________________________________________________
  *
  * ____________________________________________________________________________
@@ -41,57 +14,24 @@ AddMemberDialog::~AddMemberDialog()
  *      @return N/A
 *******************************************************************************/
 
-void AddMemberDialog::on_btn_OK_clicked()
+UpdateItemDialog::UpdateItemDialog(QWidget *parent) :
+    QDialog(parent),
+    ui(new Ui::UpdateItemDialog)
 {
-    QString member_name;
-    QString member_type;
-    bool regular_checked;
-    bool executive_checked;
-    QMessageBox message;
-    Database_manager db;
+    ui->setupUi(this);
+}
+/*******************************************************************************/
 
-    // Get member name from ui. If left empty, tell user.
-    member_name = ui->lineEdit_memberName->text();
-    if (member_name.isEmpty() )
-    {
-        qDebug() << "Name left empty.\n";
-        message.setText("Enter name");
-        message.exec();
-        return;
-    }
 
-    // Find state of the checkboxes
-    regular_checked = ui->checkBox_regularMember->checkState();
-    executive_checked = ui->checkBox_executiveMember->checkState();
 
-    // Check if check box for membership type is selected. If it is, assign
-    // type to member_type variable.
-    if ( regular_checked && executive_checked)
-    {
-        qDebug() << "Select ONE member type.\n";
-        message.setText("Select ONE membership type.\n");
-        message.exec();
-        return;
-    }
-    else if (regular_checked)
-    {
-        member_type = "Regular";
-    }
-    else if (executive_checked)
-    {
-        member_type = "Executive";
-    }
-    else
-    {
-        qDebug() << "Select a member type.\n";
-        message.setText("Select a membership type.\n");
-        message.exec();
-        return;
-    }
+/****************************************************************************//**
+ *      Deconstructor
+ * ____________________________________________________________________________
+*******************************************************************************/
 
-    // After checking inputs, add member.
-    db.add_member(member_name, member_type);
-    QWidget::close();
+UpdateItemDialog::~UpdateItemDialog()
+{
+    delete ui;
 }
 /*******************************************************************************/
 
@@ -109,7 +49,7 @@ void AddMemberDialog::on_btn_OK_clicked()
  *      @return N/A
 *******************************************************************************/
 
-void AddMemberDialog::on_btn_cancel_clicked()
+void UpdateItemDialog::on_btn_cancel_clicked()
 {
     QWidget::close();
 }
@@ -118,7 +58,7 @@ void AddMemberDialog::on_btn_cancel_clicked()
 
 
 /****************************************************************************//**
- *      ~~~~~~~~~~~~
+ *      on_btn_OK_clicked
  * ____________________________________________________________________________
  *
  * ____________________________________________________________________________
@@ -129,7 +69,46 @@ void AddMemberDialog::on_btn_cancel_clicked()
  *      @return N/A
 *******************************************************************************/
 
+void UpdateItemDialog::on_btn_OK_clicked()
+{
+    QString item_name;
+    QString item_new_price;
+    Database_manager db;
+    QMessageBox try_again_messsage_box;
+
+    item_name = ui->lineEdit_itemName->text();
+    item_new_price = ui->lineEdit_itemNewPrice->text();
+
+    // If item does not exist in database, tell user to try again.
+    if (!db.check_item_existance(item_name) )
+    {
+        try_again_messsage_box.setText("Item does NOT exist. Try again.\n");
+        try_again_messsage_box.exec();
+        return;
+    }
+
+    db.update_item(item_name, item_new_price);
+    QDialog::close();
+}
 /*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      -----
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+
+/*******************************************************************************/
+
 
 
 

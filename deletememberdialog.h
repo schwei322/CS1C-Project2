@@ -2,6 +2,9 @@
 #define DELETEMEMBERDIALOG_H
 
 #include <QDialog>
+#include <QDebug>
+#include <QMessageBox>
+#include "database_manager.h"
 
 namespace Ui {
 class DeleteMemberDialog;
@@ -14,6 +17,11 @@ class DeleteMemberDialog : public QDialog
 public:
     explicit DeleteMemberDialog(QWidget *parent = nullptr);
     ~DeleteMemberDialog();
+
+private slots:
+    void on_btn_cancel_clicked();
+
+    void on_btn_OK_clicked();
 
 private:
     Ui::DeleteMemberDialog *ui;

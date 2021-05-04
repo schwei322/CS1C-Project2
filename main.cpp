@@ -11,7 +11,6 @@ int main(int argc, char *argv[])
     // Querying database using database_manager class.
 
     Database_manager db;
-
     //qDebug() << db.get_memberInfo("77777") << "\n";
     //qDebug() << db.get_memberPurchases("77777") << "\n";
     //qDebug() <<db.get_itemInfo("Rack of Lamb");

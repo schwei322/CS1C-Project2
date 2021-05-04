@@ -2,6 +2,8 @@
 #define ADDITEMDIALOG_H
 
 #include <QDialog>
+#include <QDebug>
+#include "database_manager.h"
 
 namespace Ui {
 class AddItemDialog;
@@ -15,7 +17,15 @@ public:
     explicit AddItemDialog(QWidget *parent = nullptr);
     ~AddItemDialog();
 
-    void add_item_to_database();
+    bool isInputValid(QString &item_name, QString &item_price);
+
+
+private slots:
+    void on_buttonBox_accepted();
+
+    void on_btn_OK_clicked();
+
+    void on_btn_cancel_clicked();
 
 private:
     Ui::AddItemDialog *ui;

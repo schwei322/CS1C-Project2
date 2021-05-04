@@ -77,22 +77,6 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QDialogButtonBox" name="buttonBox_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>140</y>
-     <width>341</width>
-     <height>32</height>
-    </rect>
-   </property>
-   <property name="orientation">
-    <enum>Qt::Horizontal</enum>
-   </property>
-   <property name="standardButtons">
-    <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_title">
    <property name="geometry">
     <rect>
@@ -111,7 +95,7 @@
     <string>Delete Member</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_teamName_2">
+  <widget class="QLineEdit" name="lineEdit_memID">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -121,7 +105,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLabel" name="label_teamName_2">
+  <widget class="QLabel" name="label_memID">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -134,7 +118,7 @@
     <string>Member ID</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_teamName_3">
+  <widget class="QLabel" name="label_memName">
    <property name="geometry">
     <rect>
      <x>20</x>
@@ -147,7 +131,7 @@
     <string>Name</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_teamName_3">
+  <widget class="QLineEdit" name="lineEdit_memName">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -156,6 +140,32 @@
      <height>22</height>
     </rect>
    </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>150</y>
+     <width>168</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="btn_OK">
+      <property name="text">
+       <string>OK</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="btn_cancel">
+      <property name="text">
+       <string>Cancel</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <resources/>

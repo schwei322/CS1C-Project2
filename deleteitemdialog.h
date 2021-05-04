@@ -2,6 +2,8 @@
 #define DELETEITEMDIALOG_H
 
 #include <QDialog>
+#include "database_manager.h"
+#include <QMessageBox>
 
 namespace Ui {
 class DeleteItemDialog;
@@ -14,6 +16,13 @@ class DeleteItemDialog : public QDialog
 public:
     explicit DeleteItemDialog(QWidget *parent = nullptr);
     ~DeleteItemDialog();
+
+private slots:
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_btn_cancel_clicked();
 
 private:
     Ui::DeleteItemDialog *ui;

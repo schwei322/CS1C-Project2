@@ -627,7 +627,7 @@ QPushButton:hover {
          <string>Delete Item</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="adminLoadInventoryBtn">
+       <widget class="QPushButton" name="btn_adminUpdateItemPrice">
         <property name="geometry">
          <rect>
           <x>300</x>
@@ -650,7 +650,7 @@ QPushButton:hover {
 }</string>
         </property>
         <property name="text">
-         <string>Load Inventory</string>
+         <string>Update  Item Price</string>
         </property>
        </widget>
       </widget>

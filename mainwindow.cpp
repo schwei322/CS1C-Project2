@@ -113,3 +113,11 @@ void MainWindow::on_adminDelMemBtn_clicked()
     DeleteMemberDialog dialog;
     dialog.exec();
 }
+
+void MainWindow::on_btn_adminUpdateItemPrice_clicked()
+{
+    UpdateItemDialog dialog;
+    dialog.exec();
+}
+
+

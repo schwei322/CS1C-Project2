@@ -18,7 +18,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     member.cpp \
-    miscellaneous_functions.cpp
+    miscellaneous_functions.cpp \
+    updateitemdialog.cpp
 
 HEADERS += \
     additemdialog.h \
@@ -29,14 +30,16 @@ HEADERS += \
     deletememberdialog.h \
     mainwindow.h \
     member.h \
-    miscellaneous_functions.h
+    miscellaneous_functions.h \
+    updateitemdialog.h
 
 FORMS += \
     additemdialog.ui \
     addmemberdialog.ui \
     deleteitemdialog.ui \
     deletememberdialog.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    updateitemdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

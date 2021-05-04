@@ -21,6 +21,9 @@ public:
     Database_manager();
     ~Database_manager();
 
+    void add_member(QString member_name, QString member_type) const;
+    void delete_member(QString member_name, QString membership_id) const;
+    bool check_member_existance(QString member_name, QString membership_number) const;
     QStringList get_memberInfo(QString membership_number) const;
     QVector<QStringList> get_memberPurchases(QString membership_number) const;
     QStringList get_itemInfo(QString item_name) const;
@@ -28,6 +31,11 @@ public:
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
+    void add_item(QString item_name, QString item_price) const;
+    void delete_item(QString item_name, QString item_id);
+    bool check_item_existance(QString item_name);
+    bool check_item_existance(QString item_name, QString item_id);
+    void update_item(QString item_name, QString item_price);
 
 };
 #endif // DATABASE_MANAGER_H
