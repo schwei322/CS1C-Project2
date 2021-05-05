@@ -969,8 +969,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     <zorder>members</zorder>
     <zorder>sidebar</zorder>
    </widget>
-   <zorder>mainPanel</zorder>
-   <zorder>loginPanel</zorder>
   </widget>
  </widget>
  <resources/>
