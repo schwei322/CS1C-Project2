@@ -11,7 +11,7 @@
 date::date()
 {
     database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
-    database.setDatabaseName("C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db");
+    database.setDatabaseName("bulk_club_database.db");
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
