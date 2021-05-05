@@ -10,23 +10,28 @@ class PurchaseData
 {
 public:
     PurchaseData();
-    void setDate(QString date);
-    void setMembershipNumber(QVariant membershipNumber);
-    void setProduct(QString product);
-    void setPrice(float price);
-    void setQuantity(QVariant quantity);
 
     QString getDate();
-    QVariant getMembershipNumber();
+    int getMembershipNumber();
     QString getProduct();
     float getPrice();
-    QVariant getQuantity();
+    int getQuantity();
+
+    void setDate(QString date);
+    void setMembershipNumber(int membershipNumber);
+    void setProduct(QString product);
+    void setPrice(float price);
+    void setQuantity(int quantity);
+
+    bool operator==(const PurchaseData& otherPurchaseData);
+
 private:
     QString date;
-    QVariant membershipNumber;
+    int membershipNumber;
     QString product;
     float price;
-    QVariant quantity;
+    int quantity;
+
 };
 
 #endif // PURCHASEDATA_H

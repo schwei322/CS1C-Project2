@@ -10,7 +10,6 @@ CONFIG += c++11
 
 SOURCES += \
     database_manager.cpp \
-    date.cpp \
     main.cpp \
     mainwindow.cpp \
     member.cpp \
@@ -19,7 +18,6 @@ SOURCES += \
 
 HEADERS += \
     database_manager.h \
-    date.h \
     mainwindow.h \
     member.h \
     purchasedata.h \
@@ -32,3 +30,7 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=
+
+RESOURCES +=

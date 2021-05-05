@@ -8,10 +8,10 @@
  *
  *******************************************************************************/
 
-Database_manager::Database_manager()
+DatabaseManager::DatabaseManager()
 {
     database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
-    database.setDatabaseName("C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db");
+    database.setDatabaseName(databasePath);
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
@@ -27,7 +27,7 @@ Database_manager::Database_manager()
  *
  *******************************************************************************/
 
-Database_manager::~Database_manager()
+DatabaseManager::~DatabaseManager()
 {
     database.close();
 }/*******************************************************************************/
@@ -47,7 +47,7 @@ Database_manager::~Database_manager()
  *      @return N/A
 *******************************************************************************/
 
-QStringList Database_manager::get_memberInfo(QString membership_number) const
+QStringList DatabaseManager::get_memberInfo(QString membership_number) const
 {
     QSqlQuery query(database);
     QStringList membersData;
@@ -97,7 +97,7 @@ QStringList Database_manager::get_memberInfo(QString membership_number) const
  *              purchace info.
 *******************************************************************************/
 
-QVector<QStringList> Database_manager::get_memberPurchases(QString membership_number) const
+QVector<QStringList> DatabaseManager::get_memberPurchases(QString membership_number) const
 {
     QSqlQuery query(database);
     QStringList purchaseData;
@@ -192,7 +192,7 @@ QVector<QStringList> Database_manager::get_memberPurchases(QString membership_nu
  *      @return N/A
 *******************************************************************************/
 
-QStringList Database_manager::get_itemInfo(QString item_name) const
+QStringList DatabaseManager::get_itemInfo(QString item_name) const
 {
     QSqlQuery query(database);
     QStringList item_data_list;
@@ -231,7 +231,7 @@ QStringList Database_manager::get_itemInfo(QString item_name) const
  *      @return N/A
 *******************************************************************************/
 
-void Database_manager::update_totalAmountSpent(QString membership_number, QString total_amount_spent) const
+void DatabaseManager::update_totalAmountSpent(QString membership_number, QString total_amount_spent) const
 {
     QSqlQuery query(database);
     QStringList membersData;
@@ -260,7 +260,7 @@ void Database_manager::update_totalAmountSpent(QString membership_number, QStrin
  *      @return N/A
 *******************************************************************************/
 
-void Database_manager::insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const
+void DatabaseManager::insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const
 {
     QSqlQuery query(database);
 
@@ -293,7 +293,7 @@ void Database_manager::insert_row_in_inventory(QString item_name, QString num_of
  *      @return N/A
 *******************************************************************************/
 
-void Database_manager::delete_row_in_inventory(QString item_name) const
+void DatabaseManager::delete_row_in_inventory(QString item_name) const
 {
     QSqlQuery query(database);
     QString sql_command = "DELETE FROM Inventory WHERE item_name='" + item_name + "'";
@@ -307,7 +307,125 @@ void Database_manager::delete_row_in_inventory(QString item_name) const
 /*******************************************************************************/
 
 
+QString DatabaseManager::get_member_name_from_id(int id)
+{
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName(databasePath);
+        database.open();
+    }
 
+    QString queryStr = "SELECT name FROM Member WHERE membership_number = '" + QString::number(id) + "'";
 
+    QSqlQuery query(database);
+    query.prepare(queryStr);
 
+    QString name;
 
+    if(query.exec())
+    {
+        while(query.next())
+        {
+            name = query.value(0).toString();
+        }
+    }
+    else
+    {
+        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
+    }
+
+    return name;
+}
+
+/* PurchaseData */
+
+QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
+{
+    QVector<PurchaseData> result;
+    QSqlQuery query(database);
+    query.prepare(command);
+
+    qDebug() << command << "\n";
+
+    if(query.exec())
+    {
+        result = aggregate_purchases_data(query);
+    }
+    else
+    {
+        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
+    }
+
+    return result;
+}
+
+QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
+{
+    QVector<PurchaseData> result;
+
+    int columnNum = query.record().count();
+
+    while(query.next())
+    {
+
+        PurchaseData purchaseData;
+
+        for(int i = 0; i < columnNum; i++)
+        {
+            switch(i)
+            {
+                case 0: // Date value
+                    purchaseData.setDate(query.value(i).toString());
+                    break;
+                case 1: // MembershipNumber
+                    purchaseData.setMembershipNumber(query.value(i).toInt());
+                    break;
+                case 2: // Product
+                    purchaseData.setProduct(query.value(i).toString());
+                    break;
+                case 3: // Price
+                    purchaseData.setPrice(query.value(i).toFloat());
+                    break;
+                case 4: // Quantity
+                    purchaseData.setQuantity(query.value(i).toInt());
+                    break;
+                default:
+                    qDebug() << "Invalid column number : " << i;
+                    break;
+            }
+        }
+
+        result.append(purchaseData);
+    }
+
+    return result;
+}
+
+QVector<PurchaseData> DatabaseManager::get_report_all_purchases()
+{
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName(databasePath);
+        database.open();
+    }
+
+    QString str = "SELECT date, membership_number, product, price, quantity FROM Purchase";
+
+    return issue_purchases_query(str);
+}
+
+QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
+{
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName(databasePath);
+        database.open();
+    }
+
+    QString str = "SELECT date, membership_number, product, price, quantity FROM Purchase WHERE date = '" + QString::number(date.month()) + "/" + QString::number(date.day()) + "/" + QString::number(date.year()) + "'";
+
+    return issue_purchases_query(str);
+}

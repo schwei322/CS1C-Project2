@@ -2,7 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "date.h"
+#include <QtDebug>
+
+#include "database_manager.h"
 #include "purchasedata.h"
 
 QT_BEGIN_NAMESPACE
@@ -23,8 +25,9 @@ public slots:
     void displaySales();
     void displayMembers();
     void displayAdmin();
+
     void displaySalesByDate();
-    void displaySalesByDayAndMembershipType();
+    void displayMembersByDate();
 
 private slots:
     //void on_dateEdit_editingFinished();
@@ -33,7 +36,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    date date;
+    DatabaseManager database_manager;
 
 };
 #endif // MAINWINDOW_H
