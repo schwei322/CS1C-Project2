@@ -1,6 +1,8 @@
 #ifndef DATABASE_MANAGER_H
 #define DATABASE_MANAGER_H
 
+#include <QDateTimeEdit>
+#include <QProcessEnvironment>
 #include <QtSql/QSqlDatabase>
 #include <QtSql/QSqlError>
 #include <QSqlQuery>
@@ -9,17 +11,23 @@
 #include <QtDebug>
 #include <QVector>
 
+#include "purchasedata.h"
+
+const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBPATH");
+
 /// Class instance connects to Bulk Club's database.
 ///
 /// Has methods that can change database fields.
-class Database_manager
+class DatabaseManager
 {
 private:
     QSqlDatabase database;
+    QVector<PurchaseData> issue_purchases_query(QString command);
+    QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
 
 public:
-    Database_manager();
-    ~Database_manager();
+    DatabaseManager();
+    ~DatabaseManager();
 
     QStringList get_memberInfo(QString membership_number) const;
     QVector<QStringList> get_memberPurchases(QString membership_number) const;
@@ -29,5 +37,10 @@ public:
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
 
+    QString get_member_name_from_id(int id);
+    QVector<PurchaseData> get_report_all_purchases();
+    QVector<PurchaseData> get_report_purchases_by_date(QDate date);
+
 };
+
 #endif // DATABASE_MANAGER_H

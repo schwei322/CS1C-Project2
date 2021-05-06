@@ -743,8 +743,14 @@ QPushButton:hover {
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(178, 216, 216);
-border-radius: 5px;</string>
+      <string notr="true">QFrame {
+	background-color: rgb(178, 216, 216);
+	border-radius: 5px;
+}
+
+QTableWidget {
+	border: 3px solid rgb(0, 76, 76);
+}</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::StyledPanel</enum>
@@ -757,13 +763,14 @@ border-radius: 5px;</string>
        <rect>
         <x>10</x>
         <y>50</y>
-        <width>1131</width>
-        <height>721</height>
+        <width>701</width>
+        <height>661</height>
        </rect>
       </property>
       <property name="styleSheet">
        <string notr="true">color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+font: 87 12pt &quot;Segoe UI Semibold&quot;;
+</string>
       </property>
       <column>
        <property name="text">
@@ -784,9 +791,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <widget class="QLabel" name="salesFilterLabel">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>20</x>
         <y>10</y>
-        <width>131</width>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
@@ -797,16 +804,197 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
       <property name="text">
        <string>Display sales for:</string>
       </property>
-      <property name="buddy">
-       <cstring>salesFilterSelect</cstring>
+     </widget>
+     <widget class="QLabel" name="salesSearchLabel">
+      <property name="geometry">
+       <rect>
+        <x>800</x>
+        <y>10</y>
+        <width>131</width>
+        <height>31</height>
+       </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+      </property>
+      <property name="text">
+       <string>Search for item:</string>
+      </property>
+      <property name="buddy">
+       <cstring>salesSearchInput</cstring>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="salesSearchInput">
+      <property name="geometry">
+       <rect>
+        <x>940</x>
+        <y>10</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border: 3px solid rgb(0, 76, 76);
+border-radius: 5px;
+color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI&quot;;</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="salesTable2">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>50</y>
+        <width>421</width>
+        <height>661</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+      </property>
+      <column>
+       <property name="text">
+        <string>Member name</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>ID</string>
+       </property>
+      </column>
+     </widget>
+     <widget class="QFrame" name="salesRevFrame">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>720</y>
+        <width>701</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+	border: 3px solid rgb(0, 76, 76);
+}
+
+QLabel {
+	border: none;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="salesRevLabl">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>111</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Total revenue:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="salesRevDisplay">
+       <property name="geometry">
+        <rect>
+         <x>590</x>
+         <y>10</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QFrame" name="salesShoppersFrame">
+      <property name="geometry">
+       <rect>
+        <x>720</x>
+        <y>720</y>
+        <width>421</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QFrame {
+	border: 3px solid rgb(0, 76, 76);
+}
+
+QLabel {
+	border: none;
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QLabel" name="salesShoppersLabel">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>121</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Total shoppers:</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="salesShoppersDisplay">
+       <property name="geometry">
+        <rect>
+         <x>310</x>
+         <y>10</y>
+         <width>101</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
      </widget>
      <widget class="QComboBox" name="salesFilterSelect">
       <property name="geometry">
        <rect>
-        <x>150</x>
+        <x>170</x>
         <y>10</y>
-        <width>121</width>
+        <width>151</width>
         <height>31</height>
        </rect>
       </property>
@@ -847,119 +1035,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       <item>
        <property name="text">
         <string>Day 6</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLabel" name="salesSortLabel">
-      <property name="geometry">
-       <rect>
-        <x>290</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Sort by:</string>
-      </property>
-      <property name="buddy">
-       <cstring>salesSortSelect</cstring>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="salesSortSelect">
-      <property name="geometry">
-       <rect>
-        <x>430</x>
-        <y>10</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI&quot;;</string>
-      </property>
-      <item>
-       <property name="text">
-        <string>Name</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Revenue</string>
-       </property>
-      </item>
-     </widget>
-     <widget class="QLabel" name="salesSearchLabel">
-      <property name="geometry">
-       <rect>
-        <x>800</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
-      </property>
-      <property name="text">
-       <string>Search for item:</string>
-      </property>
-      <property name="buddy">
-       <cstring>salesSearchInput</cstring>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="salesSearchInput">
-      <property name="geometry">
-       <rect>
-        <x>940</x>
-        <y>10</y>
-        <width>201</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">border: 3px solid rgb(0, 76, 76);
-border-radius: 5px;
-color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI&quot;;</string>
-      </property>
-     </widget>
-     <widget class="QDateEdit" name="dateEdit">
-      <property name="geometry">
-       <rect>
-        <x>599</x>
-        <y>10</y>
-        <width>81</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <property name="calendarPopup">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QComboBox" name="comboBox">
-      <property name="geometry">
-       <rect>
-        <x>1042</x>
-        <y>45</y>
-        <width>151</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <item>
-       <property name="text">
-        <string>Executive</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>Regular</string>
        </property>
       </item>
      </widget>
@@ -1070,10 +1145,10 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
      <zorder>salesTable</zorder>
      <zorder>TableDisplay</zorder>
     </widget>
-    <zorder>sales</zorder>
     <zorder>admin</zorder>
     <zorder>members</zorder>
     <zorder>sidebar</zorder>
+    <zorder>sales</zorder>
    </widget>
   </widget>
  </widget>
@@ -1176,34 +1251,34 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
    </hints>
   </connection>
   <connection>
-   <sender>dateEdit</sender>
-   <signal>userDateChanged(QDate)</signal>
+   <sender>salesFilterSelect</sender>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
    <slot>displaySalesByDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>759</x>
-     <y>40</y>
+     <x>346</x>
+     <y>38</y>
     </hint>
     <hint type="destinationlabel">
-     <x>639</x>
-     <y>399</y>
+     <x>325</x>
+     <y>-12</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>comboBox</sender>
-   <signal>currentTextChanged(QString)</signal>
+   <sender>salesFilterSelect</sender>
+   <signal>currentIndexChanged(int)</signal>
    <receiver>MainWindow</receiver>
-   <slot>displaySalesByDayAndMembershipType()</slot>
+   <slot>displayMembersByDate()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1276</x>
-     <y>602</y>
+     <x>372</x>
+     <y>32</y>
     </hint>
     <hint type="destinationlabel">
-     <x>639</x>
-     <y>399</y>
+     <x>359</x>
+     <y>-12</y>
     </hint>
    </hints>
   </connection>
@@ -1215,6 +1290,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
   <slot>userLogin()</slot>
   <slot>userLogout()</slot>
   <slot>displaySalesByDate()</slot>
-  <slot>displaySalesByDayAndMembershipType()</slot>
+  <slot>displayMembersByDate()</slot>
  </slots>
 </ui>
