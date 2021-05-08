@@ -6,8 +6,8 @@
  *
  *******************************************************************************/
 
-Member::Member(QString name, int* membership_number, QString membership_type,
-               Date membership_expiration_date, double total_amount_spent, double rebate_amount)
+Member::Member(QString name, int membership_number, QString membership_type,
+               QString membership_expiration_date, double total_amount_spent, double rebate_amount)
 {
     this->name = name;
     this->membership_number = membership_number;
@@ -118,7 +118,7 @@ QString Member::get_name() const
  *      @return N/A
 ********************************************************************************/
 
-int* Member::get_membership_number() const
+int Member::get_membership_number() const
 {
     return membership_number;
 }
@@ -158,7 +158,7 @@ QString Member::get_membership_type() const
  *      @return N/A
 ********************************************************************************/
 
-Date Member::get_membership_expiration_date() const
+QString Member::get_membership_expiration_date() const
 {
     return membership_expiration_date;
 }
@@ -238,7 +238,7 @@ void Member::set_name(QString name)
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_membership_number(int* membership_number)
+void Member::set_membership_number(int membership_number)
 {
     this->membership_number = membership_number;
 }
@@ -278,7 +278,7 @@ void Member::set_membership_type(QString membership_type)
  *      @return N/A
 ********************************************************************************/
 
-void Member::set_membership_expiration_date(Date membership_expiration_date)
+void Member::set_membership_expiration_date(QString membership_expiration_date)
 {
     this->membership_expiration_date = membership_expiration_date;
 }

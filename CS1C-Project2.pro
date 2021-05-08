@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     database_manager.cpp \
+    expmonth.cpp \
     main.cpp \
     mainwindow.cpp \
     member.cpp \
@@ -18,12 +19,14 @@ SOURCES += \
 
 HEADERS += \
     database_manager.h \
+    expmonth.h \
     mainwindow.h \
     member.h \
     purchasedata.h \
     miscellaneous_functions.h
 
 FORMS += \
+    expmonth.ui \
     mainwindow.ui
 
 # Default rules for deployment.

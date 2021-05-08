@@ -147,8 +147,8 @@ QPushButton:hover {
    <widget class="QWidget" name="mainPanel" native="true">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
+      <x>-290</x>
+      <y>-10</y>
       <width>1280</width>
       <height>800</height>
      </rect>
@@ -1076,7 +1076,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     <zorder>admin</zorder>
     <zorder>members</zorder>
     <zorder>sidebar</zorder>
-    <zorder>sales</zorder>
    </widget>
   </widget>
  </widget>
