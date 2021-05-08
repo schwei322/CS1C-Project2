@@ -2,6 +2,7 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "expmonth.h"
 
 #ifdef QT_DEBUG
 bool debugMode = true;
@@ -246,4 +247,10 @@ void MainWindow::displayMembersByDate()
     }
 
     this->ui->salesShoppersDisplay->setText(QString::number(temp.size()));
+}
+
+void MainWindow::on_memberExpirationBtn_clicked()
+{
+    expirationMonth = new expMonth(this);
+    expirationMonth->show();
 }

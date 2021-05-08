@@ -6,6 +6,7 @@
 
 #include "database_manager.h"
 #include "purchasedata.h"
+#include "expmonth.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,9 +35,12 @@ private slots:
 
     //void on_sales_customContextMenuRequested(const QPoint &pos);
 
+    void on_memberExpirationBtn_clicked();
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager database_manager;
+    expMonth *expirationMonth;
 
 };
 #endif // MAINWINDOW_H

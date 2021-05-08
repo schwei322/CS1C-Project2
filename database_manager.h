@@ -10,6 +10,7 @@
 #include <QSqlError>
 #include <QtDebug>
 #include <QVector>
+#include "member.h"
 
 #include "purchasedata.h"
 
@@ -24,6 +25,7 @@ private:
     QSqlDatabase database;
     QVector<PurchaseData> issue_purchases_query(QString command);
     QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
+    QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query);
 
 public:
     DatabaseManager();
@@ -36,6 +38,7 @@ public:
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
+    QVector<Member> DatabaseManager::get_report_expired_memberships_from_month(uint month);
 
     QString get_member_name_from_id(int id);
     QVector<PurchaseData> get_report_all_purchases();
