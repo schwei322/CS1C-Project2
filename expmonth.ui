@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>568</width>
-    <height>490</height>
+    <width>741</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,10 +29,10 @@
   <widget class="QTableWidget" name="tableWidget">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>10</x>
      <y>60</y>
-     <width>521</width>
-     <height>401</height>
+     <width>701</width>
+     <height>471</height>
     </rect>
    </property>
    <row>
@@ -92,12 +92,12 @@
    </row>
    <column>
     <property name="text">
-     <string>memberID</string>
+     <string>Member name</string>
     </property>
    </column>
    <column>
     <property name="text">
-     <string>Type of membership</string>
+     <string>Membership Type</string>
     </property>
    </column>
    <column>
@@ -179,4 +179,7 @@
  </widget>
  <resources/>
  <connections/>
+ <slots>
+  <slot>on_comboBox_currentIndexChanged()</slot>
+ </slots>
 </ui>

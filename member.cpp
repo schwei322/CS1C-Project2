@@ -30,6 +30,16 @@ Member::Member(Member& mem)
 {
 
 }
+
+Member::Member(const Member& mem)
+{
+    this->name = mem.get_name().toStdString().c_str();
+    this->membership_number = mem.get_membership_number();
+    this->membership_type = mem.get_membership_type();
+    this->membership_expiration_date = mem.get_membership_expiration_date();
+    this->rebate_amount = mem.get_rebate_amount();
+    this->total_amount_spent = mem.get_total_amount_spent();
+}
 /********************************************************************************/
 
 
@@ -100,6 +110,7 @@ double Member::calc_annual_dues() const
 
 QString Member::get_name() const
 {
+    qDebug() << name << "GET NAM EGET NAME\n";
     return name;
 }
 /*******************************************************************************/

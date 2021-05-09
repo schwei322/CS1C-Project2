@@ -19,7 +19,7 @@ public:
 private slots:
     //void on_lineEdit_editingFinished();
 
-    void on_comboBox_currentIndexChanged(const QString &arg1);
+    void on_comboBox_currentIndexChanged();
 
 private:
     DatabaseManager *dbm;

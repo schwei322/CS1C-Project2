@@ -251,6 +251,6 @@ void MainWindow::displayMembersByDate()
 
 void MainWindow::on_memberExpirationBtn_clicked()
 {
-    expirationMonth = new expMonth(this);
+    expirationMonth = new expMonth(this, &this->database_manager);
     expirationMonth->show();
 }
