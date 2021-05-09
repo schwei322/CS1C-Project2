@@ -330,9 +330,9 @@ QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
     return result;
 }
 
-QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
+QVector<Member*> DatabaseManager::aggregate_member_data(QSqlQuery query)
 {
-    QVector<Member> result;
+    QVector<Member*> result;
 
     int columnNum = query.record().count();
 
@@ -351,6 +351,7 @@ QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
             {
             case 0: // name
                 name = query.value(i).toString();
+                qDebug() << "FOUND NAME HERE " << name << "\n";
                 break;
             case 1: // membership_number
                 membership_number = query.value(i).toInt();
@@ -366,13 +367,14 @@ QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
                 break;
             case 5: // rebate amount
                 rebate_amount = query.value(i).toDouble();
+                break;
             default:
                 qDebug() << "Invalid column number : " << i;
                 break;
             }
         }
-
-        result.append({name, membership_number, membership_type, membership_expiration_date, total_amount_spent, rebate_amount});
+        Member* member = new Member(name, membership_number, membership_type, membership_expiration_date, total_amount_spent, rebate_amount);
+        result.append(member);
     }
 
     return result;
@@ -448,7 +450,7 @@ QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
     return issue_purchases_query(str);
 }
 
-QVector<Member> DatabaseManager::get_report_expired_memberships_from_month(uint month)
+QVector<Member*> DatabaseManager::get_report_expired_memberships_from_month(uint month)
 {
     if (!database.isOpen())
     {
@@ -461,7 +463,7 @@ QVector<Member> DatabaseManager::get_report_expired_memberships_from_month(uint 
     string str = "SELECT name, membership_number, membership_type, expiration_date, total_amount_spent, rebate_amount FROM MEMBER WHERE expiration_date LIKE '" + normalized_month + "/%'";
     QString qString = str.c_str();
 
-    QVector<Member> result;
+    QVector<Member*> result;
     QSqlQuery query(database);
     query.prepare(qString);
 
