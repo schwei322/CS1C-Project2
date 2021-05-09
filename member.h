@@ -11,15 +11,16 @@ class Member
 {
 private:
     QString name;
-    int* membership_number;
+    int membership_number;
     QString membership_type;
-    Date membership_expiration_date;
+    QString membership_expiration_date;
     double total_amount_spent;
     double rebate_amount;
 
 public:
-    Member(QString name, int* membership_number, QString membership_type, Date membership_expiration_date, double total_amount_spent, double rebate_amount);
+    Member(QString name, int membership_number, QString membership_type, QString membership_expiration_date, double total_amount_spent, double rebate_amount);
     Member(Member& mem);
+    Member(const Member& mem);
     ~Member();
 
     // Computational Methods
@@ -28,17 +29,17 @@ public:
 
     // Accessor Methods
     QString get_name() const;
-    int* get_membership_number() const;
+    int get_membership_number() const;
     QString get_membership_type() const;
-    Date get_membership_expiration_date() const;
+    QString get_membership_expiration_date() const;
     double get_total_amount_spent() const;
     double get_rebate_amount() const;
 
     // Mutator Methods
     void set_name(QString name);
-    void set_membership_number(int* membership_number);
+    void set_membership_number(int membership_number);
     void set_membership_type(QString membership_type);
-    void set_membership_expiration_date(Date membership_expiration_date);
+    void set_membership_expiration_date(QString membership_expiration_date);
     void set_total_amount_spent(double total_amount_spent);
     void set_rebate_amount(double rebate_amount);
 };

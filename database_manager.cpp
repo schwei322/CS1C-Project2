@@ -1,7 +1,9 @@
 #include "database_manager.h"
 #include <QVariant>
 #include <QSqlField>
+#include "member.h"
 
+using namespace std;
 /****************************************************************************//**
  *      Constructor
  *____________________________________________________________________________
@@ -11,7 +13,11 @@
 DatabaseManager::DatabaseManager()
 {
     database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+
     database.setDatabaseName(databasePath);
+
+    qDebug() << databasePath << "      DATABASE P{ATHHHHHHHH";
+
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
@@ -360,6 +366,56 @@ QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
     return result;
 }
 
+QVector<Member*> DatabaseManager::aggregate_member_data(QSqlQuery query)
+{
+    QVector<Member*> result;
+
+    int columnNum = query.record().count();
+
+    while(query.next())
+    {
+        QString name;
+        int membership_number;
+        QString membership_type;
+        QString membership_expiration_date;
+        double total_amount_spent;
+        double rebate_amount;
+
+        for(int i = 0; i < columnNum; i++)
+        {
+            switch(i)
+            {
+            case 0: // name
+                name = query.value(i).toString();
+                qDebug() << "FOUND NAME HERE " << name << "\n";
+                break;
+            case 1: // membership_number
+                membership_number = query.value(i).toInt();
+                break;
+            case 2: // membership_type
+                membership_type = query.value(i).toString();
+                break;
+            case 3: // membership_expiration_date
+                membership_expiration_date = query.value(i).toString();
+                break;
+            case 4: // total_amount_spent
+                total_amount_spent = query.value(i).toDouble();
+                break;
+            case 5: // rebate amount
+                rebate_amount = query.value(i).toDouble();
+                break;
+            default:
+                qDebug() << "Invalid column number : " << i;
+                break;
+            }
+        }
+        Member* member = new Member(name, membership_number, membership_type, membership_expiration_date, total_amount_spent, rebate_amount);
+        result.append(member);
+    }
+
+    return result;
+}
+
 QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
 {
     QVector<PurchaseData> result;
@@ -428,4 +484,35 @@ QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
     QString str = "SELECT date, membership_number, product, price, quantity FROM Purchase WHERE date = '" + QString::number(date.month()) + "/" + QString::number(date.day()) + "/" + QString::number(date.year()) + "'";
 
     return issue_purchases_query(str);
+}
+
+QVector<Member*> DatabaseManager::get_report_expired_memberships_from_month(uint month)
+{
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName(databasePath);
+        database.open();
+    }
+
+    string normalized_month = to_string(month).length() == 1 ? "0" + to_string(month) : to_string(month);
+    string str = "SELECT name, membership_number, membership_type, expiration_date, total_amount_spent, rebate_amount FROM MEMBER WHERE expiration_date LIKE '" + normalized_month + "/%'";
+    QString qString = str.c_str();
+
+    QVector<Member*> result;
+    QSqlQuery query(database);
+    query.prepare(qString);
+
+    qDebug() << qString << "\n";
+
+    if(query.exec())
+    {
+        result = aggregate_member_data(query);
+    }
+    else
+    {
+        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
+    }
+
+    return result;
 }
