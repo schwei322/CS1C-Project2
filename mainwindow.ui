@@ -761,9 +761,9 @@ QTableWidget {
      <widget class="QTableWidget" name="salesTable">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>460</x>
         <y>50</y>
-        <width>701</width>
+        <width>681</width>
         <height>661</height>
        </rect>
       </property>
@@ -784,7 +784,7 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;
       </column>
       <column>
        <property name="text">
-        <string>Revenue</string>
+        <string>Revenue (in US $)</string>
        </property>
       </column>
      </widget>
@@ -793,7 +793,7 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;
        <rect>
         <x>20</x>
         <y>10</y>
-        <width>141</width>
+        <width>131</width>
         <height>31</height>
        </rect>
       </property>
@@ -808,9 +808,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <widget class="QLabel" name="salesSearchLabel">
       <property name="geometry">
        <rect>
-        <x>800</x>
+        <x>810</x>
         <y>10</y>
-        <width>131</width>
+        <width>121</width>
         <height>31</height>
        </rect>
       </property>
@@ -844,9 +844,9 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
      <widget class="QTableWidget" name="salesTable2">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>10</x>
         <y>50</y>
-        <width>421</width>
+        <width>441</width>
         <height>661</height>
        </rect>
       </property>
@@ -868,9 +868,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <widget class="QFrame" name="salesRevFrame">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>460</x>
         <y>720</y>
-        <width>701</width>
+        <width>681</width>
         <height>51</height>
        </rect>
       </property>
@@ -909,9 +909,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
       <widget class="QLabel" name="salesRevDisplay">
        <property name="geometry">
         <rect>
-         <x>590</x>
+         <x>550</x>
          <y>10</y>
-         <width>101</width>
+         <width>121</width>
          <height>31</height>
         </rect>
        </property>
@@ -930,9 +930,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <widget class="QFrame" name="salesShoppersFrame">
       <property name="geometry">
        <rect>
-        <x>720</x>
+        <x>10</x>
         <y>720</y>
-        <width>421</width>
+        <width>441</width>
         <height>51</height>
        </rect>
       </property>
@@ -956,7 +956,7 @@ QLabel {
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>121</width>
+         <width>161</width>
          <height>31</height>
         </rect>
        </property>
@@ -973,7 +973,7 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
         <rect>
          <x>310</x>
          <y>10</y>
-         <width>101</width>
+         <width>121</width>
          <height>31</height>
         </rect>
        </property>
@@ -992,9 +992,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <widget class="QComboBox" name="salesFilterSelect">
       <property name="geometry">
        <rect>
-        <x>170</x>
+        <x>160</x>
         <y>10</y>
-        <width>151</width>
+        <width>141</width>
         <height>31</height>
        </rect>
       </property>
@@ -1035,6 +1035,40 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       <item>
        <property name="text">
         <string>Day 6</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Day 7</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QComboBox" name="membersFilterSelect">
+      <property name="geometry">
+       <rect>
+        <x>310</x>
+        <y>10</y>
+        <width>141</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI&quot;;</string>
+      </property>
+      <item>
+       <property name="text">
+        <string>All members</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Regular</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Executive</string>
        </property>
       </item>
      </widget>
@@ -1172,6 +1206,38 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     </hint>
     <hint type="destinationlabel">
      <x>359</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>membersFilterSelect</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>displayMembersByDate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>495</x>
+     <y>34</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>468</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>membersFilterSelect</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>displaySalesByDate()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>515</x>
+     <y>27</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>500</x>
      <y>-12</y>
     </hint>
    </hints>

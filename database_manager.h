@@ -37,7 +37,6 @@ public:
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
 
-    QString get_member_name_from_id(int id);
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
 
