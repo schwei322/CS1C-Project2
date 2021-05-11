@@ -49,7 +49,7 @@ void expMonth::on_comboBox_currentIndexChanged()
                 this->ui->tableWidget->setItem(this->ui->tableWidget->rowCount() - 1, 1, membershipType);
 
                 QTableWidgetItem  *costToRenew = new QTableWidgetItem;
-                costToRenew->setData(Qt::EditRole, "$" + QString::number(member->calc_annual_dues()));
+                costToRenew->setData(Qt::EditRole, "$" + QString::number(member->get_membership_type() == "Executive" ? 120.00 : 65.00));
                 costToRenew->setTextAlignment(Qt::AlignRight);
                 this->ui->tableWidget->setItem(this->ui->tableWidget->rowCount() - 1, 2, costToRenew);
                 delete member;

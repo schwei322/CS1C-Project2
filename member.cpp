@@ -89,7 +89,6 @@ double Member::calc_rebate() const
 
 double Member::calc_annual_dues() const
 {
-    qDebug() << "calc_annual_dues() | NOT IMPLIMENTED YET!\n";
     return -1;
 }
 /*******************************************************************************/
