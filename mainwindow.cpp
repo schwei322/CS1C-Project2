@@ -109,13 +109,19 @@ void MainWindow::displaySalesByDate()
 {
     this->ui->salesTable->setRowCount(0);
 
+    QStringList memberOptions;
+
+    memberOptions << "All members" << "Regular" << "Executive";
+
+    int memberSelectionIndex = memberOptions.indexOf(this->ui->membersFilterSelect->currentText());
+
     QStringList dateOptions;
 
     dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
 
     QVector<PurchaseData> purchaseDataList;
 
-    int totalRevenue = 0;
+    double totalRevenue = 0;
 
     int selectionIndex = dateOptions.indexOf(this->ui->salesFilterSelect->currentText());
     if (selectionIndex == 0)
@@ -123,23 +129,25 @@ void MainWindow::displaySalesByDate()
         purchaseDataList = this->database_manager.get_report_all_purchases();
 
         QVector<PurchaseData> newPurchaseDataList;
-        QVector<QString> temp;
 
+        QVector<QString> tempProductVec;
         for(PurchaseData& data : purchaseDataList)
         {
-           if (!temp.contains(data.getProduct()))
-           {
-               PurchaseData item;
+            QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-               item.setDate("");
-               item.setMembershipNumber(0);
-               item.setPrice(data.getPrice());
-               item.setProduct(data.getProduct());
-               item.setQuantity(0);
+            if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
+            {
+                PurchaseData purchase;
 
-               newPurchaseDataList.append(item);
-               temp.append(data.getProduct());
-           }
+                purchase.setDate("");
+                purchase.setMembershipNumber(0);
+                purchase.setPrice(data.getPrice());
+                purchase.setProduct(data.getProduct());
+                purchase.setQuantity(0);
+
+                newPurchaseDataList.append(purchase);
+                tempProductVec.append(data.getProduct());
+            }
         }
 
         for(PurchaseData& newListData : newPurchaseDataList)
@@ -168,7 +176,7 @@ void MainWindow::displaySalesByDate()
             this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
             QTableWidgetItem  *revenue = new QTableWidgetItem;
-            revenue->setData(Qt::EditRole, "$" + QString::number(data.getPrice() * data.getQuantity()));
+            revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
             revenue->setTextAlignment(Qt::AlignRight);
             this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
@@ -181,26 +189,41 @@ void MainWindow::displaySalesByDate()
 
         purchaseDataList = this->database_manager.get_report_purchases_by_date(date);
 
+        QVector<int> tempMemberVec;
         for(PurchaseData& data : purchaseDataList)
         {
-            this->ui->salesTable->insertRow(this->ui->salesTable ->rowCount());
+            QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-            QTableWidgetItem  *product = new QTableWidgetItem;
-            product->setData(Qt::EditRole, data.getProduct());
-            product->setToolTip(data.getProduct());
-            this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 0, product);
+            if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                    || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+            {
+                tempMemberVec.append(data.getMembershipNumber());
+            }
+        }
 
-            QTableWidgetItem  *quantity = new QTableWidgetItem;
-            quantity->setData(Qt::EditRole, data.getQuantity());
-            quantity->setTextAlignment(Qt::AlignRight);
-            this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
+        for(PurchaseData& data : purchaseDataList)
+        {
+            if (tempMemberVec.contains(data.getMembershipNumber()))
+            {
+                this->ui->salesTable->insertRow(this->ui->salesTable ->rowCount());
 
-            QTableWidgetItem  *revenue = new QTableWidgetItem;
-            revenue->setData(Qt::EditRole, "$" + QString::number(data.getPrice() * data.getQuantity()));
-            revenue->setTextAlignment(Qt::AlignRight);
-            this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
+                QTableWidgetItem  *product = new QTableWidgetItem;
+                product->setData(Qt::EditRole, data.getProduct());
+                product->setToolTip(data.getProduct());
+                this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 0, product);
 
-            totalRevenue += data.getPrice() * data.getQuantity();
+                QTableWidgetItem  *quantity = new QTableWidgetItem;
+                quantity->setData(Qt::EditRole, data.getQuantity());
+                quantity->setTextAlignment(Qt::AlignRight);
+                this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
+
+                QTableWidgetItem  *revenue = new QTableWidgetItem;
+                revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
+                revenue->setTextAlignment(Qt::AlignRight);
+                this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
+
+                totalRevenue += data.getPrice() * data.getQuantity();
+            }
         }
     }
 
@@ -217,8 +240,8 @@ void MainWindow::displayMembersByDate()
 
     QVector<PurchaseData> purchaseDataList;
 
-    int selectionIndex = dateOptions.indexOf(this->ui->salesFilterSelect->currentText());
-    if (selectionIndex > 0 && selectionIndex < dateOptions.size())
+    int dataSelectionIndex = dateOptions.indexOf(this->ui->salesFilterSelect->currentText());
+    if (dataSelectionIndex > 0 && dataSelectionIndex < dateOptions.size())
     {
         QDate date = QDate(2021, 4, dateOptions.indexOf(this->ui->salesFilterSelect->currentText()));
 
@@ -229,24 +252,35 @@ void MainWindow::displayMembersByDate()
         purchaseDataList = this->database_manager.get_report_all_purchases();
     }
 
-    QVector<int> temp;
+    QStringList memberOptions;
+
+    memberOptions << "All members" << "Regular" << "Executive";
+
+    int memberSelectionIndex = memberOptions.indexOf(this->ui->membersFilterSelect->currentText());
+
+    QVector<int> tempMemberVec;
     for(PurchaseData& data : purchaseDataList)
     {
-        if (!temp.contains(data.getMembershipNumber()))
+        QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
+
+        if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
         {
+
             this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
 
-            this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem(this->database_manager.get_member_name_from_id(data.getMembershipNumber())));
+            this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem(memberInfo.at(0)));
 
             QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
             membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+            membershipNumber->setTextAlignment(Qt::AlignRight);
             this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
-            temp.append(data.getMembershipNumber());
+            tempMemberVec.append(data.getMembershipNumber());
         }
     }
 
-    this->ui->salesShoppersDisplay->setText(QString::number(temp.size()));
+    this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
 }
 
 void MainWindow::on_memberExpirationBtn_clicked()

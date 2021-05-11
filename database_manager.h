@@ -40,7 +40,6 @@ public:
     void delete_row_in_inventory(QString item_name) const;
     QVector<Member*> DatabaseManager::get_report_expired_memberships_from_month(uint month);
 
-    QString get_member_name_from_id(int id);
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
 

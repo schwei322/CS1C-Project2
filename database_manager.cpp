@@ -313,37 +313,6 @@ void DatabaseManager::delete_row_in_inventory(QString item_name) const
 /*******************************************************************************/
 
 
-QString DatabaseManager::get_member_name_from_id(int id)
-{
-    if (!database.isOpen())
-    {
-        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
-        database.setDatabaseName(databasePath);
-        database.open();
-    }
-
-    QString queryStr = "SELECT name FROM Member WHERE membership_number = '" + QString::number(id) + "'";
-
-    QSqlQuery query(database);
-    query.prepare(queryStr);
-
-    QString name;
-
-    if(query.exec())
-    {
-        while(query.next())
-        {
-            name = query.value(0).toString();
-        }
-    }
-    else
-    {
-        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
-    }
-
-    return name;
-}
-
 /* PurchaseData */
 
 QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
