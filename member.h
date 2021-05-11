@@ -18,14 +18,18 @@ private:
     double rebate_amount;
 
 public:
+
     Member(QString name, int membership_number, QString membership_type, QString membership_expiration_date, double total_amount_spent, double rebate_amount);
     Member(Member& mem);
     Member(const Member& mem);
+
+    Member();
+    Member(QString name, int membership_number, QString membership_type, QString membership_expiration_date, double total_amount_spent, double rebate_amount);
+
     ~Member();
 
     // Computational Methods
     double calc_rebate() const;
-    double calc_annual_dues() const;
 
     // Accessor Methods
     QString get_name() const;

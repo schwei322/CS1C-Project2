@@ -25,7 +25,11 @@ private:
     QSqlDatabase database;
     QVector<PurchaseData> issue_purchases_query(QString command);
     QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
+
     QVector<Member*> DatabaseManager::aggregate_member_data(QSqlQuery query);
+
+    QVector<Member> aggregate_member_data(QSqlQuery query);
+
 
 public:
     DatabaseManager();
@@ -42,6 +46,7 @@ public:
 
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
+    QVector<Member> get_report_expired_memberships_by_month(int month);
 
 };
 

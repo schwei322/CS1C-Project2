@@ -31,9 +31,11 @@ public slots:
     void displayMembersByDate();
 
 private slots:
-    //void on_dateEdit_editingFinished();
-
-    //void on_sales_customContextMenuRequested(const QPoint &pos);
+    void on_memberBackBtn_clicked();
+    void on_memberRebatesBtn_clicked();
+    void on_memberPurchasesBtn_clicked();
+    void on_memberExpirationBtn_clicked();
+    void on_expirationMonthSelect_currentIndexChanged();
 
     void on_memberExpirationBtn_clicked();
 

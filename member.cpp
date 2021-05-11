@@ -1,5 +1,24 @@
 #include "member.h"
 
+
+/****************************************************************************//**
+ *      Default Constructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
+
+Member::Member(QString name, int membership_number, QString membership_type,
+               QString membership_expiration_date, double total_amount_spent, double rebate_amount)
+
+Member::Member()
+
+{
+
+}
+
+/********************************************************************************/
+
+
 /****************************************************************************//**
  *      Overloaded Constructor
  *____________________________________________________________________________
@@ -16,20 +35,7 @@ Member::Member(QString name, int membership_number, QString membership_type,
     this->total_amount_spent = total_amount_spent;
     this->rebate_amount = rebate_amount;
 }
-/********************************************************************************/
 
-
-
-/****************************************************************************//**
- *      Copy Constructor
- *____________________________________________________________________________
- *
- *******************************************************************************/
-
-Member::Member(Member& mem)
-{
-
-}
 
 Member::Member(const Member& mem)
 {
@@ -40,6 +46,7 @@ Member::Member(const Member& mem)
     this->rebate_amount = mem.get_rebate_amount();
     this->total_amount_spent = mem.get_total_amount_spent();
 }
+
 /********************************************************************************/
 
 
