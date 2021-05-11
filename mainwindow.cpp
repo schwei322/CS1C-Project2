@@ -288,3 +288,8 @@ void MainWindow::on_memberExpirationBtn_clicked()
     expirationMonth = new expMonth(this, &this->database_manager);
     expirationMonth->show();
 }
+
+void MainWindow::on_salesSearchInput_editingFinished()
+{
+
+}

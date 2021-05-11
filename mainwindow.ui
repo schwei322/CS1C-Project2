@@ -500,10 +500,10 @@ QPushButton:hover {
       <widget class="QFrame" name="sales">
        <property name="geometry">
         <rect>
-         <x>290</x>
-         <y>30</y>
-         <width>1081</width>
-         <height>782</height>
+         <x>330</x>
+         <y>20</y>
+         <width>1521</width>
+         <height>641</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -525,7 +525,7 @@ QTableWidget {
        <widget class="QTableWidget" name="salesTable">
         <property name="geometry">
          <rect>
-          <x>30</x>
+          <x>20</x>
           <y>50</y>
           <width>681</width>
           <height>661</height>
@@ -536,6 +536,36 @@ QTableWidget {
 font: 87 12pt &quot;Segoe UI Semibold&quot;;
 </string>
         </property>
+        <row>
+         <property name="text">
+          <string>1</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>2</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>3</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>4</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>5</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>6</string>
+         </property>
+        </row>
         <column>
          <property name="text">
           <string>Item name</string>
@@ -572,9 +602,9 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
        <widget class="QLabel" name="salesSearchLabel">
         <property name="geometry">
          <rect>
-          <x>800</x>
+          <x>770</x>
           <y>10</y>
-          <width>131</width>
+          <width>161</width>
           <height>31</height>
          </rect>
         </property>
@@ -802,16 +832,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
          </property>
         </item>
        </widget>
-       <widget class="QTableView" name="tableView">
-        <property name="geometry">
-         <rect>
-          <x>220</x>
-          <y>111</y>
-          <width>901</width>
-          <height>661</height>
-         </rect>
-        </property>
-       </widget>
        <zorder>salesTable2</zorder>
        <zorder>salesRevFrame</zorder>
        <zorder>salesShoppersFrame</zorder>
@@ -820,12 +840,7 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
        <zorder>salesSearchLabel</zorder>
        <zorder>salesSearchInput</zorder>
        <zorder>salesTable</zorder>
-       <zorder>tableView</zorder>
       </widget>
-      <zorder>sales</zorder>
-      <zorder>usernameInput</zorder>
-      <zorder>passwordInput</zorder>
-      <zorder>loginBtn</zorder>
      </widget>
     </widget>
     <widget class="QFrame" name="admin">
@@ -1402,7 +1417,7 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </item>
      </widget>
     </widget>
-
+    <zorder>sales</zorder>
     <zorder>admin</zorder>
     <zorder>members</zorder>
     <zorder>sidebar</zorder>

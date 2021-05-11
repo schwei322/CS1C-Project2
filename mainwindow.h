@@ -37,6 +37,8 @@ private slots:
 
     void on_memberExpirationBtn_clicked();
 
+    void on_salesSearchInput_editingFinished();
+
 private:
     Ui::MainWindow *ui;
     DatabaseManager database_manager;
