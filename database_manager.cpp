@@ -16,8 +16,6 @@ DatabaseManager::DatabaseManager()
 
     database.setDatabaseName(databasePath);
 
-    qDebug() << databasePath << "      DATABASE P{ATHHHHHHHH";
-
     if (!database.open())
     {
         qDebug() << "Error: Failed to connect database." << database.lastError();
