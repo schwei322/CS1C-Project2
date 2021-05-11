@@ -1,5 +1,20 @@
 #include "member.h"
 
+
+/****************************************************************************//**
+ *      Default Constructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
+
+Member::Member()
+{
+
+}
+
+/********************************************************************************/
+
+
 /****************************************************************************//**
  *      Overloaded Constructor
  *____________________________________________________________________________
@@ -16,30 +31,7 @@ Member::Member(QString name, int membership_number, QString membership_type,
     this->total_amount_spent = total_amount_spent;
     this->rebate_amount = rebate_amount;
 }
-/********************************************************************************/
 
-
-
-/****************************************************************************//**
- *      Copy Constructor
- *____________________________________________________________________________
- *
- *******************************************************************************/
-
-Member::Member(Member& mem)
-{
-
-}
-
-Member::Member(const Member& mem)
-{
-    this->name = mem.get_name().toStdString().c_str();
-    this->membership_number = mem.get_membership_number();
-    this->membership_type = mem.get_membership_type();
-    this->membership_expiration_date = mem.get_membership_expiration_date();
-    this->rebate_amount = mem.get_rebate_amount();
-    this->total_amount_spent = mem.get_total_amount_spent();
-}
 /********************************************************************************/
 
 
@@ -67,27 +59,6 @@ Member::~Member(){}
 *******************************************************************************/
 
 double Member::calc_rebate() const
-{
-    qDebug() << "calc_annual_dues() | NOT IMPLIMENTED YET!\n";
-    return -1;
-}
-/*******************************************************************************/
-
-
-
-/****************************************************************************//**
- *      calc_annual_dues
- * ____________________________________________________________________________
- * ___Description___
- * ____________________________________________________________________________
- * \b INPUT:
- *      @param N/A
- *
- * \b OUTPUT:
- *      @return N/A
-********************************************************************************/
-
-double Member::calc_annual_dues() const
 {
     qDebug() << "calc_annual_dues() | NOT IMPLIMENTED YET!\n";
     return -1;

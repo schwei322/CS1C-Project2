@@ -330,56 +330,6 @@ QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
     return result;
 }
 
-QVector<Member*> DatabaseManager::aggregate_member_data(QSqlQuery query)
-{
-    QVector<Member*> result;
-
-    int columnNum = query.record().count();
-
-    while(query.next())
-    {
-        QString name;
-        int membership_number;
-        QString membership_type;
-        QString membership_expiration_date;
-        double total_amount_spent;
-        double rebate_amount;
-
-        for(int i = 0; i < columnNum; i++)
-        {
-            switch(i)
-            {
-            case 0: // name
-                name = query.value(i).toString();
-                qDebug() << "FOUND NAME HERE " << name << "\n";
-                break;
-            case 1: // membership_number
-                membership_number = query.value(i).toInt();
-                break;
-            case 2: // membership_type
-                membership_type = query.value(i).toString();
-                break;
-            case 3: // membership_expiration_date
-                membership_expiration_date = query.value(i).toString();
-                break;
-            case 4: // total_amount_spent
-                total_amount_spent = query.value(i).toDouble();
-                break;
-            case 5: // rebate amount
-                rebate_amount = query.value(i).toDouble();
-                break;
-            default:
-                qDebug() << "Invalid column number : " << i;
-                break;
-            }
-        }
-        Member* member = new Member(name, membership_number, membership_type, membership_expiration_date, total_amount_spent, rebate_amount);
-        result.append(member);
-    }
-
-    return result;
-}
-
 QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
 {
     QVector<PurchaseData> result;
@@ -388,7 +338,6 @@ QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
 
     while(query.next())
     {
-
         PurchaseData purchaseData;
 
         for(int i = 0; i < columnNum; i++)
@@ -422,6 +371,50 @@ QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
     return result;
 }
 
+QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
+{
+    QVector<Member> result;
+
+    int columnNum = query.record().count();
+
+    while(query.next())
+    {
+        Member member;
+
+        for(int i = 0; i < columnNum; i++)
+        {
+            switch(i)
+            {
+            case 0: // name
+                member.set_name(query.value(i).toString());
+                break;
+            case 1: // membership_number
+                member.set_membership_number(query.value(i).toInt());
+                break;
+            case 2: // membership_type
+                member.set_membership_type(query.value(i).toString());
+                break;
+            case 3: // membership_expiration_date
+                member.set_membership_expiration_date(query.value(i).toString());
+                break;
+            case 4: // total_amount_spent
+                member.set_total_amount_spent(query.value(i).toDouble());
+                break;
+            case 5: // rebate amount
+                member.set_rebate_amount(query.value(i).toDouble());
+                break;
+            default:
+                qDebug() << "Invalid column number : " << i;
+                break;
+            }
+        }
+
+        result.append(member);
+    }
+
+    return result;
+}
+
 QVector<PurchaseData> DatabaseManager::get_report_all_purchases()
 {
     if (!database.isOpen())
@@ -450,7 +443,7 @@ QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
     return issue_purchases_query(str);
 }
 
-QVector<Member*> DatabaseManager::get_report_expired_memberships_from_month(uint month)
+QVector<Member> DatabaseManager::get_report_expired_memberships_by_month(int month)
 {
     if (!database.isOpen())
     {
@@ -459,15 +452,14 @@ QVector<Member*> DatabaseManager::get_report_expired_memberships_from_month(uint
         database.open();
     }
 
-    string normalized_month = to_string(month).length() == 1 ? "0" + to_string(month) : to_string(month);
-    string str = "SELECT name, membership_number, membership_type, expiration_date, total_amount_spent, rebate_amount FROM MEMBER WHERE expiration_date LIKE '" + normalized_month + "/%'";
-    QString qString = str.c_str();
+    QString normalized_month = QString::number(month).length() == 1 ? "0" + QString::number(month) : QString::number(month);
+    QString str = "SELECT name, membership_number, membership_type, expiration_date, total_amount_spent, rebate_amount FROM member WHERE expiration_date LIKE '" + normalized_month + "/%'";
 
-    QVector<Member*> result;
+    QVector<Member> result;
     QSqlQuery query(database);
-    query.prepare(qString);
+    query.prepare(str);
 
-    qDebug() << qString << "\n";
+    qDebug() << str << "\n";
 
     if(query.exec())
     {

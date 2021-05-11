@@ -14,7 +14,7 @@
 
 #include "purchasedata.h"
 
-const QString databasePath = "C:\\Users\\Dayana Pulido\\Documents\\Saddleback\\Spring 2021\\CS1C\\Project 1\\CS1C-Project2\\bulk_club_database.db";//QProcessEnvironment::systemEnvironment().value("DBPATH");
+const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBPATH");
 
 /// Class instance connects to Bulk Club's database.
 ///
@@ -25,7 +25,7 @@ private:
     QSqlDatabase database;
     QVector<PurchaseData> issue_purchases_query(QString command);
     QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
-    QVector<Member*> DatabaseManager::aggregate_member_data(QSqlQuery query);
+    QVector<Member> aggregate_member_data(QSqlQuery query);
 
 public:
     DatabaseManager();
@@ -38,10 +38,10 @@ public:
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
-    QVector<Member*> DatabaseManager::get_report_expired_memberships_from_month(uint month);
 
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
+    QVector<Member> get_report_expired_memberships_by_month(int month);
 
 };
 

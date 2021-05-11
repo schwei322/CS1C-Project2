@@ -2,7 +2,6 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "expmonth.h"
 
 #ifdef QT_DEBUG
 bool debugMode = true;
@@ -27,10 +26,17 @@ MainWindow::MainWindow(QWidget *parent)
     ui->salesTable2->verticalHeader()->setVisible(false);
     ui->salesTable2->setSortingEnabled(true);
 
+    ui->expiredRegularTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->expiredRegularTable->verticalHeader()->setVisible(false);
+    ui->expiredRegularTable->setSortingEnabled(true);
+
+    ui->expiredExecutiveTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->expiredExecutiveTable->verticalHeader()->setVisible(false);
+    ui->expiredExecutiveTable->setSortingEnabled(true);
+
     ui->membersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->adminInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->adminMembersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
 
     this->displaySales();
 
@@ -92,6 +98,9 @@ void MainWindow::displayMembers()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+
+    this->ui->memberMainPanel->raise();
+    this->ui->memberBackBtn->hide();
 
     this->ui->members->raise();
 }
@@ -283,8 +292,65 @@ void MainWindow::displayMembersByDate()
     this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
 }
 
+void MainWindow::on_memberBackBtn_clicked()
+{
+    this->ui->memberMainPanel->raise();
+    this->ui->memberBackBtn->hide();
+}
+
+void MainWindow::on_memberRebatesBtn_clicked()
+{
+    this->ui->memberRebatesPanel->raise();
+    this->ui->memberBackBtn->show();
+}
+
+void MainWindow::on_memberPurchasesBtn_clicked()
+{
+    this->ui->memberPurchasesPanel->raise();
+    this->ui->memberBackBtn->show();
+}
+
 void MainWindow::on_memberExpirationBtn_clicked()
 {
-    expirationMonth = new expMonth(this, &this->database_manager);
-    expirationMonth->show();
+    this->ui->memberExpirationPanel->raise();
+    this->ui->memberBackBtn->show();
+}
+
+void MainWindow::on_expirationMonthSelect_currentIndexChanged()
+{
+    this->ui->expiredRegularTable->setRowCount(0);
+    this->ui->expiredExecutiveTable->setRowCount(0);
+
+    int month = this->ui->expirationMonthSelect->currentIndex() + 1;
+    QVector<Member> members = this->database_manager.get_report_expired_memberships_by_month(month);
+
+    for(Member& member : members)
+    {
+        if (member.get_membership_type() == "Regular")
+        {
+            this->ui->expiredRegularTable->insertRow(this->ui->expiredRegularTable ->rowCount());
+
+            QTableWidgetItem  *name = new QTableWidgetItem;
+            name->setData(Qt::EditRole, member.get_name());
+            this->ui->expiredRegularTable->setItem(this->ui->expiredRegularTable->rowCount() - 1, 0, name);
+
+            QTableWidgetItem  *costToRenew = new QTableWidgetItem;
+            costToRenew->setData(Qt::EditRole, "$65");
+            costToRenew->setTextAlignment(Qt::AlignRight);
+            this->ui->expiredRegularTable->setItem(this->ui->expiredRegularTable->rowCount() - 1, 1, costToRenew);
+        }
+        else
+        {
+            this->ui->expiredExecutiveTable->insertRow(this->ui->expiredExecutiveTable ->rowCount());
+
+            QTableWidgetItem  *name = new QTableWidgetItem;
+            name->setData(Qt::EditRole, member.get_name());
+            this->ui->expiredExecutiveTable->setItem(this->ui->expiredExecutiveTable->rowCount() - 1, 0, name);
+
+            QTableWidgetItem  *costToRenew = new QTableWidgetItem;
+            costToRenew->setData(Qt::EditRole, "$120");
+            costToRenew->setTextAlignment(Qt::AlignRight);
+            this->ui->expiredExecutiveTable->setItem(this->ui->expiredExecutiveTable->rowCount() - 1, 1, costToRenew);
+        }
+    }
 }
