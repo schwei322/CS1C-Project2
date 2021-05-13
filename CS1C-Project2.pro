@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    checkrabates.cpp \
     database_manager.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     miscellaneous_functions.cpp
 
 HEADERS += \
+    checkrabates.h \
     database_manager.h \
     mainwindow.h \
     member.h \
@@ -24,6 +26,7 @@ HEADERS += \
     miscellaneous_functions.h
 
 FORMS += \
+    checkrabates.ui \
     mainwindow.ui
 
 # Default rules for deployment.

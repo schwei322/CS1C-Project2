@@ -11,7 +11,13 @@
 #include <QtDebug>
 #include <QVector>
 
+#include <QApplication>
+#include <qdebug.h>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+
 #include "purchasedata.h"
+#include "member.h"
 
 const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBPATH");
 
@@ -25,6 +31,8 @@ private:
     QVector<PurchaseData> issue_purchases_query(QString command);
     QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
 
+    QVector<memberPurchase> aggregate_member_data(QSqlQuery query);
+    QVector<memberPurchase> issue_member_query(QString command);
 public:
     DatabaseManager();
     ~DatabaseManager();
@@ -41,6 +49,8 @@ public:
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
 
+
+    QVector<memberPurchase> get_all_purchases_per_member();
 };
 
 #endif // DATABASE_MANAGER_H

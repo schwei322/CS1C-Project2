@@ -1,46 +1,56 @@
 #ifndef MEMBER_H
 #define MEMBER_H
 
-#include <QtCore>
-typedef int Date; // ***Remove after you impliment Date class.***
+#include <QString>
+#include <QVariant>
 
-/// Brief Description
-///
-/// Detailed Description
+
 class Member
 {
+public:
+    Member();
+
+    QString getName();
+    int getMembershipNumber();
+    QString getMemberType();
+    QString getExpirationDate();
+    float getTotalAmountSpent();
+    float getRebateAmount();
+
+
+    void setName(QString name);
+    void setMembershipNumber(int membershipNumber);
+    void setMemberType(QString memberType);
+    void setExpirationDate(QString expirationDate);
+    void setTotalAmountSpent(float totalAmountSpent);
+    void setRebateAmount(float rebateAmount);
+
+    bool operator==(const Member& otherMember);
+
+    void print() const;
+
 private:
     QString name;
-    int* membership_number;
-    QString membership_type;
-    Date membership_expiration_date;
-    double total_amount_spent;
-    double rebate_amount;
+    int membershipNumber;
+    QString memberType;
+    QString expirationDate;
+    float totalAmountSpent;
+    float rebateAmount;
+};
 
+class memberPurchase: public Member
+{
+private:
+    float price;
+    int quantity;
 public:
-    Member(QString name, int* membership_number, QString membership_type, Date membership_expiration_date, double total_amount_spent, double rebate_amount);
-    Member(Member& mem);
-    ~Member();
+    float getPrice();
+    int getQuantity();
 
-    // Computational Methods
-    double calc_rebate() const;
-    double calc_annual_dues() const;
+    void setPrice(float price);
+    void setQuantity(int quantity);
 
-    // Accessor Methods
-    QString get_name() const;
-    int* get_membership_number() const;
-    QString get_membership_type() const;
-    Date get_membership_expiration_date() const;
-    double get_total_amount_spent() const;
-    double get_rebate_amount() const;
-
-    // Mutator Methods
-    void set_name(QString name);
-    void set_membership_number(int* membership_number);
-    void set_membership_type(QString membership_type);
-    void set_membership_expiration_date(Date membership_expiration_date);
-    void set_total_amount_spent(double total_amount_spent);
-    void set_rebate_amount(double rebate_amount);
+    void print() const;
 };
 
 #endif // MEMBER_H
