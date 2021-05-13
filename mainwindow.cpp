@@ -12,6 +12,8 @@ bool debugMode = false;
 #include <iostream>
 using namespace std;
 
+const double TAX = 0.0775;
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow), database_manager()
@@ -236,7 +238,7 @@ void MainWindow::displaySalesByDate()
         }
     }
 
-    this->ui->salesRevDisplay->setText("$" + QString::number(totalRevenue));
+    this->ui->salesRevDisplay->setText("$" + QString::number(totalRevenue + (totalRevenue * TAX), 'f', 2));
 }
 
 void MainWindow::displayMembersByDate()

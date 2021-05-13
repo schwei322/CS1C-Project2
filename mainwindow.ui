@@ -1119,7 +1119,7 @@ QLabel {
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>111</width>
+         <width>381</width>
          <height>31</height>
         </rect>
        </property>
@@ -1128,7 +1128,7 @@ QLabel {
 font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
        </property>
        <property name="text">
-        <string>Total revenue:</string>
+        <string>Total revenue with 7.75% tax</string>
        </property>
       </widget>
       <widget class="QLabel" name="salesRevDisplay">
@@ -1190,7 +1190,7 @@ QLabel {
 font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
        </property>
        <property name="text">
-        <string>Total shoppers:</string>
+        <string>Total shoppers</string>
        </property>
       </widget>
       <widget class="QLabel" name="salesShoppersDisplay">
@@ -1300,8 +1300,8 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     </widget>
     <zorder>admin</zorder>
     <zorder>sidebar</zorder>
-    <zorder>sales</zorder>
     <zorder>members</zorder>
+    <zorder>sales</zorder>
    </widget>
   </widget>
  </widget>
