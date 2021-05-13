@@ -36,12 +36,14 @@ public:
     QStringList get_itemInfo(QString item_name) const;
 
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
+    void update_rebateAmount(QString membership_number, QString rebate_amount) const;
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
 
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
     QVector<Member> get_report_expired_memberships_by_month(int month);
+    QVector<MemberPurchaseData> get_report_all_purchases_per_member();
 
 };
 

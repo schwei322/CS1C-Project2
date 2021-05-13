@@ -22,9 +22,6 @@ public:
     Member(QString name, int membership_number, QString membership_type, QString membership_expiration_date, double total_amount_spent, double rebate_amount);
     ~Member();
 
-    // Computational Methods
-    double calc_rebate() const;
-
     // Accessor Methods
     QString get_name() const;
     int get_membership_number() const;
@@ -40,6 +37,7 @@ public:
     void set_membership_expiration_date(QString membership_expiration_date);
     void set_total_amount_spent(double total_amount_spent);
     void set_rebate_amount(double rebate_amount);
+
 };
 
 #endif // MEMBER_H

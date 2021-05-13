@@ -28,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->salesTable2->verticalHeader()->setVisible(false);
     ui->salesTable2->setSortingEnabled(true);
 
+    ui->memberRebatesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->memberRebatesTable->verticalHeader()->setVisible(false);
+
     ui->expiredRegularTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->expiredRegularTable->verticalHeader()->setVisible(false);
     ui->expiredRegularTable->setSortingEnabled(true);
@@ -302,6 +305,69 @@ void MainWindow::on_memberBackBtn_clicked()
 
 void MainWindow::on_memberRebatesBtn_clicked()
 {
+    this->ui->memberRebatesTable->setRowCount(0);
+
+    QVector<MemberPurchaseData> purchaseDataList = this->database_manager.get_report_all_purchases_per_member();
+
+    QVector<MemberPurchaseData> newPurchaseDataList;
+    QVector<int> tempMemberVec;
+
+    for(MemberPurchaseData& data : purchaseDataList)
+    {
+       if (!tempMemberVec.contains(data.getMembershipNumber()))
+       {
+           MemberPurchaseData purchaseData;
+
+           purchaseData.setName(data.getName());
+           purchaseData.setMembershipNumber(data.getMembershipNumber());
+           purchaseData.setPrice(data.getPrice());
+           purchaseData.setQuantity(data.getQuantity());
+
+           newPurchaseDataList.append(purchaseData);
+           tempMemberVec.append(data.getMembershipNumber());
+       }
+    }
+
+    for(MemberPurchaseData& newListData : newPurchaseDataList)
+    {
+        for (MemberPurchaseData& oldListData : purchaseDataList)
+        {
+            if (newListData.getMembershipNumber() == oldListData.getMembershipNumber())
+            {
+                newListData.setTotalSpent(newListData.getTotalSpent()  + (oldListData.getQuantity()* oldListData.getPrice()));
+            }
+        }
+    }
+
+    for(MemberPurchaseData& data : newPurchaseDataList)
+    {
+        this->ui->memberRebatesTable->insertRow(this->ui->memberRebatesTable ->rowCount());
+        qDebug() << data.getName();
+        QTableWidgetItem  *name = new QTableWidgetItem;
+        name->setData(Qt::EditRole, data.getName());
+        name->setToolTip(data.getName());
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 0, name);
+
+        QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+        membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+        membershipNumber->setTextAlignment(Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 1, membershipNumber);
+
+        double totalSpentAmount = data.getTotalSpent();
+        QTableWidgetItem  *spent = new QTableWidgetItem;
+        spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
+        spent->setTextAlignment(Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 2, spent);
+        this->database_manager.update_totalAmountSpent(QString::number(data.getMembershipNumber()), QString::number(totalSpentAmount));
+
+        double rebateAmount = data.getTotalSpent() * 0.02;
+        QTableWidgetItem  *rebate = new QTableWidgetItem;
+        rebate->setData(Qt::EditRole, "$" + QString::number(rebateAmount, 'f', 2));
+        rebate->setTextAlignment(Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 3, rebate);
+        this->database_manager.update_rebateAmount(QString::number(data.getMembershipNumber()), QString::number(rebateAmount));
+    }
+
     this->ui->memberRebatesPanel->raise();
     this->ui->memberBackBtn->show();
 }

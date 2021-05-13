@@ -479,12 +479,52 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
         <height>721</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QTableWidget {
+	border: 3px solid rgb(0, 76, 76);
+}</string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
+      <widget class="QTableWidget" name="memberRebatesTable">
+       <property name="geometry">
+        <rect>
+         <x>15</x>
+         <y>11</y>
+         <width>1101</width>
+         <height>701</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;
+</string>
+       </property>
+       <column>
+        <property name="text">
+         <string>Name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Membership number</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Total spent</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Rebate</string>
+        </property>
+       </column>
+      </widget>
      </widget>
      <widget class="QFrame" name="memberPurchasesPanel">
       <property name="geometry">
@@ -718,11 +758,11 @@ QPushButton:hover {
      <zorder>memberRebatesBtn</zorder>
      <zorder>memberPurchasesBtn</zorder>
      <zorder>memberExpirationBtn</zorder>
-     <zorder>memberRebatesPanel</zorder>
      <zorder>memberPurchasesPanel</zorder>
      <zorder>memberMainPanel</zorder>
      <zorder>memberBackBtn</zorder>
      <zorder>memberExpirationPanel</zorder>
+     <zorder>memberRebatesPanel</zorder>
     </widget>
     <widget class="QFrame" name="admin">
      <property name="geometry">
@@ -1300,8 +1340,8 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     </widget>
     <zorder>admin</zorder>
     <zorder>sidebar</zorder>
-    <zorder>members</zorder>
     <zorder>sales</zorder>
+    <zorder>members</zorder>
    </widget>
   </widget>
  </widget>

@@ -261,6 +261,35 @@ void DatabaseManager::update_totalAmountSpent(QString membership_number, QString
  *      @return N/A
 *******************************************************************************/
 
+void DatabaseManager::update_rebateAmount(QString membership_number, QString rebate_amount) const
+{
+    QSqlQuery query(database);
+    QStringList membersData;
+    QString sql_command = "UPDATE Member SET rebate_amount='" + rebate_amount +"' WHERE membership_number='" + membership_number + "'";
+
+    if (!query.exec(sql_command))
+    {
+
+        qDebug() << "Error = " << database.lastError();
+
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      update_totalAmountSpent
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
 void DatabaseManager::insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const
 {
     QSqlQuery query(database);
@@ -464,6 +493,66 @@ QVector<Member> DatabaseManager::get_report_expired_memberships_by_month(int mon
     if(query.exec())
     {
         result = aggregate_member_data(query);
+    }
+    else
+    {
+        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
+    }
+
+    return result;
+}
+
+QVector<MemberPurchaseData> DatabaseManager::get_report_all_purchases_per_member()
+{
+    if (!database.isOpen())
+    {
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName(databasePath);
+        database.open();
+    }
+
+    QString str = "SELECT Member.name, Member.membership_number, Purchase.price, Purchase.quantity FROM Member LEFT JOIN Purchase ON Member.membership_number = Purchase.membership_number WHERE Member.membership_type = 'Executive' ORDER BY Member.membership_number";
+
+    QVector<MemberPurchaseData> result;
+
+    QSqlQuery query(database);
+    query.prepare(str);
+
+    qDebug() << str << "\n";
+
+    if(query.exec())
+    {
+        int columnNum = query.record().count();
+
+        while(query.next())
+        {
+
+            MemberPurchaseData purchaseData;
+
+            for(int i = 0; i < columnNum; i++)
+            {
+                switch(i)
+                {
+                    case 0: // Name
+                        purchaseData.setName(query.value(i).toString());
+                        break;
+                    case 1: // MembershipNumber
+                        purchaseData.setMembershipNumber(query.value(i).toInt());
+                        break;
+                    case 2: // Price
+                        purchaseData.setPrice(query.value(i).toFloat());
+                        break;
+                    case 3: // Quantity
+                        purchaseData.setQuantity(query.value(i).toInt());
+                        break;
+                    default:
+                        qDebug() << "Invalid column number : " << i;
+                        break;
+                }
+            }
+
+            result.append(purchaseData);
+        }
     }
     else
     {
