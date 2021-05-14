@@ -42,6 +42,11 @@
      <string>rebate</string>
     </property>
    </column>
+   <column>
+    <property name="text">
+     <string>Number of Recommended Conversions</string>
+    </property>
+   </column>
   </widget>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
