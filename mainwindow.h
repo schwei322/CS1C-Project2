@@ -7,6 +7,7 @@
 #include "addmemberdialog.h"
 #include "deletememberdialog.h"
 #include "updateitemdialog.h"
+#include "addpurchasedialog.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -39,6 +40,10 @@ private slots:
     void on_adminLoadInventoryBtn_clicked();
 
     void on_btn_adminUpdateItemPrice_clicked();
+
+    void on_adminLoadMemBtn_2_clicked();
+
+    void on_btn_addPurchase_clicked();
 
 private:
     Ui::MainWindow *ui;

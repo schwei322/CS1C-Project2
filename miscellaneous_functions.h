@@ -4,6 +4,6 @@
 #include <QtCore>
 
 double string_to_double(QString str);
-
+bool checkIfEmpty(const QString contents);
 
 #endif // MISCELLANEOUS_FUNCTIONS_H

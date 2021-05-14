@@ -31,3 +31,10 @@ double string_to_double(QString str)
 
     return double_value;
 }
+
+
+bool checkIfEmpty(const QString contents)
+{
+     if(contents.trimmed()=="") return true;
+     else return false;
+}

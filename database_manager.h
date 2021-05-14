@@ -8,6 +8,7 @@
 #include <QSqlError>
 #include <QtDebug>
 #include <QVector>
+#include "date.h"
 
 /// Class instance connects to Bulk Club's database.
 ///
@@ -23,8 +24,10 @@ public:
 
     void add_member(QString member_name, QString member_type) const;
     void delete_member(QString member_name, QString membership_id) const;
+    bool check_member_existance(QString membership_number) const;
     bool check_member_existance(QString member_name, QString membership_number) const;
     QStringList get_memberInfo(QString membership_number) const;
+    void add_member_purchase(QString membership_number, QString product, QString price, QString quantity, QString date) const;
     QVector<QStringList> get_memberPurchases(QString membership_number) const;
     QStringList get_itemInfo(QString item_name) const;
 

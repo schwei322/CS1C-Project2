@@ -101,6 +101,43 @@ void Database_manager::delete_member(QString member_name, QString membership_id)
 /****************************************************************************//**
  *      check_member_existance
  * ____________________________________________________________________________
+ * Method checks if member exists by using corresponding arguements. Returns
+ * true if member exists; otherwise method returns false.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+bool Database_manager::check_member_existance(QString membership_number) const
+{
+    QString command = "SELECT EXISTS(SELECT 1 FROM Member WHERE membership_number='"+membership_number+"')";
+    QSqlQuery sql_query;
+    QString item_exists;
+
+    if(sql_query.exec(command))
+    {
+        while (sql_query.next())
+        {
+            item_exists.append( sql_query.value(0).toString() );
+        }
+    }
+    else
+    {
+        qDebug() << "Check NOT successful!";
+    }
+
+    return item_exists.toInt();
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      check_member_existance
+ * ____________________________________________________________________________
  * Method checks if member exists of corresponding arguements exists. Returns
  * true if member exists; otherwise method returns false.
  * ____________________________________________________________________________
@@ -178,6 +215,45 @@ QStringList Database_manager::get_memberInfo(QString membership_number) const
         qDebug() << "Error = " << database.lastError();
     }
     return membersData;
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      add_member_purchase
+ * ____________________________________________________________________________
+ * Method adds a purchase for a specific member. Purchase is tied to member's
+ * id (member_number).
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void Database_manager::add_member_purchase(QString membership_number, QString product, QString price, QString quantity, QString date) const
+{
+    QSqlQuery sql_query;
+    QString sql_command;
+    sql_command = "INSERT INTO Purchase (membership_number, product, price, quantity, date) VALUES('"+membership_number+"','"+product+"','"+price+"','"+quantity+"','"+date+"')";
+
+    // First check if member exists. Cannot add purchase to a non existant member
+    if (check_member_existance(membership_number) == false)
+    {
+        qDebug() << "Purchase did not insert. Reason: Member does not exist.";
+        return;
+    }
+
+    if(!sql_query.exec(sql_command))
+    {
+        qDebug() << sql_query.lastError();
+    }
+    else
+    {
+        qDebug() << "Purchase Inserted Successful! [member_number: " << membership_number << " ]";
+    }
 }
 /*******************************************************************************/
 

@@ -121,3 +121,9 @@ void MainWindow::on_btn_adminUpdateItemPrice_clicked()
 }
 
 
+
+void MainWindow::on_btn_addPurchase_clicked()
+{
+    AddPurchaseDialog dialog;
+    dialog.exec();
+}

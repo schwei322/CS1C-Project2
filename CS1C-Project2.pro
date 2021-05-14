@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     additemdialog.cpp \
     addmemberdialog.cpp \
+    addpurchasedialog.cpp \
     database_manager.cpp \
     date.cpp \
     deleteitemdialog.cpp \
@@ -24,6 +25,7 @@ SOURCES += \
 HEADERS += \
     additemdialog.h \
     addmemberdialog.h \
+    addpurchasedialog.h \
     database_manager.h \
     date.h \
     deleteitemdialog.h \
@@ -36,6 +38,7 @@ HEADERS += \
 FORMS += \
     additemdialog.ui \
     addmemberdialog.ui \
+    addpurchasedialog.ui \
     deleteitemdialog.ui \
     deletememberdialog.ui \
     mainwindow.ui \

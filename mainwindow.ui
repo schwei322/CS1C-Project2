@@ -765,6 +765,32 @@ QPushButton:hover {
          <string>Delete Member</string>
         </property>
        </widget>
+       <widget class="QPushButton" name="btn_addPurchase">
+        <property name="geometry">
+         <rect>
+          <x>450</x>
+          <y>10</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+        </property>
+        <property name="text">
+         <string>Add Purchase for Member</string>
+        </property>
+       </widget>
       </widget>
      </widget>
     </widget>
