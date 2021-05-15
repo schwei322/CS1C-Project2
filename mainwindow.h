@@ -32,7 +32,6 @@ public slots:
 private slots:
     void on_memberBackBtn_clicked();
     void on_memberRebatesBtn_clicked();
-    void on_memberPurchasesBtn_clicked();
     void on_memberExpirationBtn_clicked();
     void on_expirationMonthSelect_currentIndexChanged();
 

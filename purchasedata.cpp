@@ -77,7 +77,19 @@ bool PurchaseData::operator==(const PurchaseData& otherPurchaseData)
 
 MemberPurchaseData::MemberPurchaseData()
 {
+    this->membershipType = "";
+    this->expirationDate = "";
     this->totalSpent = 0.0;
+}
+
+QString MemberPurchaseData::getMembershipType() const
+{
+    return this->membershipType;
+}
+
+QString MemberPurchaseData::getExpirationDate() const
+{
+    return this->expirationDate;
 }
 
 double MemberPurchaseData::getTotalSpent() const
@@ -85,7 +97,28 @@ double MemberPurchaseData::getTotalSpent() const
     return this->totalSpent;
 }
 
+double MemberPurchaseData::getRebateAmount() const
+{
+    return this->rebateAmount;
+}
+
+void MemberPurchaseData::setMembershipType(QString membershipType)
+{
+    this->membershipType = membershipType;
+}
+
+void MemberPurchaseData::setExpirationDate(QString expirationDate)
+{
+    this->expirationDate = expirationDate;
+}
+
 void MemberPurchaseData::setTotalSpent(double totalSpent)
 {
     this->totalSpent = totalSpent;
 }
+
+void MemberPurchaseData::setRebateAmount(double rebateAmount)
+{
+    this->rebateAmount = rebateAmount;
+}
+

@@ -414,27 +414,27 @@ QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
         {
             switch(i)
             {
-            case 0: // name
-                member.set_name(query.value(i).toString());
-                break;
-            case 1: // membership_number
-                member.set_membership_number(query.value(i).toInt());
-                break;
-            case 2: // membership_type
-                member.set_membership_type(query.value(i).toString());
-                break;
-            case 3: // membership_expiration_date
-                member.set_membership_expiration_date(query.value(i).toString());
-                break;
-            case 4: // total_amount_spent
-                member.set_total_amount_spent(query.value(i).toDouble());
-                break;
-            case 5: // rebate amount
-                member.set_rebate_amount(query.value(i).toDouble());
-                break;
-            default:
-                qDebug() << "Invalid column number : " << i;
-                break;
+                case 0: // name
+                    member.set_name(query.value(i).toString());
+                    break;
+                case 1: // membership_number
+                    member.set_membership_number(query.value(i).toInt());
+                    break;
+                case 2: // membership_type
+                    member.set_membership_type(query.value(i).toString());
+                    break;
+                case 3: // membership_expiration_date
+                    member.set_membership_expiration_date(query.value(i).toString());
+                    break;
+                case 4: // total_amount_spent
+                    member.set_total_amount_spent(query.value(i).toFloat());
+                    break;
+                case 5: // rebate amount
+                    member.set_rebate_amount(query.value(i).toFloat());
+                    break;
+                default:
+                    qDebug() << "Invalid column number : " << i;
+                    break;
             }
         }
 
@@ -511,7 +511,7 @@ QVector<MemberPurchaseData> DatabaseManager::get_report_all_purchases_per_member
         database.open();
     }
 
-    QString str = "SELECT Member.name, Member.membership_number, Purchase.price, Purchase.quantity FROM Member LEFT JOIN Purchase ON Member.membership_number = Purchase.membership_number WHERE Member.membership_type = 'Executive' ORDER BY Member.membership_number";
+    QString str = "SELECT Member.name, Member.membership_number, Member.membership_type, Member.expiration_date, Member.total_amount_spent, Member.rebate_amount, Purchase.price, Purchase.quantity FROM Member LEFT JOIN Purchase ON Member.membership_number = Purchase.membership_number ORDER BY Member.membership_number";
 
     QVector<MemberPurchaseData> result;
 
@@ -539,10 +539,22 @@ QVector<MemberPurchaseData> DatabaseManager::get_report_all_purchases_per_member
                     case 1: // MembershipNumber
                         purchaseData.setMembershipNumber(query.value(i).toInt());
                         break;
-                    case 2: // Price
+                    case 2: // MembershipType
+                        purchaseData.setMembershipType(query.value(i).toString());
+                        break;
+                    case 3: // ExpirationDate
+                        purchaseData.setExpirationDate(query.value(i).toString());
+                        break;
+                    case 4: // TotalSpent
+                        purchaseData.setTotalSpent(query.value(i).toFloat());
+                        break;
+                    case 5: // RebateAmount
+                        purchaseData.setRebateAmount(query.value(i).toFloat());
+                        break;
+                    case 6: // Price
                         purchaseData.setPrice(query.value(i).toFloat());
                         break;
-                    case 3: // Quantity
+                    case 7: // Quantity
                         purchaseData.setQuantity(query.value(i).toInt());
                         break;
                     default:

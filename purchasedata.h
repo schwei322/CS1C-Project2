@@ -40,12 +40,21 @@ class MemberPurchaseData : public PurchaseData
 public:
     MemberPurchaseData();
 
+    QString getMembershipType() const;
+    QString getExpirationDate() const;
     double getTotalSpent() const;
+    double getRebateAmount() const;
 
+    void setMembershipType(QString membershipType);
+    void setExpirationDate(QString expirationDate);
     void setTotalSpent(double totalSpent);
+    void setRebateAmount(double rebateAmount);
 
 private:
+    QString membershipType;
+    QString expirationDate;
     double totalSpent;
+    double rebateAmount;
 
 };
 
