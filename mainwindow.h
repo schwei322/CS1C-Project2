@@ -34,6 +34,8 @@ private slots:
     void on_memberRebatesBtn_clicked();
     void on_memberExpirationBtn_clicked();
     void on_expirationMonthSelect_currentIndexChanged();
+    void on_salesSearchInput_textChanged();
+    void on_memberSearchInput_textChanged();
 
 private:
     Ui::MainWindow *ui;

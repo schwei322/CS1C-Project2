@@ -490,3 +490,271 @@ void MainWindow::on_expirationMonthSelect_currentIndexChanged()
         }
     }
 }
+
+void MainWindow::on_salesSearchInput_textChanged()
+{
+    if (this->ui->salesSearchInput->text() == "")
+    {
+        displaySalesByDate();
+        displayMembersByDate();
+    }
+    else
+    {
+        this->ui->salesTable->setRowCount(0);
+
+        QStringList memberOptions;
+
+        memberOptions << "All members" << "Regular" << "Executive";
+
+        int memberSelectionIndex = memberOptions.indexOf(this->ui->membersFilterSelect->currentText());
+
+        QStringList dateOptions;
+
+        dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+
+        QVector<PurchaseData> purchaseDataList;
+
+        double totalRevenue = 0;
+
+        int selectionIndex = dateOptions.indexOf(this->ui->salesFilterSelect->currentText());
+        if (selectionIndex == 0)
+        {
+            purchaseDataList = this->database_manager.get_report_all_purchases();
+
+            QVector<PurchaseData> newPurchaseDataList;
+
+            QVector<QString> tempProductVec;
+            for(PurchaseData& data : purchaseDataList)
+            {
+                QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
+
+                if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
+                {
+                    if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                    {
+                        PurchaseData purchase;
+
+                        purchase.setDate("");
+                        purchase.setMembershipNumber(0);
+                        purchase.setPrice(data.getPrice());
+                        purchase.setProduct(data.getProduct());
+                        purchase.setQuantity(0);
+
+                        newPurchaseDataList.append(purchase);
+                        tempProductVec.append(data.getProduct());
+                    }
+                }
+            }
+
+            for(PurchaseData& newListData : newPurchaseDataList)
+            {
+                for (PurchaseData& oldListData : purchaseDataList)
+                {
+                    if (newListData == oldListData)
+                    {
+                        newListData.setQuantity(newListData.getQuantity() + oldListData.getQuantity());
+                    }
+                }
+            }
+
+            for(PurchaseData& data : newPurchaseDataList)
+            {
+                this->ui->salesTable->insertRow(this->ui->salesTable ->rowCount());
+
+                QTableWidgetItem  *product = new QTableWidgetItem;
+                product->setData(Qt::EditRole, data.getProduct());
+                product->setToolTip(data.getProduct());
+                this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 0, product);
+
+                QTableWidgetItem  *quantity = new QTableWidgetItem;
+                quantity->setData(Qt::EditRole, data.getQuantity());
+                quantity->setTextAlignment(Qt::AlignRight);
+                this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
+
+                QTableWidgetItem  *revenue = new QTableWidgetItem;
+                revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
+                revenue->setTextAlignment(Qt::AlignRight);
+                this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
+
+                totalRevenue += data.getPrice() * data.getQuantity();
+            }
+        }
+        else
+        {
+            QDate date = QDate(2021, 4, dateOptions.indexOf(this->ui->salesFilterSelect->currentText()));
+
+            purchaseDataList = this->database_manager.get_report_purchases_by_date(date);
+
+            QVector<int> tempMemberVec;
+            for(PurchaseData& data : purchaseDataList)
+            {
+                QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
+
+                if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                        || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+                {
+                    if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                    {
+                        tempMemberVec.append(data.getMembershipNumber());
+                    }
+                }
+            }
+
+            for(PurchaseData& data : purchaseDataList)
+            {
+                if (tempMemberVec.contains(data.getMembershipNumber()))
+                {
+                    this->ui->salesTable->insertRow(this->ui->salesTable ->rowCount());
+
+                    QTableWidgetItem  *product = new QTableWidgetItem;
+                    product->setData(Qt::EditRole, data.getProduct());
+                    product->setToolTip(data.getProduct());
+                    this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 0, product);
+
+                    QTableWidgetItem  *quantity = new QTableWidgetItem;
+                    quantity->setData(Qt::EditRole, data.getQuantity());
+                    quantity->setTextAlignment(Qt::AlignRight);
+                    this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
+
+                    QTableWidgetItem  *revenue = new QTableWidgetItem;
+                    revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
+                    revenue->setTextAlignment(Qt::AlignRight);
+                    this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
+
+                    totalRevenue += data.getPrice() * data.getQuantity();
+                }
+            }
+        }
+
+        this->ui->salesRevDisplay->setText("$" + QString::number(totalRevenue + (totalRevenue * TAX), 'f', 2));
+
+        this->ui->salesTable2->setRowCount(0);
+
+        QVector<PurchaseData> purchaseDataList2;
+
+        int dataSelectionIndex = dateOptions.indexOf(this->ui->salesFilterSelect->currentText());
+        if (dataSelectionIndex > 0 && dataSelectionIndex < dateOptions.size())
+        {
+            QDate date = QDate(2021, 4, dateOptions.indexOf(this->ui->salesFilterSelect->currentText()));
+
+            purchaseDataList2 = this->database_manager.get_report_purchases_by_date(date);
+        }
+        else
+        {
+            purchaseDataList2 = this->database_manager.get_report_all_purchases();
+        }
+
+        QVector<int> tempMemberVec;
+        for(PurchaseData& data : purchaseDataList2)
+        {
+            QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
+
+            if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                    || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+            {
+                if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                {
+                    this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
+
+                    this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem(memberInfo.at(0)));
+
+                    QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+                    membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+                    membershipNumber->setTextAlignment(Qt::AlignRight);
+                    this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
+
+                    tempMemberVec.append(data.getMembershipNumber());
+                }
+            }
+        }
+
+        this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+    }
+}
+
+void MainWindow::on_memberSearchInput_textChanged()
+{
+    if (this->ui->memberSearchInput->text() == "")
+    {
+        displayMembers();
+    }
+    else
+    {
+        this->ui->memberTable->setRowCount(0);
+
+        QVector<MemberPurchaseData> purchaseDataList = this->database_manager.get_report_all_purchases_per_member();
+
+        QVector<MemberPurchaseData> newPurchaseDataList;
+        QVector<int> tempMemberVec;
+
+        for(MemberPurchaseData& data : purchaseDataList)
+        {
+           if (!tempMemberVec.contains(data.getMembershipNumber()))
+           {
+               if (data.getName().toLower().indexOf(this->ui->memberSearchInput->text().toLower(), 0) != -1
+                       || QString::number(data.getMembershipNumber()).toLower().indexOf(this->ui->memberSearchInput->text().toLower(), 0) != -1)
+               {
+                   MemberPurchaseData purchaseData;
+
+                   purchaseData.setName(data.getName());
+                   purchaseData.setMembershipNumber(data.getMembershipNumber());
+                   purchaseData.setMembershipType(data.getMembershipType());
+                   purchaseData.setExpirationDate(data.getExpirationDate());
+                   purchaseData.setPrice(data.getPrice());
+                   purchaseData.setQuantity(data.getQuantity());
+
+                   newPurchaseDataList.append(purchaseData);
+                   tempMemberVec.append(data.getMembershipNumber());
+                }
+           }
+        }
+
+        for(MemberPurchaseData& newListData : newPurchaseDataList)
+        {
+            for (MemberPurchaseData& oldListData : purchaseDataList)
+            {
+                if (newListData.getMembershipNumber() == oldListData.getMembershipNumber())
+                {
+                    newListData.setTotalSpent(newListData.getTotalSpent()  + (oldListData.getQuantity()* oldListData.getPrice()));
+                }
+            }
+        }
+
+        double grandTotal = 0;
+        for(MemberPurchaseData& data : newPurchaseDataList)
+        {
+            this->ui->memberTable->insertRow(this->ui->memberTable ->rowCount());
+
+            QTableWidgetItem  *name = new QTableWidgetItem;
+            name->setData(Qt::EditRole, data.getName());
+            name->setToolTip(data.getName());
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 0, name);
+
+            QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+            membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+            membershipNumber->setTextAlignment(Qt::AlignRight);
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 1, membershipNumber);
+
+            QString membershipType = data.getMembershipType();
+            QTableWidgetItem  *type = new QTableWidgetItem;
+            type->setData(Qt::EditRole, membershipType);
+            type->setTextAlignment(Qt::AlignRight);
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 2, type);
+
+            QTableWidgetItem  *date = new QTableWidgetItem;
+            date->setData(Qt::EditRole, data.getExpirationDate());
+            date->setTextAlignment(Qt::AlignRight);
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 3, date);
+
+            double totalSpentAmount = data.getTotalSpent() + (data.getTotalSpent() * TAX);
+            QTableWidgetItem  *spent = new QTableWidgetItem;
+            spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
+            spent->setTextAlignment(Qt::AlignRight);
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 4, spent);
+
+            grandTotal += totalSpentAmount;
+        }
+
+        this->ui->memberTotalDisplay->setText("$" + QString::number(grandTotal, 'f', 2));
+    }
+}
