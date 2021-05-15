@@ -73,20 +73,28 @@ void MainWindow::userLogin()
 
     if (this->ui->usernameInput->text() == adminUsername && this->ui->passwordInput->text() == adminPassword)
     {
+        this->ui->admin->show();
         this->ui->adminBtn->show();
         this->ui->loginPanel->hide();
+        this->ui->memberTable->setColumnHidden(5, false);
     }
     else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
         this->ui->adminBtn->hide();
         this->ui->loginPanel->hide();
+        this->ui->memberTable->setColumnHidden(5, true);
     }
+
+    this->ui->usernameInput->clear();
+    this->ui->passwordInput->clear();
 }
 
 void MainWindow::userLogout()
 {
+    this->ui->admin->hide();
     this->ui->adminBtn->hide();
     this->ui->loginPanel->show();
+    this->ui->loginPanel->raise();
 }
 
 void MainWindow::displaySales()
@@ -114,7 +122,7 @@ void MainWindow::displayMembers()
     QVector<MemberPurchaseData> newPurchaseDataList;
     QVector<int> tempMemberVec;
 
-    for(MemberPurchaseData& data : purchaseDataList)
+    for (MemberPurchaseData& data : purchaseDataList)
     {
        if (!tempMemberVec.contains(data.getMembershipNumber()))
        {
@@ -132,7 +140,7 @@ void MainWindow::displayMembers()
        }
     }
 
-    for(MemberPurchaseData& newListData : newPurchaseDataList)
+    for (MemberPurchaseData& newListData : newPurchaseDataList)
     {
         for (MemberPurchaseData& oldListData : purchaseDataList)
         {
@@ -144,7 +152,7 @@ void MainWindow::displayMembers()
     }
 
     double grandTotal = 0;
-    for(MemberPurchaseData& data : newPurchaseDataList)
+    for (MemberPurchaseData& data : newPurchaseDataList)
     {
         this->ui->memberTable->insertRow(this->ui->memberTable ->rowCount());
 
@@ -155,28 +163,57 @@ void MainWindow::displayMembers()
 
         QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
         membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-        membershipNumber->setTextAlignment(Qt::AlignRight);
+        membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 1, membershipNumber);
 
         QString membershipType = data.getMembershipType();
         QTableWidgetItem  *type = new QTableWidgetItem;
         type->setData(Qt::EditRole, membershipType);
-        type->setTextAlignment(Qt::AlignRight);
+        type->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 2, type);
 
         QTableWidgetItem  *date = new QTableWidgetItem;
         date->setData(Qt::EditRole, data.getExpirationDate());
-        date->setTextAlignment(Qt::AlignRight);
+        date->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 3, date);
 
         double totalSpentAmount = data.getTotalSpent() + (data.getTotalSpent() * TAX);
         QTableWidgetItem  *spent = new QTableWidgetItem;
         spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
-        spent->setTextAlignment(Qt::AlignRight);
+        spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 4, spent);
 
+
+        double totalSpentAmountWithoutTaxes = totalSpentAmount - (totalSpentAmount * TAX);
+        QTableWidgetItem  *recommendedConversion = new QTableWidgetItem;
+
+        if (membershipType == "Executive")
+        {
+            if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+            {
+                recommendedConversion->setData(Qt::EditRole, "OK");
+            }
+            else
+            {
+                recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+            }
+        }
+        else if (membershipType == "Regular")
+        {
+            if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+            {
+                recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
+            }
+            else
+            {
+                recommendedConversion->setData(Qt::EditRole, "OK");
+            }
+        }
+
+        this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 5, recommendedConversion);
+
         this->database_manager.update_totalAmountSpent(QString::number(data.getMembershipNumber()), QString::number(totalSpentAmount));
-        this->database_manager.update_rebateAmount(QString::number(data.getMembershipNumber()), QString::number(membershipType == "Executive" ? ((totalSpentAmount - (totalSpentAmount * TAX)) * 0.02) : 0));
+        this->database_manager.update_rebateAmount(QString::number(data.getMembershipNumber()), QString::number(membershipType == "Executive" ? totalSpentAmountWithoutTaxes * 0.02 : 0));
 
         grandTotal += totalSpentAmount;
     }
@@ -265,12 +302,12 @@ void MainWindow::displaySalesByDate()
 
             QTableWidgetItem  *quantity = new QTableWidgetItem;
             quantity->setData(Qt::EditRole, data.getQuantity());
-            quantity->setTextAlignment(Qt::AlignRight);
+            quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
             QTableWidgetItem  *revenue = new QTableWidgetItem;
             revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-            revenue->setTextAlignment(Qt::AlignRight);
+            revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
             totalRevenue += data.getPrice() * data.getQuantity();
@@ -307,12 +344,12 @@ void MainWindow::displaySalesByDate()
 
                 QTableWidgetItem  *quantity = new QTableWidgetItem;
                 quantity->setData(Qt::EditRole, data.getQuantity());
-                quantity->setTextAlignment(Qt::AlignRight);
+                quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
                 QTableWidgetItem  *revenue = new QTableWidgetItem;
                 revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-                revenue->setTextAlignment(Qt::AlignRight);
+                revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
                 totalRevenue += data.getPrice() * data.getQuantity();
@@ -366,7 +403,7 @@ void MainWindow::displayMembersByDate()
 
             QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
             membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-            membershipNumber->setTextAlignment(Qt::AlignRight);
+            membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
             tempMemberVec.append(data.getMembershipNumber());
@@ -420,17 +457,17 @@ void MainWindow::on_memberRebatesBtn_clicked()
 
         QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
         membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-        membershipNumber->setTextAlignment(Qt::AlignRight);
+        membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 1, membershipNumber);
 
         QTableWidgetItem  *spent = new QTableWidgetItem;
         spent->setData(Qt::EditRole, "$" + QString::number(data.getTotalSpent(), 'f', 2));
-        spent->setTextAlignment(Qt::AlignRight);
+        spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 2, spent);
 
         QTableWidgetItem  *rebate = new QTableWidgetItem;
         rebate->setData(Qt::EditRole, "$" + QString::number(data.getRebateAmount(), 'f', 2));
-        rebate->setTextAlignment(Qt::AlignRight);
+        rebate->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 3, rebate);
     }
 
@@ -472,7 +509,7 @@ void MainWindow::on_expirationMonthSelect_currentIndexChanged()
 
             QTableWidgetItem  *costToRenew = new QTableWidgetItem;
             costToRenew->setData(Qt::EditRole, "$65");
-            costToRenew->setTextAlignment(Qt::AlignRight);
+            costToRenew->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->expiredRegularTable->setItem(this->ui->expiredRegularTable->rowCount() - 1, 1, costToRenew);
         }
         else
@@ -485,7 +522,7 @@ void MainWindow::on_expirationMonthSelect_currentIndexChanged()
 
             QTableWidgetItem  *costToRenew = new QTableWidgetItem;
             costToRenew->setData(Qt::EditRole, "$120");
-            costToRenew->setTextAlignment(Qt::AlignRight);
+            costToRenew->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->expiredExecutiveTable->setItem(this->ui->expiredExecutiveTable->rowCount() - 1, 1, costToRenew);
         }
     }
@@ -568,12 +605,12 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                 QTableWidgetItem  *quantity = new QTableWidgetItem;
                 quantity->setData(Qt::EditRole, data.getQuantity());
-                quantity->setTextAlignment(Qt::AlignRight);
+                quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
                 QTableWidgetItem  *revenue = new QTableWidgetItem;
                 revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-                revenue->setTextAlignment(Qt::AlignRight);
+                revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
                 totalRevenue += data.getPrice() * data.getQuantity();
@@ -613,12 +650,12 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                     QTableWidgetItem  *quantity = new QTableWidgetItem;
                     quantity->setData(Qt::EditRole, data.getQuantity());
-                    quantity->setTextAlignment(Qt::AlignRight);
+                    quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                     this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
                     QTableWidgetItem  *revenue = new QTableWidgetItem;
                     revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-                    revenue->setTextAlignment(Qt::AlignRight);
+                    revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                     this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
                     totalRevenue += data.getPrice() * data.getQuantity();
@@ -660,7 +697,7 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                     QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
                     membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-                    membershipNumber->setTextAlignment(Qt::AlignRight);
+                    membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                     this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
                     tempMemberVec.append(data.getMembershipNumber());
@@ -732,25 +769,53 @@ void MainWindow::on_memberSearchInput_textChanged()
 
             QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
             membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-            membershipNumber->setTextAlignment(Qt::AlignRight);
+            membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 1, membershipNumber);
 
             QString membershipType = data.getMembershipType();
             QTableWidgetItem  *type = new QTableWidgetItem;
             type->setData(Qt::EditRole, membershipType);
-            type->setTextAlignment(Qt::AlignRight);
+            type->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 2, type);
 
             QTableWidgetItem  *date = new QTableWidgetItem;
             date->setData(Qt::EditRole, data.getExpirationDate());
-            date->setTextAlignment(Qt::AlignRight);
+            date->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 3, date);
 
             double totalSpentAmount = data.getTotalSpent() + (data.getTotalSpent() * TAX);
             QTableWidgetItem  *spent = new QTableWidgetItem;
             spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
-            spent->setTextAlignment(Qt::AlignRight);
+            spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 4, spent);
+
+            double totalSpentAmountWithoutTaxes = totalSpentAmount - (totalSpentAmount * TAX);
+            QTableWidgetItem  *recommendedConversion = new QTableWidgetItem;
+
+            if (membershipType == "Executive")
+            {
+                if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+                {
+                    recommendedConversion->setData(Qt::EditRole, "OK");
+                }
+                else
+                {
+                    recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+                }
+            }
+            else if (membershipType == "Regular")
+            {
+                if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+                {
+                    recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
+                }
+                else
+                {
+                    recommendedConversion->setData(Qt::EditRole, "OK");
+                }
+            }
+
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 5, recommendedConversion);
 
             grandTotal += totalSpentAmount;
         }

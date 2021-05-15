@@ -455,6 +455,11 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
          <string>Total spent</string>
         </property>
        </column>
+       <column>
+        <property name="text">
+         <string>Status</string>
+        </property>
+       </column>
       </widget>
       <widget class="QLabel" name="memberTotalLabel">
        <property name="geometry">
@@ -1387,6 +1392,8 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     <zorder>sales</zorder>
     <zorder>members</zorder>
    </widget>
+   <zorder>mainPanel</zorder>
+   <zorder>loginPanel</zorder>
   </widget>
  </widget>
  <resources/>
