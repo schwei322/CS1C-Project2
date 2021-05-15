@@ -10,14 +10,9 @@
 #include <QSqlError>
 #include <QtDebug>
 #include <QVector>
-
-#include <QApplication>
-#include <qdebug.h>
-#include <QSqlDatabase>
-#include <QSqlQuery>
+#include "member.h"
 
 #include "purchasedata.h"
-#include "member.h"
 
 const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBPATH");
 
@@ -30,9 +25,8 @@ private:
     QSqlDatabase database;
     QVector<PurchaseData> issue_purchases_query(QString command);
     QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
+    QVector<Member> aggregate_member_data(QSqlQuery query);
 
-    QVector<memberPurchase> aggregate_member_data(QSqlQuery query);
-    QVector<memberPurchase> issue_member_query(QString command);
 public:
     DatabaseManager();
     ~DatabaseManager();
@@ -42,15 +36,15 @@ public:
     QStringList get_itemInfo(QString item_name) const;
 
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;
+    void update_rebateAmount(QString membership_number, QString rebate_amount) const;
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
 
-    QString get_member_name_from_id(int id);
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
+    QVector<Member> get_report_expired_memberships_by_month(int month);
+    QVector<MemberPurchaseData> get_report_all_purchases_per_member();
 
-
-    QVector<memberPurchase> get_all_purchases_per_member();
 };
 
 #endif // DATABASE_MANAGER_H

@@ -1,93 +1,289 @@
 #include "member.h"
-#include <iostream>
-using namespace std;
+
+/****************************************************************************//**
+ *      Default Constructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
 
 Member::Member()
 {
-
+    this->name = "";
+    this->membership_number = 0;
+    this->membership_type = "Regular";
+    this->membership_expiration_date = "";
+    this->total_amount_spent = 0.0;
+    this->rebate_amount = 0.0;
 }
 
-QString Member::getName()
+/********************************************************************************/
+
+
+/****************************************************************************//**
+ *      Overloaded Constructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
+
+Member::Member(QString name, int membership_number, QString membership_type,
+               QString membership_expiration_date, double total_amount_spent, double rebate_amount)
 {
-    return this->name;
+    this->name = name;
+    this->membership_number = membership_number;
+    this->membership_type = membership_type;
+    this->membership_expiration_date = membership_expiration_date;
+    this->total_amount_spent = total_amount_spent;
+    this->rebate_amount = rebate_amount;
 }
-int Member::getMembershipNumber()
+
+/********************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      Deconstructor
+ *____________________________________________________________________________
+ *
+ *******************************************************************************/
+Member::~Member(){}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_name
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+QString Member::get_name() const
 {
-    return this->membershipNumber;
+    qDebug() << name << "GET NAM EGET NAME\n";
+    return name;
 }
-QString Member::getMemberType()
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_membership_number
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+int Member::get_membership_number() const
 {
-    return this->memberType;
+    return membership_number;
 }
-QString Member::getExpirationDate()
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_membership_type
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+QString Member::get_membership_type() const
 {
-    return this->expirationDate;
+    return membership_type;
 }
-float Member::getTotalAmountSpent()
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_membership_expiration_date
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+QString Member::get_membership_expiration_date() const
 {
-    return this->totalAmountSpent;
+    return membership_expiration_date;
 }
-float Member::getRebateAmount()
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_total_amount_spent
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+double Member::get_total_amount_spent() const
 {
-    return this->rebateAmount;
+    return total_amount_spent;
 }
-void Member::setName(QString name)
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_rebate_amount
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+double Member::get_rebate_amount() const
+{
+    return rebate_amount;
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      set_name
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+void Member::set_name(QString name)
 {
     this->name = name;
 }
-void Member::setMembershipNumber(int membershipNumber)
-{
-    this->membershipNumber = membershipNumber;
-}
-void Member::setMemberType(QString memberType)
-{
-    this->memberType = memberType;
-}
-void Member::setExpirationDate(QString expirationDate)
-{
-    this->expirationDate = expirationDate;
-}
-void Member::setTotalAmountSpent(float totalAmountSpent)
-{
-    this->totalAmountSpent = totalAmountSpent;
-}
-void Member::setRebateAmount(float rebateAmount)
-{
-    this->rebateAmount = rebateAmount;
-}
-
-bool Member::operator==(const Member& otherMember)
-{
-    return this->membershipNumber == otherMember.membershipNumber;
-}
-
-void Member::print() const
-{
-    cout << membershipNumber << endl;
-}
+/*******************************************************************************/
 
 
 
-float memberPurchase::getPrice()
-{
-    return this->price;
-}
+/****************************************************************************//**
+ *      set_membership_number
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
 
-int memberPurchase::getQuantity()
+void Member::set_membership_number(int membership_number)
 {
-    return this->quantity;
+    this->membership_number = membership_number;
 }
+/*******************************************************************************/
 
-void memberPurchase::setPrice(float price)
-{
-    this->price = price;
-}
 
-void memberPurchase::setQuantity(int quantity)
+
+
+/****************************************************************************//**
+ *      set_membership_type
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+void Member::set_membership_type(QString membership_type)
 {
-    this->quantity = quantity;
+    this->membership_type = membership_type;
 }
-void memberPurchase::print() const
+/*******************************************************************************/
+
+
+/****************************************************************************//**
+ *      set_membership_expiration_date
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+void Member::set_membership_expiration_date(QString membership_expiration_date)
 {
-   Member::print();
+    this->membership_expiration_date = membership_expiration_date;
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      set_total_amount_spent
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+void Member::set_total_amount_spent(double total_amount_spent)
+{
+    this->total_amount_spent = total_amount_spent;
+}
+/*******************************************************************************/
+
+/****************************************************************************//**
+ *      set_rebate_amount
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+********************************************************************************/
+
+void Member::set_rebate_amount(double rebate_amount)
+{
+    this->rebate_amount = rebate_amount;
+}
+/*******************************************************************************/
+

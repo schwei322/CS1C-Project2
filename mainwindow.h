@@ -6,7 +6,6 @@
 
 #include "database_manager.h"
 #include "purchasedata.h"
-#include "checkrabates.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +14,6 @@ QT_END_NAMESPACE
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-    checkRabates * checkRabateswindow;
 
 public:
     MainWindow(QWidget *parent = nullptr);
@@ -31,19 +29,17 @@ public slots:
     void displaySalesByDate();
     void displayMembersByDate();
 
-    void displayMembersTotalPurchase();
-
 private slots:
-    //void on_dateEdit_editingFinished();
-
-    //void on_sales_customContextMenuRequested(const QPoint &pos);
-
+    void on_memberBackBtn_clicked();
     void on_memberRebatesBtn_clicked();
+    void on_memberExpirationBtn_clicked();
+    void on_expirationMonthSelect_currentIndexChanged();
+    void on_salesSearchInput_textChanged();
+    void on_memberSearchInput_textChanged();
 
 private:
     Ui::MainWindow *ui;
     DatabaseManager database_manager;
-
 
 };
 #endif // MAINWINDOW_H

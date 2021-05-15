@@ -1,6 +1,7 @@
 #include "database_manager.h"
 #include <QVariant>
 #include <QSqlField>
+#include "member.h"
 
 /****************************************************************************//**
  *      Constructor
@@ -230,13 +231,41 @@ QStringList DatabaseManager::get_itemInfo(QString item_name) const
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
-#include <QSqlQueryModel>
+
 void DatabaseManager::update_totalAmountSpent(QString membership_number, QString total_amount_spent) const
 {
     QSqlQuery query(database);
-
     QStringList membersData;
     QString sql_command = "UPDATE Member SET total_amount_spent='" + total_amount_spent +"' WHERE membership_number='" + membership_number + "'";
+
+    if (!query.exec(sql_command))
+    {
+
+        qDebug() << "Error = " << database.lastError();
+
+    }
+}
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      update_totalAmountSpent
+ * ____________________________________________________________________________
+ * ___Description___
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+void DatabaseManager::update_rebateAmount(QString membership_number, QString rebate_amount) const
+{
+    QSqlQuery query(database);
+    QStringList membersData;
+    QString sql_command = "UPDATE Member SET rebate_amount='" + rebate_amount +"' WHERE membership_number='" + membership_number + "'";
 
     if (!query.exec(sql_command))
     {
@@ -308,37 +337,6 @@ void DatabaseManager::delete_row_in_inventory(QString item_name) const
 /*******************************************************************************/
 
 
-QString DatabaseManager::get_member_name_from_id(int id)
-{
-    if (!database.isOpen())
-    {
-        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
-        database.setDatabaseName(databasePath);
-        database.open();
-    }
-
-    QString queryStr = "SELECT name FROM Member WHERE membership_number = '" + QString::number(id) + "'";
-
-    QSqlQuery query(database);
-    query.prepare(queryStr);
-
-    QString name;
-
-    if(query.exec())
-    {
-        while(query.next())
-        {
-            name = query.value(0).toString();
-        }
-    }
-    else
-    {
-        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
-    }
-
-    return name;
-}
-
 /* PurchaseData */
 
 QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
@@ -369,7 +367,6 @@ QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
 
     while(query.next())
     {
-
         PurchaseData purchaseData;
 
         for(int i = 0; i < columnNum; i++)
@@ -403,6 +400,50 @@ QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
     return result;
 }
 
+QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
+{
+    QVector<Member> result;
+
+    int columnNum = query.record().count();
+
+    while(query.next())
+    {
+        Member member;
+
+        for(int i = 0; i < columnNum; i++)
+        {
+            switch(i)
+            {
+                case 0: // name
+                    member.set_name(query.value(i).toString());
+                    break;
+                case 1: // membership_number
+                    member.set_membership_number(query.value(i).toInt());
+                    break;
+                case 2: // membership_type
+                    member.set_membership_type(query.value(i).toString());
+                    break;
+                case 3: // membership_expiration_date
+                    member.set_membership_expiration_date(query.value(i).toString());
+                    break;
+                case 4: // total_amount_spent
+                    member.set_total_amount_spent(query.value(i).toFloat());
+                    break;
+                case 5: // rebate amount
+                    member.set_rebate_amount(query.value(i).toFloat());
+                    break;
+                default:
+                    qDebug() << "Invalid column number : " << i;
+                    break;
+            }
+        }
+
+        result.append(member);
+    }
+
+    return result;
+}
+
 QVector<PurchaseData> DatabaseManager::get_report_all_purchases()
 {
     if (!database.isOpen())
@@ -431,51 +472,23 @@ QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
     return issue_purchases_query(str);
 }
 
-QVector<memberPurchase> DatabaseManager::aggregate_member_data(QSqlQuery query)
+QVector<Member> DatabaseManager::get_report_expired_memberships_by_month(int month)
 {
-    QVector<memberPurchase> result;
-
-    int columnNum = query.record().count();
-
-    while(query.next())
+    if (!database.isOpen())
     {
-
-        memberPurchase memberPurchaseData;
-
-        for(int i = 0; i < columnNum; i++)
-        {
-            switch(i)
-            {
-                case 0: // name
-                    memberPurchaseData.setName(query.value(i).toString());
-                    break;
-                case 1: // MembershipNumber
-                    memberPurchaseData.setMembershipNumber(query.value(i).toInt());
-                    break;
-                case 2: // price
-                    memberPurchaseData.setPrice(query.value(i).toFloat());
-                    break;
-                case 3: // Quantity
-                    memberPurchaseData.setQuantity(query.value(i).toInt());
-                    break;
-                default:
-                    qDebug() << "Invalid column number : " << i;
-                    break;
-            }
-        }
-
-        result.append(memberPurchaseData);
+        database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
+        database.setDatabaseName(databasePath);
+        database.open();
     }
 
-    return result;
-}
-QVector<memberPurchase> DatabaseManager::issue_member_query(QString command)
-{
-    QVector<memberPurchase> result;
-    QSqlQuery query(database);
-    query.prepare(command);
+    QString normalized_month = QString::number(month).length() == 1 ? "0" + QString::number(month) : QString::number(month);
+    QString str = "SELECT name, membership_number, membership_type, expiration_date, total_amount_spent, rebate_amount FROM member WHERE expiration_date LIKE '" + normalized_month + "/%'";
 
-    qDebug() << command << "\n";
+    QVector<Member> result;
+    QSqlQuery query(database);
+    query.prepare(str);
+
+    qDebug() << str << "\n";
 
     if(query.exec())
     {
@@ -489,9 +502,8 @@ QVector<memberPurchase> DatabaseManager::issue_member_query(QString command)
     return result;
 }
 
-QVector<memberPurchase> DatabaseManager::get_all_purchases_per_member()
+QVector<MemberPurchaseData> DatabaseManager::get_report_all_purchases_per_member()
 {
-
     if (!database.isOpen())
     {
         database = QSqlDatabase::addDatabase("QSQLITE", "SQLITE");
@@ -499,8 +511,65 @@ QVector<memberPurchase> DatabaseManager::get_all_purchases_per_member()
         database.open();
     }
 
-    QString str = "SELECT Member.name, Member.membership_number, Purchase.price, Purchase.quantity FROM Member LEFT JOIN Purchase ON Member.membership_number = Purchase.membership_number WHERE Member.membership_type = 'Executive' ORDER BY Member.membership_number";
+    QString str = "SELECT Member.name, Member.membership_number, Member.membership_type, Member.expiration_date, Member.total_amount_spent, Member.rebate_amount, Purchase.price, Purchase.quantity FROM Member LEFT JOIN Purchase ON Member.membership_number = Purchase.membership_number ORDER BY Member.membership_number";
 
-    return issue_member_query(str);
+    QVector<MemberPurchaseData> result;
 
+    QSqlQuery query(database);
+    query.prepare(str);
+
+    qDebug() << str << "\n";
+
+    if(query.exec())
+    {
+        int columnNum = query.record().count();
+
+        while(query.next())
+        {
+
+            MemberPurchaseData purchaseData;
+
+            for(int i = 0; i < columnNum; i++)
+            {
+                switch(i)
+                {
+                    case 0: // Name
+                        purchaseData.setName(query.value(i).toString());
+                        break;
+                    case 1: // MembershipNumber
+                        purchaseData.setMembershipNumber(query.value(i).toInt());
+                        break;
+                    case 2: // MembershipType
+                        purchaseData.setMembershipType(query.value(i).toString());
+                        break;
+                    case 3: // ExpirationDate
+                        purchaseData.setExpirationDate(query.value(i).toString());
+                        break;
+                    case 4: // TotalSpent
+                        purchaseData.setTotalSpent(query.value(i).toFloat());
+                        break;
+                    case 5: // RebateAmount
+                        purchaseData.setRebateAmount(query.value(i).toFloat());
+                        break;
+                    case 6: // Price
+                        purchaseData.setPrice(query.value(i).toFloat());
+                        break;
+                    case 7: // Quantity
+                        purchaseData.setQuantity(query.value(i).toInt());
+                        break;
+                    default:
+                        qDebug() << "Invalid column number : " << i;
+                        break;
+                }
+            }
+
+            result.append(purchaseData);
+        }
+    }
+    else
+    {
+        qDebug() << "Error(" << __FUNCTION__ << ") = " << database.lastError() << database.drivers();
+    }
+
+    return result;
 }
