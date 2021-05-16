@@ -936,6 +936,12 @@ void MainWindow::on_manageMemberBtn_clicked()
 void MainWindow::on_manageAddItemBtn_clicked()
 {
     this->ui->addItemPanel->show();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->addItemPanel->raise();
 }
 
@@ -1005,7 +1011,13 @@ void MainWindow::on_addItemCancelBtn_clicked()
 
 void MainWindow::on_manageDelItemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
     this->ui->delItemPanel->show();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->delItemPanel->raise();
 }
 
@@ -1043,7 +1055,13 @@ void MainWindow::on_delItemCancelBtn_clicked()
 
 void MainWindow::on_manageUpItemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
     this->ui->upItemPanel->show();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->upItemPanel->raise();
 }
 
@@ -1081,7 +1099,13 @@ void MainWindow::on_upItemCancelBtn_clicked()
 
 void MainWindow::on_manageAddMemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
     this->ui->addMemPanel->show();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->addMemPanel->raise();
 }
 
@@ -1152,7 +1176,13 @@ void MainWindow::on_addMemCancelBtn_clicked()
 
 void MainWindow::on_manageDelMemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
     this->ui->delMemPanel->show();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->delMemPanel->raise();
 }
 
@@ -1195,7 +1225,13 @@ void MainWindow::on_delMemCancelBtn_clicked()
 
 void MainWindow::on_manageAddPurchaseBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
     this->ui->addPurchasePanel->show();
+
     this->ui->addPurchasePanel->raise();
 }
 
