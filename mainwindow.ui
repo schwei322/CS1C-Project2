@@ -2313,12 +2313,12 @@ QLabel {
       <property name="frameShadow">
        <enum>QFrame::Raised</enum>
       </property>
-      <widget class="QLabel" name="salesShoppersLabel">
+      <widget class="QLabel" name="regularShoppersLabel">
        <property name="geometry">
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>161</width>
+         <width>91</width>
          <height>31</height>
         </rect>
        </property>
@@ -2327,15 +2327,52 @@ QLabel {
 font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
        </property>
        <property name="text">
-        <string>Total shoppers</string>
+        <string>Regular</string>
        </property>
       </widget>
-      <widget class="QLabel" name="salesShoppersDisplay">
+      <widget class="QLabel" name="regularShoppersDisplay">
        <property name="geometry">
         <rect>
-         <x>310</x>
+         <x>110</x>
          <y>10</y>
-         <width>121</width>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+      <widget class="QLabel" name="executiveShoppersLabel">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>10</y>
+         <width>91</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+       </property>
+       <property name="text">
+        <string>Executive</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="executiveShoppersDisplay">
+       <property name="geometry">
+        <rect>
+         <x>340</x>
+         <y>10</y>
+         <width>91</width>
          <height>31</height>
         </rect>
        </property>
@@ -2435,10 +2472,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </item>
      </widget>
     </widget>
-    <zorder>sidebar</zorder>
-    <zorder>members</zorder>
-    <zorder>sales</zorder>
-    <zorder>admin</zorder>
    </widget>
   </widget>
  </widget>

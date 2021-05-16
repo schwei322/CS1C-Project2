@@ -470,6 +470,9 @@ void MainWindow::displayMembersByDate()
 
     int memberSelectionIndex = memberOptions.indexOf(this->ui->membersFilterSelect->currentText());
 
+    int regularShoppersCount = 0;
+    int executiveShoppersCount = 0;
+
     QVector<int> tempMemberVec;
     for(PurchaseData& data : purchaseDataList)
     {
@@ -489,10 +492,16 @@ void MainWindow::displayMembersByDate()
             this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
             tempMemberVec.append(data.getMembershipNumber());
+
+            if (memberInfo.at(2) == "Regular")
+                ++regularShoppersCount;
+            else
+                ++executiveShoppersCount;
         }
     }
 
-    this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+    this->ui->regularShoppersDisplay->setText(QString::number(regularShoppersCount));
+    this->ui->executiveShoppersDisplay->setText(QString::number(executiveShoppersCount));
 
     ui->salesTable->setSortingEnabled(true);
     ui->salesTable2->setSortingEnabled(true);
@@ -777,6 +786,9 @@ void MainWindow::on_salesSearchInput_textChanged()
             purchaseDataList2 = this->database_manager.get_report_all_purchases();
         }
 
+        int regularShoppersCount = 0;
+        int executiveShoppersCount = 0;
+
         QVector<int> tempMemberVec;
         for(PurchaseData& data : purchaseDataList2)
         {
@@ -797,11 +809,17 @@ void MainWindow::on_salesSearchInput_textChanged()
                     this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
                     tempMemberVec.append(data.getMembershipNumber());
+
+                    if (memberInfo.at(2) == "Regular")
+                        ++regularShoppersCount;
+                    else
+                        ++executiveShoppersCount;
                 }
             }
         }
 
-        this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+        this->ui->regularShoppersDisplay->setText(QString::number(regularShoppersCount));
+        this->ui->executiveShoppersDisplay->setText(QString::number(executiveShoppersCount));
 
         ui->salesTable->setSortingEnabled(true);
         ui->salesTable2->setSortingEnabled(true);
