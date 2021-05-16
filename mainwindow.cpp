@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include <QTableWidgetItem>
 
 #include "mainwindow.h"
@@ -22,11 +23,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->salesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->salesTable->verticalHeader()->setVisible(false);
-    ui->salesTable->setSortingEnabled(true);
 
     ui->salesTable2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->salesTable2->verticalHeader()->setVisible(false);
-    ui->salesTable2->setSortingEnabled(true);
 
     ui->memberTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->memberTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -37,14 +36,23 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->expiredRegularTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->expiredRegularTable->verticalHeader()->setVisible(false);
-    ui->expiredRegularTable->setSortingEnabled(true);
 
     ui->expiredExecutiveTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->expiredExecutiveTable->verticalHeader()->setVisible(false);
-    ui->expiredExecutiveTable->setSortingEnabled(true);    
 
-    ui->adminInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->adminMembersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->manageInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->manageInventoryTable->verticalHeader()->setVisible(false);
+
+    ui->manageMemberTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->manageMemberTable->verticalHeader()->setVisible(false);
+
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
 
     this->displaySales();
 
@@ -73,21 +81,31 @@ void MainWindow::userLogin()
 
     if (this->ui->usernameInput->text() == adminUsername && this->ui->passwordInput->text() == adminPassword)
     {
+        this->ui->admin->show();
         this->ui->adminBtn->show();
         this->ui->loginPanel->hide();
+        this->ui->memberTable->setColumnHidden(5, false);
+
+        this->ui->manageInventoryPanel->raise();
     }
     else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
+        this->ui->admin->hide();
         this->ui->adminBtn->hide();
         this->ui->loginPanel->hide();
         this->ui->memberTable->setColumnHidden(5, true);
     }
+
+    this->ui->usernameInput->clear();
+    this->ui->passwordInput->clear();
 }
 
 void MainWindow::userLogout()
 {
+    this->ui->admin->hide();
     this->ui->adminBtn->hide();
     this->ui->loginPanel->show();
+    this->ui->loginPanel->raise();
 }
 
 void MainWindow::displaySales()
@@ -115,7 +133,7 @@ void MainWindow::displayMembers()
     QVector<MemberPurchaseData> newPurchaseDataList;
     QVector<int> tempMemberVec;
 
-    for(MemberPurchaseData& data : purchaseDataList)
+    for (MemberPurchaseData& data : purchaseDataList)
     {
        if (!tempMemberVec.contains(data.getMembershipNumber()))
        {
@@ -133,7 +151,7 @@ void MainWindow::displayMembers()
        }
     }
 
-    for(MemberPurchaseData& newListData : newPurchaseDataList)
+    for (MemberPurchaseData& newListData : newPurchaseDataList)
     {
         for (MemberPurchaseData& oldListData : purchaseDataList)
         {
@@ -145,7 +163,7 @@ void MainWindow::displayMembers()
     }
 
     double grandTotal = 0;
-    for(MemberPurchaseData& data : newPurchaseDataList)
+    for (MemberPurchaseData& data : newPurchaseDataList)
     {
         this->ui->memberTable->insertRow(this->ui->memberTable ->rowCount());
 
@@ -156,48 +174,57 @@ void MainWindow::displayMembers()
 
         QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
         membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-        membershipNumber->setTextAlignment(Qt::AlignRight);
+        membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 1, membershipNumber);
 
         QString membershipType = data.getMembershipType();
         QTableWidgetItem  *type = new QTableWidgetItem;
         type->setData(Qt::EditRole, membershipType);
-        type->setTextAlignment(Qt::AlignRight);
+        type->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 2, type);
 
         QTableWidgetItem  *date = new QTableWidgetItem;
         date->setData(Qt::EditRole, data.getExpirationDate());
-        date->setTextAlignment(Qt::AlignRight);
+        date->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 3, date);
 
         double totalSpentAmount = data.getTotalSpent() + (data.getTotalSpent() * TAX);
         QTableWidgetItem  *spent = new QTableWidgetItem;
         spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
-        spent->setTextAlignment(Qt::AlignRight);
+        spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 4, spent);
 
 
-        QTableWidgetItem  * numberOfRecommendedConversions = new QTableWidgetItem;
+        double totalSpentAmountWithoutTaxes = totalSpentAmount - (totalSpentAmount * TAX);
+        QTableWidgetItem  *recommendedConversion = new QTableWidgetItem;
 
-        if(membershipType == "Executive")
+        if (membershipType == "Executive")
         {
-            if((data.getTotalSpent() * 0.02) < 55)
-                numberOfRecommendedConversions->setData(Qt::EditRole, "10");
+            if (totalSpentAmountWithoutTaxes * 0.02 < 55)
+            {
+                recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+            }
             else
-                numberOfRecommendedConversions->setData(Qt::EditRole, "1");
+            {
+                recommendedConversion->setData(Qt::EditRole, "OK");
+            }
         }
-        else if(membershipType == "Regular")
+        else if (membershipType == "Regular")
         {
-            if((data.getTotalSpent() * 0.02) < 55)
-                numberOfRecommendedConversions->setData(Qt::EditRole, "1");
+            if (totalSpentAmountWithoutTaxes * 0.02 > 55)
+            {
+                recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
+            }
             else
-                numberOfRecommendedConversions->setData(Qt::EditRole, "10");
+            {
+                recommendedConversion->setData(Qt::EditRole, "OK");
+            }
         }
-        numberOfRecommendedConversions->setTextAlignment(Qt::AlignRight);
-        this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 5, numberOfRecommendedConversions);
+
+        this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 5, recommendedConversion);
 
         this->database_manager.update_totalAmountSpent(QString::number(data.getMembershipNumber()), QString::number(totalSpentAmount));
-        this->database_manager.update_rebateAmount(QString::number(data.getMembershipNumber()), QString::number(membershipType == "Executive" ? ((totalSpentAmount - (totalSpentAmount * TAX)) * 0.02) : 0));
+        this->database_manager.update_rebateAmount(QString::number(data.getMembershipNumber()), QString::number(membershipType == "Executive" ? totalSpentAmountWithoutTaxes * 0.02 : 0));
 
         grandTotal += totalSpentAmount;
     }
@@ -216,11 +243,76 @@ void MainWindow::displayAdmin()
     this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
 
+    this->ui->manageInventoryTable->setRowCount(0);
+
+    QVector<PurchaseData> purchaseDataList = this->database_manager.get_report_all_items();
+
+    for (PurchaseData& data : purchaseDataList)
+    {
+        this->ui->manageInventoryTable->insertRow(this->ui->manageInventoryTable->rowCount());
+
+        QTableWidgetItem  *itemName = new QTableWidgetItem;
+        itemName->setData(Qt::EditRole, data.getProduct());
+        itemName->setToolTip(data.getName());
+        this->ui->manageInventoryTable->setItem(this->ui->manageInventoryTable->rowCount() - 1, 0, itemName);
+
+        QTableWidgetItem  *itemPrice = new QTableWidgetItem;
+        itemPrice->setData(Qt::EditRole, data.getPrice());
+        itemPrice->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->manageInventoryTable->setItem(this->ui->manageInventoryTable->rowCount() - 1, 1, itemPrice);
+    }
+
+    this->ui->manageMemberTable->setRowCount(0);
+
+    QVector<MemberPurchaseData> purchaseDataList2 = this->database_manager.get_report_all_purchases_per_member();
+
+    QVector<MemberPurchaseData> newPurchaseDataList;
+    QVector<int> tempMemberVec;
+
+    for (MemberPurchaseData& data : purchaseDataList2)
+    {
+       if (!tempMemberVec.contains(data.getMembershipNumber()))
+       {
+           MemberPurchaseData purchaseData;
+
+           purchaseData.setName(data.getName());
+           purchaseData.setMembershipNumber(data.getMembershipNumber());
+           purchaseData.setMembershipType(data.getMembershipType());
+
+           newPurchaseDataList.append(purchaseData);
+           tempMemberVec.append(data.getMembershipNumber());
+       }
+    }
+
+    for (MemberPurchaseData& data : newPurchaseDataList)
+    {
+        this->ui->manageMemberTable->insertRow(this->ui->manageMemberTable ->rowCount());
+
+        QTableWidgetItem  *name = new QTableWidgetItem;
+        name->setData(Qt::EditRole, data.getName());
+        name->setToolTip(data.getName());
+        this->ui->manageMemberTable->setItem(this->ui->manageMemberTable->rowCount() - 1, 0, name);
+
+        QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+        membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+        membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->manageMemberTable->setItem(this->ui->manageMemberTable->rowCount() - 1, 1, membershipNumber);
+
+        QString membershipType = data.getMembershipType();
+        QTableWidgetItem  *type = new QTableWidgetItem;
+        type->setData(Qt::EditRole, membershipType);
+        type->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->manageMemberTable->setItem(this->ui->manageMemberTable->rowCount() - 1, 2, type);
+    }
+
     this->ui->admin->raise();
 }
 
 void MainWindow::displaySalesByDate()
 {
+    ui->salesTable->setSortingEnabled(false);
+    ui->salesTable2->setSortingEnabled(false);
+
     this->ui->salesTable->setRowCount(0);
 
     QStringList memberOptions;
@@ -231,7 +323,7 @@ void MainWindow::displaySalesByDate()
 
     QStringList dateOptions;
 
-    dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+    dateOptions << "All purchases" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
     QVector<PurchaseData> purchaseDataList;
 
@@ -286,12 +378,12 @@ void MainWindow::displaySalesByDate()
 
             QTableWidgetItem  *quantity = new QTableWidgetItem;
             quantity->setData(Qt::EditRole, data.getQuantity());
-            quantity->setTextAlignment(Qt::AlignRight);
+            quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
             QTableWidgetItem  *revenue = new QTableWidgetItem;
             revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-            revenue->setTextAlignment(Qt::AlignRight);
+            revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
             totalRevenue += data.getPrice() * data.getQuantity();
@@ -328,12 +420,12 @@ void MainWindow::displaySalesByDate()
 
                 QTableWidgetItem  *quantity = new QTableWidgetItem;
                 quantity->setData(Qt::EditRole, data.getQuantity());
-                quantity->setTextAlignment(Qt::AlignRight);
+                quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
                 QTableWidgetItem  *revenue = new QTableWidgetItem;
                 revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-                revenue->setTextAlignment(Qt::AlignRight);
+                revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
                 totalRevenue += data.getPrice() * data.getQuantity();
@@ -342,15 +434,21 @@ void MainWindow::displaySalesByDate()
     }
 
     this->ui->salesRevDisplay->setText("$" + QString::number(totalRevenue + (totalRevenue * TAX), 'f', 2));
+
+    ui->salesTable->setSortingEnabled(true);
+    ui->salesTable2->setSortingEnabled(true);
 }
 
 void MainWindow::displayMembersByDate()
 {
+    ui->salesTable->setSortingEnabled(false);
+    ui->salesTable2->setSortingEnabled(false);
+
     this->ui->salesTable2->setRowCount(0);
 
     QStringList dateOptions;
 
-    dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+    dateOptions << "All purchases" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
     QVector<PurchaseData> purchaseDataList;
 
@@ -387,7 +485,7 @@ void MainWindow::displayMembersByDate()
 
             QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
             membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-            membershipNumber->setTextAlignment(Qt::AlignRight);
+            membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
             tempMemberVec.append(data.getMembershipNumber());
@@ -395,6 +493,9 @@ void MainWindow::displayMembersByDate()
     }
 
     this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+
+    ui->salesTable->setSortingEnabled(true);
+    ui->salesTable2->setSortingEnabled(true);
 }
 
 void MainWindow::on_memberBackBtn_clicked()
@@ -441,18 +542,26 @@ void MainWindow::on_memberRebatesBtn_clicked()
 
         QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
         membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-        membershipNumber->setTextAlignment(Qt::AlignRight);
+        membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 1, membershipNumber);
 
+        double totalSpentAmount = data.getTotalSpent();
+        double totalSpentAmountWithoutTaxes = totalSpentAmount - (totalSpentAmount * TAX);
+
+        QTableWidgetItem  *spentWithoutTaxes = new QTableWidgetItem;
+        spentWithoutTaxes->setData(Qt::EditRole, "$" + QString::number(totalSpentAmountWithoutTaxes, 'f', 2));
+        spentWithoutTaxes->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 2, spentWithoutTaxes);
+
         QTableWidgetItem  *spent = new QTableWidgetItem;
-        spent->setData(Qt::EditRole, "$" + QString::number(data.getTotalSpent(), 'f', 2));
-        spent->setTextAlignment(Qt::AlignRight);
-        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 2, spent);
+        spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
+        spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 3, spent);
 
         QTableWidgetItem  *rebate = new QTableWidgetItem;
         rebate->setData(Qt::EditRole, "$" + QString::number(data.getRebateAmount(), 'f', 2));
-        rebate->setTextAlignment(Qt::AlignRight);
-        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 3, rebate);
+        rebate->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 4, rebate);
     }
 
     this->ui->memberRebatesPanel->raise();
@@ -493,7 +602,7 @@ void MainWindow::on_expirationMonthSelect_currentIndexChanged()
 
             QTableWidgetItem  *costToRenew = new QTableWidgetItem;
             costToRenew->setData(Qt::EditRole, "$65");
-            costToRenew->setTextAlignment(Qt::AlignRight);
+            costToRenew->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->expiredRegularTable->setItem(this->ui->expiredRegularTable->rowCount() - 1, 1, costToRenew);
         }
         else
@@ -506,7 +615,7 @@ void MainWindow::on_expirationMonthSelect_currentIndexChanged()
 
             QTableWidgetItem  *costToRenew = new QTableWidgetItem;
             costToRenew->setData(Qt::EditRole, "$120");
-            costToRenew->setTextAlignment(Qt::AlignRight);
+            costToRenew->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->expiredExecutiveTable->setItem(this->ui->expiredExecutiveTable->rowCount() - 1, 1, costToRenew);
         }
     }
@@ -521,6 +630,9 @@ void MainWindow::on_salesSearchInput_textChanged()
     }
     else
     {
+        ui->salesTable->setSortingEnabled(false);
+        ui->salesTable2->setSortingEnabled(false);
+
         this->ui->salesTable->setRowCount(0);
 
         QStringList memberOptions;
@@ -531,7 +643,7 @@ void MainWindow::on_salesSearchInput_textChanged()
 
         QStringList dateOptions;
 
-        dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+        dateOptions << "All days" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
         QVector<PurchaseData> purchaseDataList;
 
@@ -589,12 +701,12 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                 QTableWidgetItem  *quantity = new QTableWidgetItem;
                 quantity->setData(Qt::EditRole, data.getQuantity());
-                quantity->setTextAlignment(Qt::AlignRight);
+                quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
                 QTableWidgetItem  *revenue = new QTableWidgetItem;
                 revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-                revenue->setTextAlignment(Qt::AlignRight);
+                revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                 this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
                 totalRevenue += data.getPrice() * data.getQuantity();
@@ -634,12 +746,12 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                     QTableWidgetItem  *quantity = new QTableWidgetItem;
                     quantity->setData(Qt::EditRole, data.getQuantity());
-                    quantity->setTextAlignment(Qt::AlignRight);
+                    quantity->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                     this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 1, quantity);
 
                     QTableWidgetItem  *revenue = new QTableWidgetItem;
                     revenue->setData(Qt::EditRole, data.getPrice() * data.getQuantity());
-                    revenue->setTextAlignment(Qt::AlignRight);
+                    revenue->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                     this->ui->salesTable->setItem(this->ui->salesTable->rowCount() - 1, 2, revenue);
 
                     totalRevenue += data.getPrice() * data.getQuantity();
@@ -681,7 +793,7 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                     QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
                     membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-                    membershipNumber->setTextAlignment(Qt::AlignRight);
+                    membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
                     this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
                     tempMemberVec.append(data.getMembershipNumber());
@@ -690,6 +802,9 @@ void MainWindow::on_salesSearchInput_textChanged()
         }
 
         this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+
+        ui->salesTable->setSortingEnabled(true);
+        ui->salesTable2->setSortingEnabled(true);
     }
 }
 
@@ -753,25 +868,53 @@ void MainWindow::on_memberSearchInput_textChanged()
 
             QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
             membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-            membershipNumber->setTextAlignment(Qt::AlignRight);
+            membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 1, membershipNumber);
 
             QString membershipType = data.getMembershipType();
             QTableWidgetItem  *type = new QTableWidgetItem;
             type->setData(Qt::EditRole, membershipType);
-            type->setTextAlignment(Qt::AlignRight);
+            type->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 2, type);
 
             QTableWidgetItem  *date = new QTableWidgetItem;
             date->setData(Qt::EditRole, data.getExpirationDate());
-            date->setTextAlignment(Qt::AlignRight);
+            date->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 3, date);
 
             double totalSpentAmount = data.getTotalSpent() + (data.getTotalSpent() * TAX);
             QTableWidgetItem  *spent = new QTableWidgetItem;
             spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
-            spent->setTextAlignment(Qt::AlignRight);
+            spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
             this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 4, spent);
+
+            double totalSpentAmountWithoutTaxes = totalSpentAmount - (totalSpentAmount * TAX);
+            QTableWidgetItem  *recommendedConversion = new QTableWidgetItem;
+
+            if (membershipType == "Executive")
+            {
+                if (totalSpentAmountWithoutTaxes * 0.02 < 55)
+                {
+                    recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+                }
+                else
+                {
+                    recommendedConversion->setData(Qt::EditRole, "OK");
+                }
+            }
+            else if (membershipType == "Regular")
+            {
+                if (totalSpentAmountWithoutTaxes * 0.02 > 55)
+                {
+                    recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
+                }
+                else
+                {
+                    recommendedConversion->setData(Qt::EditRole, "OK");
+                }
+            }
+
+            this->ui->memberTable->setItem(this->ui->memberTable->rowCount() - 1, 5, recommendedConversion);
 
             grandTotal += totalSpentAmount;
         }
@@ -779,3 +922,419 @@ void MainWindow::on_memberSearchInput_textChanged()
         this->ui->memberTotalDisplay->setText("$" + QString::number(grandTotal, 'f', 2));
     }
 }
+
+void MainWindow::on_manageInventoryBtn_clicked()
+{
+    this->ui->manageInventoryPanel->raise();
+}
+
+void MainWindow::on_manageMemberBtn_clicked()
+{
+    this->ui->manageMemberPanel->raise();
+}
+
+void MainWindow::on_manageAddItemBtn_clicked()
+{
+    this->ui->addItemPanel->show();
+    this->ui->addItemPanel->raise();
+}
+
+void MainWindow::on_addItemOkBtn_clicked()
+{
+    QString item_name = this->ui->addItemNameInput->text();
+    QString item_price = this->ui->addItemPriceInput->text();
+
+    bool inputValid = true;
+    int countDecimal = 0;
+
+    QMessageBox errorMessageBox;
+
+    // No field can be left empty
+    if (item_name.isEmpty() || item_price.isEmpty())
+    {
+        errorMessageBox.setText("INVALID INPUT:\nALL fields must be entered.");
+        errorMessageBox.exec();
+        inputValid = false;
+    }
+
+    // item_price can only contain digits, commas, and one period as decimal.
+    for (int i = 0; i < item_price.size(); i++)
+    {
+        // Check if only digits, commas, and periods present
+        if ( !(item_price[i].isDigit() || item_price[i] == '.' || item_price[i] == '.') )
+        {
+            errorMessageBox.setText("INVALID INPUT:\nPrice for item can only contain numbers, commas (optional), and one decimal");
+            inputValid = false;
+            errorMessageBox.exec();
+            break;
+        }
+
+        if (item_price[i] == '.')
+        {
+            countDecimal++;
+        }
+
+        if (countDecimal > 1)
+        {
+            errorMessageBox.setText("INVALID INPUT:\nPrice can only contain one decimal.");
+            inputValid = false;
+            errorMessageBox.exec();
+            break;
+        }
+    }
+
+    if (inputValid)
+    {
+        this->database_manager.add_item(item_name, item_price);
+    }
+
+    this->ui->addItemNameInput->clear();
+    this->ui->addItemPriceInput->clear();
+
+    this->ui->addItemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_addItemCancelBtn_clicked()
+{
+    this->ui->addItemNameInput->clear();
+    this->ui->addItemPriceInput->clear();
+
+    this->ui->addItemPanel->hide();
+}
+
+void MainWindow::on_manageDelItemBtn_clicked()
+{
+    this->ui->delItemPanel->show();
+    this->ui->delItemPanel->raise();
+}
+
+void MainWindow::on_delItemOkBtn_clicked()
+{
+    QString item_name = this->ui->delItemNameInput->text();
+    QString item_id = this->ui->delItemIdInput->text();
+
+    QMessageBox errorMessageBox;
+
+    if (this->database_manager.check_item_existance(item_name, item_id))
+    {
+        this->database_manager.delete_item(item_name, item_id);
+    }
+    else
+    {
+        errorMessageBox.setText("Item does not exist. Check name and id again!\n");
+        errorMessageBox.exec();
+    }
+
+    this->ui->delItemNameInput->clear();
+    this->ui->delItemIdInput->clear();
+
+    this->ui->delItemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_delItemCancelBtn_clicked()
+{
+    this->ui->delItemNameInput->clear();
+    this->ui->delItemIdInput->clear();
+
+    this->ui->delItemPanel->hide();
+}
+
+void MainWindow::on_manageUpItemBtn_clicked()
+{
+    this->ui->upItemPanel->show();
+    this->ui->upItemPanel->raise();
+}
+
+void MainWindow::on_upItemOkBtn_clicked()
+{
+    QString item_name = this->ui->upItemNameInput->text();
+    QString item_new_price = this->ui->upItemPriceInput->text();
+
+    QMessageBox errorMessageBox;
+
+    if (this->database_manager.check_item_existance(item_name))
+    {
+        this->database_manager.update_item(item_name, item_new_price);
+    }
+    else
+    {
+        errorMessageBox.setText("Item does not exist. Check item name again!\n");
+        errorMessageBox.exec();
+    }
+
+    this->ui->upItemNameInput->clear();
+    this->ui->upItemPriceInput->clear();
+
+    this->ui->upItemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_upItemCancelBtn_clicked()
+{
+    this->ui->upItemNameInput->clear();
+    this->ui->upItemPriceInput->clear();
+
+    this->ui->upItemPanel->hide();
+}
+
+void MainWindow::on_manageAddMemBtn_clicked()
+{
+    this->ui->addMemPanel->show();
+    this->ui->addMemPanel->raise();
+}
+
+void MainWindow::on_addMemOkBtn_clicked()
+{
+    QString member_name;
+    QString member_type;
+
+    bool regular_checked;
+    bool executive_checked;
+
+    QMessageBox errorMessageBox;
+
+    // Get member name from ui. If left empty, tell user.
+    member_name = this->ui->addMemNameInput->text();
+    if (member_name.isEmpty() )
+    {
+        qDebug() << "Name left empty.\n";
+        errorMessageBox.setText("Enter name");
+        errorMessageBox.exec();
+        return;
+    }
+
+    // Find state of the checkboxes
+    regular_checked = this->ui->addMemTypeSelect->currentText() == "Regular";
+    executive_checked = this->ui->addMemTypeSelect->currentText() == "Executive";
+
+    // Check if check box for membership type is selected. If it is, assign
+    // type to member_type variable.
+    if ( regular_checked && executive_checked)
+    {
+        qDebug() << "Select ONE member type.\n";
+        errorMessageBox.setText("Select ONE membership type.\n");
+        errorMessageBox.exec();
+        return;
+    }
+    else if (regular_checked)
+    {
+        member_type = "Regular";
+    }
+    else if (executive_checked)
+    {
+        member_type = "Executive";
+    }
+    else
+    {
+        qDebug() << "Select a member type.\n";
+        errorMessageBox.setText("Select a membership type.\n");
+        errorMessageBox.exec();
+        return;
+    }
+
+    // After checking inputs, add member.
+    this->database_manager.add_member(member_name, member_type);
+
+    this->ui->addMemNameInput->clear();
+
+    this->ui->addMemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_addMemCancelBtn_clicked()
+{
+    this->ui->addMemNameInput->clear();
+
+    this->ui->addMemPanel->hide();
+}
+
+void MainWindow::on_manageDelMemBtn_clicked()
+{
+    this->ui->delMemPanel->show();
+    this->ui->delMemPanel->raise();
+}
+
+void MainWindow::on_delMemOkBtn_clicked()
+{
+    QString member_id;
+    QString member_name;
+
+    QMessageBox errorMessageBox;
+
+    // Get member's name and id from ui.
+    member_id = this->ui->delMemIdInput->text();
+    member_name = this->ui->delMemNameInput->text();
+
+    // Check if member exists
+    // If member does not exist in database, prompt error.
+    if (!this->database_manager.check_member_existance(member_name, member_id))
+    {
+        errorMessageBox.setText("Member does not exist. Check name and id again!\n");
+        errorMessageBox.exec();
+        return;
+    }
+
+    this->database_manager.delete_member(member_name, member_id);
+
+    this->ui->delMemIdInput->clear();
+    this->ui->delMemNameInput->clear();
+
+    this->ui->delMemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_delMemCancelBtn_clicked()
+{
+    this->ui->delMemIdInput->clear();
+    this->ui->delMemNameInput->clear();
+
+    this->ui->delMemPanel->hide();
+}
+
+void MainWindow::on_manageAddPurchaseBtn_clicked()
+{
+    this->ui->addPurchasePanel->show();
+    this->ui->addPurchasePanel->raise();
+}
+
+void MainWindow::on_addPurchaseOkBtn_clicked()
+{
+    QMessageBox messageBox;
+
+    QString memberID;
+    QString product_name;
+    QString product_price;
+    QString quantity;
+    QString date;
+
+    // Get purchase data from UI
+    memberID = this->ui->addPurMemIdInput->text();
+    product_name = this->ui->addPurNameInput->text();
+    product_price = this->ui->addPurPriceInput->text();
+    quantity = this->ui->addPurQuantInput->text();
+    date = this->ui->addPurDateInput->text();
+
+    // Check if any lineEdits left empty. check_lineEdits returns true if lineEdit found to be empty.
+    if (checkLineEdits(memberID, product_name, product_price, quantity, date))
+    {
+        return;
+    }
+
+    // Check if member exists. You shouldn't be able to add purchase for a non existant member.
+    if (this->database_manager.check_member_existance(memberID) == false)
+    {
+        messageBox.setText("Cannot add purchase for a member that does not exist. \nCheck member ID and try again!\n");
+        messageBox.exec();
+
+        return;
+    }
+
+    this->database_manager.add_member_purchase(memberID, product_name, product_price, quantity, date);
+
+    this->ui->addPurMemIdInput->clear();
+    this->ui->addPurNameInput->clear();
+    this->ui->addPurPriceInput->clear();
+    this->ui->addPurQuantInput->clear();
+    this->ui->addPurDateInput->clear();
+
+    this->ui->addPurchasePanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_addPurchaseCancelBtn_clicked()
+{
+    this->ui->addPurMemIdInput->clear();
+    this->ui->addPurNameInput->clear();
+    this->ui->addPurPriceInput->clear();
+    this->ui->addPurQuantInput->clear();
+    this->ui->addPurDateInput->clear();
+
+    this->ui->addPurchasePanel->hide();
+}
+
+
+/****************************************************************************//**
+ *      checkLineEdits
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+// Returns true if errors found.
+bool MainWindow::checkLineEdits(QString& memberID, QString& product_name, QString& product_price, QString& quantity,  QString& date) const
+{
+    QString errorMessageText;
+    bool errorFound = false;
+    QMessageBox msg;
+
+    // Check if memberID empty.
+    if (memberID.isEmpty() || isWhiteSpace(memberID))
+    {
+        errorMessageText.append(" - Enter Member ID\n");
+        errorFound = true;
+    }
+
+    // Check if product_name empty.
+    if (product_name.isEmpty() || isWhiteSpace(product_name))
+    {
+        errorMessageText.append(" - Enter Product Name\n");
+        errorFound = true;
+    }
+    // Check if product_price empty.
+    if (product_price.isEmpty() || isWhiteSpace(product_price))
+    {
+        errorMessageText.append(" - Enter Product Price\n");
+        errorFound = true;
+    }
+    // Check if quantity empty.
+    if (quantity.isEmpty() || isWhiteSpace(quantity))
+    {
+        errorMessageText.append(" - Enter Quanity\n");
+        errorFound = true;
+    }
+    // Check if date empty.
+    if (date.isEmpty() || isWhiteSpace(date))
+    {
+        errorMessageText.append(" - Enter Date of Purchase\n");
+        errorFound = true;
+    }
+
+    if (errorFound)
+    {
+        msg.setText(errorMessageText);
+        msg.exec();
+        return true;
+    }
+
+    return false;
+}
+/*******************************************************************************/
+
+
+
+
+/****************************************************************************//**
+ *      isWhiteSpace
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+bool MainWindow::isWhiteSpace(const QString & str) const
+{
+  return QRegExp("\\s*").exactMatch(str);
+}
+/*******************************************************************************/
+

@@ -29,6 +29,9 @@ public slots:
     void displaySalesByDate();
     void displayMembersByDate();
 
+    bool checkLineEdits(QString& memberID, QString& product_name, QString& product_price, QString& quantity,  QString& date) const;
+    bool isWhiteSpace(const QString & str) const;
+
 private slots:
     void on_memberBackBtn_clicked();
     void on_memberRebatesBtn_clicked();
@@ -36,6 +39,33 @@ private slots:
     void on_expirationMonthSelect_currentIndexChanged();
     void on_salesSearchInput_textChanged();
     void on_memberSearchInput_textChanged();
+
+    void on_manageInventoryBtn_clicked();
+    void on_manageMemberBtn_clicked();
+
+    void on_manageAddItemBtn_clicked();
+    void on_addItemOkBtn_clicked();
+    void on_addItemCancelBtn_clicked();
+
+    void on_manageDelItemBtn_clicked();
+    void on_delItemOkBtn_clicked();
+    void on_delItemCancelBtn_clicked();
+
+    void on_manageUpItemBtn_clicked();
+    void on_upItemOkBtn_clicked();
+    void on_upItemCancelBtn_clicked();
+
+    void on_manageAddMemBtn_clicked();
+    void on_addMemOkBtn_clicked();
+    void on_addMemCancelBtn_clicked();
+
+    void on_manageDelMemBtn_clicked();
+    void on_delMemOkBtn_clicked();
+    void on_delMemCancelBtn_clicked();
+
+    void on_manageAddPurchaseBtn_clicked();
+    void on_addPurchaseOkBtn_clicked();
+    void on_addPurchaseCancelBtn_clicked();
 
 private:
     Ui::MainWindow *ui;
