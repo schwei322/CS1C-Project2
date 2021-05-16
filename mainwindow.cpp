@@ -1,3 +1,4 @@
+#include <QMessageBox>
 #include <QTableWidgetItem>
 
 #include "mainwindow.h"
@@ -39,6 +40,20 @@ MainWindow::MainWindow(QWidget *parent)
     ui->expiredExecutiveTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->expiredExecutiveTable->verticalHeader()->setVisible(false); 
 
+    ui->manageInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->manageInventoryTable->verticalHeader()->setVisible(false);
+
+    ui->manageMemberTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->manageMemberTable->verticalHeader()->setVisible(false);
+
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->displaySales();
 
     if (debugMode)
@@ -70,6 +85,8 @@ void MainWindow::userLogin()
         this->ui->adminBtn->show();
         this->ui->loginPanel->hide();
         this->ui->memberTable->setColumnHidden(5, false);
+
+        this->ui->manageInventoryPanel->raise();
     }
     else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
@@ -225,6 +242,68 @@ void MainWindow::displayAdmin()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
+
+    this->ui->manageInventoryTable->setRowCount(0);
+
+    QVector<PurchaseData> purchaseDataList = this->database_manager.get_report_all_items();
+
+    for (PurchaseData& data : purchaseDataList)
+    {
+        this->ui->manageInventoryTable->insertRow(this->ui->manageInventoryTable->rowCount());
+
+        QTableWidgetItem  *itemName = new QTableWidgetItem;
+        itemName->setData(Qt::EditRole, data.getProduct());
+        itemName->setToolTip(data.getName());
+        this->ui->manageInventoryTable->setItem(this->ui->manageInventoryTable->rowCount() - 1, 0, itemName);
+
+        QTableWidgetItem  *itemPrice = new QTableWidgetItem;
+        itemPrice->setData(Qt::EditRole, data.getPrice());
+        itemPrice->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->manageInventoryTable->setItem(this->ui->manageInventoryTable->rowCount() - 1, 1, itemPrice);
+    }
+
+    this->ui->manageMemberTable->setRowCount(0);
+
+    QVector<MemberPurchaseData> purchaseDataList2 = this->database_manager.get_report_all_purchases_per_member();
+
+    QVector<MemberPurchaseData> newPurchaseDataList;
+    QVector<int> tempMemberVec;
+
+    for (MemberPurchaseData& data : purchaseDataList2)
+    {
+       if (!tempMemberVec.contains(data.getMembershipNumber()))
+       {
+           MemberPurchaseData purchaseData;
+
+           purchaseData.setName(data.getName());
+           purchaseData.setMembershipNumber(data.getMembershipNumber());
+           purchaseData.setMembershipType(data.getMembershipType());
+
+           newPurchaseDataList.append(purchaseData);
+           tempMemberVec.append(data.getMembershipNumber());
+       }
+    }
+
+    for (MemberPurchaseData& data : newPurchaseDataList)
+    {
+        this->ui->manageMemberTable->insertRow(this->ui->manageMemberTable ->rowCount());
+
+        QTableWidgetItem  *name = new QTableWidgetItem;
+        name->setData(Qt::EditRole, data.getName());
+        name->setToolTip(data.getName());
+        this->ui->manageMemberTable->setItem(this->ui->manageMemberTable->rowCount() - 1, 0, name);
+
+        QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+        membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+        membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->manageMemberTable->setItem(this->ui->manageMemberTable->rowCount() - 1, 1, membershipNumber);
+
+        QString membershipType = data.getMembershipType();
+        QTableWidgetItem  *type = new QTableWidgetItem;
+        type->setData(Qt::EditRole, membershipType);
+        type->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->manageMemberTable->setItem(this->ui->manageMemberTable->rowCount() - 1, 2, type);
+    }
 
     this->ui->admin->raise();
 }
@@ -814,18 +893,18 @@ void MainWindow::on_memberSearchInput_textChanged()
 
             if (membershipType == "Executive")
             {
-                if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+                if (totalSpentAmountWithoutTaxes * 0.02 < 55)
                 {
-                    recommendedConversion->setData(Qt::EditRole, "OK");
+                    recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
                 }
                 else
                 {
-                    recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+                    recommendedConversion->setData(Qt::EditRole, "OK");
                 }
             }
             else if (membershipType == "Regular")
             {
-                if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+                if (totalSpentAmountWithoutTaxes * 0.02 > 55)
                 {
                     recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
                 }
@@ -843,3 +922,419 @@ void MainWindow::on_memberSearchInput_textChanged()
         this->ui->memberTotalDisplay->setText("$" + QString::number(grandTotal, 'f', 2));
     }
 }
+
+void MainWindow::on_manageInventoryBtn_clicked()
+{
+    this->ui->manageInventoryPanel->raise();
+}
+
+void MainWindow::on_manageMemberBtn_clicked()
+{
+    this->ui->manageMemberPanel->raise();
+}
+
+void MainWindow::on_manageAddItemBtn_clicked()
+{
+    this->ui->addItemPanel->show();
+    this->ui->addItemPanel->raise();
+}
+
+void MainWindow::on_addItemOkBtn_clicked()
+{
+    QString item_name = this->ui->addItemNameInput->text();
+    QString item_price = this->ui->addItemPriceInput->text();
+
+    bool inputValid = true;
+    int countDecimal = 0;
+
+    QMessageBox errorMessageBox;
+
+    // No field can be left empty
+    if (item_name.isEmpty() || item_price.isEmpty())
+    {
+        errorMessageBox.setText("INVALID INPUT:\nALL fields must be entered.");
+        errorMessageBox.exec();
+        inputValid = false;
+    }
+
+    // item_price can only contain digits, commas, and one period as decimal.
+    for (int i = 0; i < item_price.size(); i++)
+    {
+        // Check if only digits, commas, and periods present
+        if ( !(item_price[i].isDigit() || item_price[i] == "," || item_price[i] == ".") )
+        {
+            errorMessageBox.setText("INVALID INPUT:\nPrice for item can only contain numbers, commas (optional), and one decimal");
+            inputValid = false;
+            errorMessageBox.exec();
+            break;
+        }
+
+        if (item_price[i] == ".")
+        {
+            countDecimal++;
+        }
+
+        if (countDecimal > 1)
+        {
+            errorMessageBox.setText("INVALID INPUT:\nPrice can only contain one decimal.");
+            inputValid = false;
+            errorMessageBox.exec();
+            break;
+        }
+    }
+
+    if (inputValid)
+    {
+        this->database_manager.add_item(item_name, item_price);
+    }
+
+    this->ui->addItemNameInput->clear();
+    this->ui->addItemPriceInput->clear();
+
+    this->ui->addItemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_addItemCancelBtn_clicked()
+{
+    this->ui->addItemNameInput->clear();
+    this->ui->addItemPriceInput->clear();
+
+    this->ui->addItemPanel->hide();
+}
+
+void MainWindow::on_manageDelItemBtn_clicked()
+{
+    this->ui->delItemPanel->show();
+    this->ui->delItemPanel->raise();
+}
+
+void MainWindow::on_delItemOkBtn_clicked()
+{
+    QString item_name = this->ui->delItemNameInput->text();
+    QString item_id = this->ui->delItemIdInput->text();
+
+    QMessageBox errorMessageBox;
+
+    if (this->database_manager.check_item_existance(item_name, item_id))
+    {
+        this->database_manager.delete_item(item_name, item_id);
+    }
+    else
+    {
+        errorMessageBox.setText("Item does not exist. Check name and id again!\n");
+        errorMessageBox.exec();
+    }
+
+    this->ui->delItemNameInput->clear();
+    this->ui->delItemIdInput->clear();
+
+    this->ui->delItemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_delItemCancelBtn_clicked()
+{
+    this->ui->delItemNameInput->clear();
+    this->ui->delItemIdInput->clear();
+
+    this->ui->delItemPanel->hide();
+}
+
+void MainWindow::on_manageUpItemBtn_clicked()
+{
+    this->ui->upItemPanel->show();
+    this->ui->upItemPanel->raise();
+}
+
+void MainWindow::on_upItemOkBtn_clicked()
+{
+    QString item_name = this->ui->upItemNameInput->text();
+    QString item_new_price = this->ui->upItemPriceInput->text();
+
+    QMessageBox errorMessageBox;
+
+    if (this->database_manager.check_item_existance(item_name))
+    {
+        this->database_manager.update_item(item_name, item_new_price);
+    }
+    else
+    {
+        errorMessageBox.setText("Item does not exist. Check item name again!\n");
+        errorMessageBox.exec();
+    }
+
+    this->ui->upItemNameInput->clear();
+    this->ui->upItemPriceInput->clear();
+
+    this->ui->upItemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_upItemCancelBtn_clicked()
+{
+    this->ui->upItemNameInput->clear();
+    this->ui->upItemPriceInput->clear();
+
+    this->ui->upItemPanel->hide();
+}
+
+void MainWindow::on_manageAddMemBtn_clicked()
+{
+    this->ui->addMemPanel->show();
+    this->ui->addMemPanel->raise();
+}
+
+void MainWindow::on_addMemOkBtn_clicked()
+{
+    QString member_name;
+    QString member_type;
+
+    bool regular_checked;
+    bool executive_checked;
+
+    QMessageBox errorMessageBox;
+
+    // Get member name from ui. If left empty, tell user.
+    member_name = this->ui->addMemNameInput->text();
+    if (member_name.isEmpty() )
+    {
+        qDebug() << "Name left empty.\n";
+        errorMessageBox.setText("Enter name");
+        errorMessageBox.exec();
+        return;
+    }
+
+    // Find state of the checkboxes
+    regular_checked = this->ui->addMemTypeSelect->currentText() == "Regular";
+    executive_checked = this->ui->addMemTypeSelect->currentText() == "Executive";
+
+    // Check if check box for membership type is selected. If it is, assign
+    // type to member_type variable.
+    if ( regular_checked && executive_checked)
+    {
+        qDebug() << "Select ONE member type.\n";
+        errorMessageBox.setText("Select ONE membership type.\n");
+        errorMessageBox.exec();
+        return;
+    }
+    else if (regular_checked)
+    {
+        member_type = "Regular";
+    }
+    else if (executive_checked)
+    {
+        member_type = "Executive";
+    }
+    else
+    {
+        qDebug() << "Select a member type.\n";
+        errorMessageBox.setText("Select a membership type.\n");
+        errorMessageBox.exec();
+        return;
+    }
+
+    // After checking inputs, add member.
+    this->database_manager.add_member(member_name, member_type);
+
+    this->ui->addMemNameInput->clear();
+
+    this->ui->addMemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_addMemCancelBtn_clicked()
+{
+    this->ui->addMemNameInput->clear();
+
+    this->ui->addMemPanel->hide();
+}
+
+void MainWindow::on_manageDelMemBtn_clicked()
+{
+    this->ui->delMemPanel->show();
+    this->ui->delMemPanel->raise();
+}
+
+void MainWindow::on_delMemOkBtn_clicked()
+{
+    QString member_id;
+    QString member_name;
+
+    QMessageBox errorMessageBox;
+
+    // Get member's name and id from ui.
+    member_id = this->ui->delMemIdInput->text();
+    member_name = this->ui->delMemNameInput->text();
+
+    // Check if member exists
+    // If member does not exist in database, prompt error.
+    if (!this->database_manager.check_member_existance(member_name, member_id))
+    {
+        errorMessageBox.setText("Member does not exist. Check name and id again!\n");
+        errorMessageBox.exec();
+        return;
+    }
+
+    this->database_manager.delete_member(member_name, member_id);
+
+    this->ui->delMemIdInput->clear();
+    this->ui->delMemNameInput->clear();
+
+    this->ui->delMemPanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_delMemCancelBtn_clicked()
+{
+    this->ui->delMemIdInput->clear();
+    this->ui->delMemNameInput->clear();
+
+    this->ui->delMemPanel->hide();
+}
+
+void MainWindow::on_manageAddPurchaseBtn_clicked()
+{
+    this->ui->addPurchasePanel->show();
+    this->ui->addPurchasePanel->raise();
+}
+
+void MainWindow::on_addPurchaseOkBtn_clicked()
+{
+    QMessageBox messageBox;
+
+    QString memberID;
+    QString product_name;
+    QString product_price;
+    QString quantity;
+    QString date;
+
+    // Get purchase data from UI
+    memberID = this->ui->addPurMemIdInput->text();
+    product_name = this->ui->addPurNameInput->text();
+    product_price = this->ui->addPurPriceInput->text();
+    quantity = this->ui->addPurQuantInput->text();
+    date = this->ui->addPurDateInput->text();
+
+    // Check if any lineEdits left empty. check_lineEdits returns true if lineEdit found to be empty.
+    if (checkLineEdits(memberID, product_name, product_price, quantity, date))
+    {
+        return;
+    }
+
+    // Check if member exists. You shouldn't be able to add purchase for a non existant member.
+    if (this->database_manager.check_member_existance(memberID) == false)
+    {
+        messageBox.setText("Cannot add purchase for a member that does not exist. \nCheck member ID and try again!\n");
+        messageBox.exec();
+
+        return;
+    }
+
+    this->database_manager.add_member_purchase(memberID, product_name, product_price, quantity, date);
+
+    this->ui->addPurMemIdInput->clear();
+    this->ui->addPurNameInput->clear();
+    this->ui->addPurPriceInput->clear();
+    this->ui->addPurQuantInput->clear();
+    this->ui->addPurDateInput->clear();
+
+    this->ui->addPurchasePanel->hide();
+    this->displayAdmin();
+}
+
+void MainWindow::on_addPurchaseCancelBtn_clicked()
+{
+    this->ui->addPurMemIdInput->clear();
+    this->ui->addPurNameInput->clear();
+    this->ui->addPurPriceInput->clear();
+    this->ui->addPurQuantInput->clear();
+    this->ui->addPurDateInput->clear();
+
+    this->ui->addPurchasePanel->hide();
+}
+
+
+/****************************************************************************//**
+ *      checkLineEdits
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+// Returns true if errors found.
+bool MainWindow::checkLineEdits(QString& memberID, QString& product_name, QString& product_price, QString& quantity,  QString& date) const
+{
+    QString errorMessageText;
+    bool errorFound = false;
+    QMessageBox msg;
+
+    // Check if memberID empty.
+    if (memberID.isEmpty() || isWhiteSpace(memberID))
+    {
+        errorMessageText.append(" - Enter Member ID\n");
+        errorFound = true;
+    }
+
+    // Check if product_name empty.
+    if (product_name.isEmpty() || isWhiteSpace(product_name))
+    {
+        errorMessageText.append(" - Enter Product Name\n");
+        errorFound = true;
+    }
+    // Check if product_price empty.
+    if (product_price.isEmpty() || isWhiteSpace(product_price))
+    {
+        errorMessageText.append(" - Enter Product Price\n");
+        errorFound = true;
+    }
+    // Check if quantity empty.
+    if (quantity.isEmpty() || isWhiteSpace(quantity))
+    {
+        errorMessageText.append(" - Enter Quanity\n");
+        errorFound = true;
+    }
+    // Check if date empty.
+    if (date.isEmpty() || isWhiteSpace(date))
+    {
+        errorMessageText.append(" - Enter Date of Purchase\n");
+        errorFound = true;
+    }
+
+    if (errorFound)
+    {
+        msg.setText(errorMessageText);
+        msg.exec();
+        return true;
+    }
+
+    return false;
+}
+/*******************************************************************************/
+
+
+
+
+/****************************************************************************//**
+ *      isWhiteSpace
+ * ____________________________________________________________________________
+ *
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return N/A
+*******************************************************************************/
+
+bool MainWindow::isWhiteSpace(const QString & str) const
+{
+  return QRegExp("\\s*").exactMatch(str);
+}
+/*******************************************************************************/
+

@@ -23,7 +23,9 @@ class DatabaseManager
 {
 private:
     QSqlDatabase database;
+    QVector<PurchaseData> issue_items_query(QString command);
     QVector<PurchaseData> issue_purchases_query(QString command);
+    QVector<PurchaseData> aggregate_items_data(QSqlQuery query);
     QVector<PurchaseData> aggregate_purchases_data(QSqlQuery query);
     QVector<Member> aggregate_member_data(QSqlQuery query);
 
@@ -40,6 +42,20 @@ public:
     void insert_row_in_inventory(QString item_name, QString num_of_items, QString sell_quantity, QString total_revenue) const;
     void delete_row_in_inventory(QString item_name) const;
 
+    void add_item(QString item_name, QString item_price) const;
+    void delete_item(QString item_name, QString item_id) const;
+    void update_item(QString item_name, QString item_price) const;
+    bool check_item_existance(QString item_name) const;
+    bool check_item_existance(QString item_name, QString item_id) const;
+
+    void add_member(QString member_name, QString member_type) const;
+    void delete_member(QString member_name, QString membership_id) const;
+    bool check_member_existance(QString membership_number) const;
+    bool check_member_existance(QString member_name, QString membership_number) const;
+
+    void add_member_purchase(QString membership_number, QString product, QString price, QString quantity, QString date) const;
+
+    QVector<PurchaseData> get_report_all_items();
     QVector<PurchaseData> get_report_all_purchases();
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
     QVector<Member> get_report_expired_memberships_by_month(int month);

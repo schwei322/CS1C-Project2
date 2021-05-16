@@ -837,6 +837,1288 @@ border-radius: 5px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
+     <widget class="QPushButton" name="manageInventoryBtn">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+      </property>
+      <property name="text">
+       <string>Manage inventory</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="manageMemberBtn">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>10</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+      </property>
+      <property name="text">
+       <string>Manage members</string>
+      </property>
+     </widget>
+     <widget class="QFrame" name="manageInventoryPanel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>1131</width>
+        <height>721</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTableWidget {
+	border: 3px solid rgb(0, 76, 76);
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QTableWidget" name="manageInventoryTable">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>1111</width>
+         <height>661</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;
+</string>
+       </property>
+       <column>
+        <property name="text">
+         <string>Item name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Price</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QPushButton" name="manageAddItemBtn">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+       </property>
+       <property name="text">
+        <string>Add item</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="manageDelItemBtn">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>10</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+       </property>
+       <property name="text">
+        <string>Delete item</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="manageUpItemBtn">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>10</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+       </property>
+       <property name="text">
+        <string>Update item price</string>
+       </property>
+      </widget>
+      <widget class="QFrame" name="addItemPanel">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>230</y>
+         <width>431</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 128, 128);
+border-radius: 5px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="addItemLabel">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>13</y>
+          <width>401</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(178, 216, 216);
+font: 87 13pt &quot;Segoe UI Black&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Add a new item</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addItemNameInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addItemPriceInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item price</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addItemOkBtn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addItemCancelBtn">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="delItemPanel">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>230</y>
+         <width>431</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 128, 128);
+border-radius: 5px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="delItemLabel">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>13</y>
+          <width>401</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(178, 216, 216);
+font: 87 13pt &quot;Segoe UI Black&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Delete an item</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="delItemNameInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="delItemIdInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item ID</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="delItemOkBtn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="delItemCancelBtn">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="upItemPanel">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>230</y>
+         <width>431</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 128, 128);
+border-radius: 5px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="upItemLabel">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>13</y>
+          <width>401</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(178, 216, 216);
+font: 87 13pt &quot;Segoe UI Black&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Update an item price</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="upItemNameInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="upItemPriceInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Item new price</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="upItemOkBtn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="upItemCancelBtn">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </widget>
+      <zorder>addItemPanel</zorder>
+      <zorder>delItemPanel</zorder>
+      <zorder>manageAddItemBtn</zorder>
+      <zorder>manageDelItemBtn</zorder>
+      <zorder>manageUpItemBtn</zorder>
+      <zorder>upItemPanel</zorder>
+      <zorder>manageInventoryTable</zorder>
+     </widget>
+     <widget class="QFrame" name="manageMemberPanel">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>50</y>
+        <width>1131</width>
+        <height>721</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QTableWidget {
+	border: 3px solid rgb(0, 76, 76);
+}</string>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QTableWidget" name="manageMemberTable">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>50</y>
+         <width>1111</width>
+         <height>661</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;
+</string>
+       </property>
+       <column>
+        <property name="text">
+         <string>Member name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Member ID</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Membership type</string>
+        </property>
+       </column>
+      </widget>
+      <widget class="QPushButton" name="manageAddMemBtn">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>10</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+       </property>
+       <property name="text">
+        <string>Add member</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="manageDelMemBtn">
+       <property name="geometry">
+        <rect>
+         <x>220</x>
+         <y>10</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+       </property>
+       <property name="text">
+        <string>Delete member</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="manageAddPurchaseBtn">
+       <property name="geometry">
+        <rect>
+         <x>430</x>
+         <y>10</y>
+         <width>201</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QPushButton {
+        border: none;
+        background-color: rgb(0, 76, 76);
+        color: rgb(178, 216, 216);
+}
+
+QPushButton:hover {
+        border: none;
+        background-color: rgb(0, 128, 128);
+        color: rgb(178, 216, 216);
+}</string>
+       </property>
+       <property name="text">
+        <string>Add purchase for member</string>
+       </property>
+      </widget>
+      <widget class="QFrame" name="addMemPanel">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>230</y>
+         <width>431</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QFrame {
+	background-color: rgb(0, 128, 128);
+	border-radius: 5px;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="addMemLabel">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>13</y>
+          <width>401</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(178, 216, 216);
+font: 87 13pt &quot;Segoe UI Black&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Add a new nember</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addMemNameInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Member name</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addMemOkBtn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addMemCancelBtn">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="addMemTypeSelect">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>Regular</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Executive</string>
+         </property>
+        </item>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="delMemPanel">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>230</y>
+         <width>431</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 128, 128);
+border-radius: 5px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="delMemLabel">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>13</y>
+          <width>401</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(178, 216, 216);
+font: 87 13pt &quot;Segoe UI Black&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Delete a member</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="delMemNameInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Member name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="delMemIdInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Member ID</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="delMemOkBtn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="delMemCancelBtn">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>180</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QFrame" name="addPurchasePanel">
+       <property name="geometry">
+        <rect>
+         <x>350</x>
+         <y>150</y>
+         <width>431</width>
+         <height>381</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(0, 128, 128);
+border-radius: 5px;</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="addPurchaseLabel">
+        <property name="geometry">
+         <rect>
+          <x>16</x>
+          <y>13</y>
+          <width>401</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(178, 216, 216);
+font: 87 13pt &quot;Segoe UI Black&quot;;
+</string>
+        </property>
+        <property name="text">
+         <string>Add a purchase for a member</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addPurMemIdInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>80</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Member ID</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addPurNameInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>130</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Product name</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addPurchaseOkBtn">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>330</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>OK</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="addPurchaseCancelBtn">
+        <property name="geometry">
+         <rect>
+          <x>220</x>
+          <y>330</y>
+          <width>201</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton {
+        background-color: rgb(0, 76, 76);
+        border-radius: 5px;
+        color: rgb(178, 216, 216);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}
+
+QPushButton:hover {
+        background-color: rgb(178, 216, 216);
+        border-radius: 5px;
+        color: rgb(0, 76, 76);
+        font: 87 12pt &quot;Segoe UI Black&quot;;
+}</string>
+        </property>
+        <property name="text">
+         <string>Cancel</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addPurPriceInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>180</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Product price</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addPurQuantInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>230</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Quantity bought</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="addPurDateInput">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>280</y>
+          <width>411</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(0, 102, 102);
+border-radius: 5px;
+color: rgb(102, 178, 178);
+font: 87 12pt &quot;Segoe UI Black&quot;;</string>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+        <property name="placeholderText">
+         <string>Date of purchase</string>
+        </property>
+       </widget>
+      </widget>
+      <zorder>addPurchasePanel</zorder>
+      <zorder>delMemPanel</zorder>
+      <zorder>addMemPanel</zorder>
+      <zorder>manageMemberTable</zorder>
+      <zorder>manageAddMemBtn</zorder>
+      <zorder>manageDelMemBtn</zorder>
+      <zorder>manageAddPurchaseBtn</zorder>
+     </widget>
+     <zorder>manageInventoryBtn</zorder>
+     <zorder>manageMemberBtn</zorder>
+     <zorder>manageMemberPanel</zorder>
+     <zorder>manageInventoryPanel</zorder>
     </widget>
     <widget class="QFrame" name="sales">
      <property name="geometry">
@@ -1178,6 +2460,10 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </item>
      </widget>
     </widget>
+    <zorder>sidebar</zorder>
+    <zorder>members</zorder>
+    <zorder>sales</zorder>
+    <zorder>admin</zorder>
    </widget>
   </widget>
  </widget>
