@@ -244,7 +244,7 @@ void MainWindow::displaySalesByDate()
 
     QStringList dateOptions;
 
-    dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+    dateOptions << "All purchases" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
     QVector<PurchaseData> purchaseDataList;
 
@@ -369,7 +369,7 @@ void MainWindow::displayMembersByDate()
 
     QStringList dateOptions;
 
-    dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+    dateOptions << "All purchases" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
     QVector<PurchaseData> purchaseDataList;
 
@@ -564,7 +564,7 @@ void MainWindow::on_salesSearchInput_textChanged()
 
         QStringList dateOptions;
 
-        dateOptions << "All days" << "Day 1" << "Day 2" << "Day 3" << "Day 4" << "Day 5" << "Day 6" << "Day 7";
+        dateOptions << "All days" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
         QVector<PurchaseData> purchaseDataList;
 

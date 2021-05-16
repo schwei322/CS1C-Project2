@@ -1109,42 +1109,42 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </property>
       <item>
        <property name="text">
-        <string>All days</string>
+        <string>All purchases</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 1</string>
+        <string>04/01/2021</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 2</string>
+        <string>04/02/2021</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 3</string>
+        <string>04/03/2021</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 4</string>
+        <string>04/04/2021</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 5</string>
+        <string>04/05/2021</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 6</string>
+        <string>04/06/2021</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Day 7</string>
+        <string>04/07/2021</string>
        </property>
       </item>
      </widget>
@@ -1178,10 +1178,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </item>
      </widget>
     </widget>
-    <zorder>sidebar</zorder>
-    <zorder>sales</zorder>
-    <zorder>members</zorder>
-    <zorder>admin</zorder>
    </widget>
   </widget>
  </widget>
