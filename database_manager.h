@@ -43,7 +43,7 @@ public:
     void delete_row_in_inventory(QString item_name) const;
 
     void add_item(QString item_name, QString item_price) const;
-    void delete_item(QString item_name, QString item_id) const;
+    void delete_item(QString item_name) const;
     void update_item(QString item_name, QString item_price) const;
     bool check_item_existance(QString item_name) const;
     bool check_item_existance(QString item_name, QString item_id) const;

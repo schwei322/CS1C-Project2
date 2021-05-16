@@ -1024,13 +1024,12 @@ void MainWindow::on_manageDelItemBtn_clicked()
 void MainWindow::on_delItemOkBtn_clicked()
 {
     QString item_name = this->ui->delItemNameInput->text();
-    QString item_id = this->ui->delItemIdInput->text();
 
     QMessageBox errorMessageBox;
 
-    if (this->database_manager.check_item_existance(item_name, item_id))
+    if (this->database_manager.check_item_existance(item_name))
     {
-        this->database_manager.delete_item(item_name, item_id);
+        this->database_manager.delete_item(item_name);
     }
     else
     {
@@ -1039,7 +1038,6 @@ void MainWindow::on_delItemOkBtn_clicked()
     }
 
     this->ui->delItemNameInput->clear();
-    this->ui->delItemIdInput->clear();
 
     this->ui->delItemPanel->hide();
     this->displayAdmin();
@@ -1048,7 +1046,6 @@ void MainWindow::on_delItemOkBtn_clicked()
 void MainWindow::on_delItemCancelBtn_clicked()
 {
     this->ui->delItemNameInput->clear();
-    this->ui->delItemIdInput->clear();
 
     this->ui->delItemPanel->hide();
 }
