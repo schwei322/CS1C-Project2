@@ -4,6 +4,9 @@
 #include <QString>
 #include <QVariant>
 
+/// Brief description
+///
+/// Detailed Description
 class PurchaseData
 {
 public:
