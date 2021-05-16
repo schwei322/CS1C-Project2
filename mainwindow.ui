@@ -321,10 +321,10 @@ QPushButton:hover {
     <widget class="QFrame" name="members">
      <property name="geometry">
       <rect>
-       <x>121</x>
-       <y>11</y>
-       <width>1151</width>
-       <height>781</height>
+       <x>120</x>
+       <y>10</y>
+       <width>1150</width>
+       <height>780</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -823,8 +823,8 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
       <rect>
        <x>120</x>
        <y>10</y>
-       <width>1151</width>
-       <height>781</height>
+       <width>1150</width>
+       <height>780</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -837,228 +837,14 @@ border-radius: 5px;</string>
      <property name="frameShadow">
       <enum>QFrame::Raised</enum>
      </property>
-     <widget class="QTableWidget" name="adminInventoryTable">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>50</y>
-        <width>561</width>
-        <height>721</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
-      </property>
-      <column>
-       <property name="text">
-        <string>Item name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Quantity</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Revenue</string>
-       </property>
-      </column>
-     </widget>
-     <widget class="QTableWidget" name="adminMembersTable">
-      <property name="geometry">
-       <rect>
-        <x>580</x>
-        <y>50</y>
-        <width>561</width>
-        <height>721</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(0, 76, 76);
-font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
-      </property>
-      <column>
-       <property name="text">
-        <string>Member name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>ID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Membership type</string>
-       </property>
-      </column>
-     </widget>
-     <widget class="QPushButton" name="adminAddItemBtn">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-        border: none;
-        background-color: rgb(0, 76, 76);
-        color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-        border: none;
-        background-color: rgb(0, 128, 128);
-        color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Add Item</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="adminDelItemBtn">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-        border: none;
-        background-color: rgb(0, 76, 76);
-        color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-        border: none;
-        background-color: rgb(0, 128, 128);
-        color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Delete Item</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="adminLoadInventoryBtn">
-      <property name="geometry">
-       <rect>
-        <x>440</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-        border: none;
-        background-color: rgb(0, 76, 76);
-        color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-        border: none;
-        background-color: rgb(0, 128, 128);
-        color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Load Inventory</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="adminAddMemBtn">
-      <property name="geometry">
-       <rect>
-        <x>580</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-        border: none;
-        background-color: rgb(0, 76, 76);
-        color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-        border: none;
-        background-color: rgb(0, 128, 128);
-        color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Add Member</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="adminDelMemBtn">
-      <property name="geometry">
-       <rect>
-        <x>720</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-        border: none;
-        background-color: rgb(0, 76, 76);
-        color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-        border: none;
-        background-color: rgb(0, 128, 128);
-        color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Delete Member</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="adminLoadMemBtn">
-      <property name="geometry">
-       <rect>
-        <x>1010</x>
-        <y>10</y>
-        <width>131</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-        border: none;
-        background-color: rgb(0, 76, 76);
-        color: rgb(178, 216, 216);
-}
-
-QPushButton:hover {
-        border: none;
-        background-color: rgb(0, 128, 128);
-        color: rgb(178, 216, 216);
-}</string>
-      </property>
-      <property name="text">
-       <string>Load Members</string>
-      </property>
-     </widget>
     </widget>
     <widget class="QFrame" name="sales">
      <property name="geometry">
       <rect>
        <x>120</x>
        <y>10</y>
-       <width>1151</width>
-       <height>781</height>
+       <width>1150</width>
+       <height>780</height>
       </rect>
      </property>
      <property name="styleSheet">
@@ -1392,10 +1178,10 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </item>
      </widget>
     </widget>
-    <zorder>admin</zorder>
     <zorder>sidebar</zorder>
     <zorder>sales</zorder>
     <zorder>members</zorder>
+    <zorder>admin</zorder>
    </widget>
   </widget>
  </widget>
