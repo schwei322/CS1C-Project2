@@ -452,7 +452,7 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
        </column>
        <column>
         <property name="text">
-         <string>Total spent</string>
+         <string>Total purchases</string>
         </property>
        </column>
        <column>
@@ -545,7 +545,12 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;
        </column>
        <column>
         <property name="text">
-         <string>Total spent</string>
+         <string>Total purchases (w/o tax)</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Total purchases (w/ tax)</string>
         </property>
        </column>
        <column>
@@ -810,8 +815,8 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <zorder>memberExpirationPanel</zorder>
      <zorder>memberSearchInput</zorder>
      <zorder>memberSearchLabel</zorder>
-     <zorder>memberRebatesPanel</zorder>
      <zorder>memberMainPanel</zorder>
+     <zorder>memberRebatesPanel</zorder>
     </widget>
     <widget class="QFrame" name="admin">
      <property name="geometry">
@@ -1392,8 +1397,6 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
     <zorder>sales</zorder>
     <zorder>members</zorder>
    </widget>
-   <zorder>mainPanel</zorder>
-   <zorder>loginPanel</zorder>
   </widget>
  </widget>
  <resources/>

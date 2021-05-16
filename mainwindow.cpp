@@ -22,11 +22,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->salesTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->salesTable->verticalHeader()->setVisible(false);
-    ui->salesTable->setSortingEnabled(true);
 
     ui->salesTable2->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->salesTable2->verticalHeader()->setVisible(false);
-    ui->salesTable2->setSortingEnabled(true);
 
     ui->memberTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->memberTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -37,11 +35,9 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->expiredRegularTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->expiredRegularTable->verticalHeader()->setVisible(false);
-    ui->expiredRegularTable->setSortingEnabled(true);
 
     ui->expiredExecutiveTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->expiredExecutiveTable->verticalHeader()->setVisible(false);
-    ui->expiredExecutiveTable->setSortingEnabled(true);    
+    ui->expiredExecutiveTable->verticalHeader()->setVisible(false); 
 
     ui->adminInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->adminMembersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -237,6 +233,9 @@ void MainWindow::displayAdmin()
 
 void MainWindow::displaySalesByDate()
 {
+    ui->salesTable->setSortingEnabled(false);
+    ui->salesTable2->setSortingEnabled(false);
+
     this->ui->salesTable->setRowCount(0);
 
     QStringList memberOptions;
@@ -358,10 +357,16 @@ void MainWindow::displaySalesByDate()
     }
 
     this->ui->salesRevDisplay->setText("$" + QString::number(totalRevenue + (totalRevenue * TAX), 'f', 2));
+
+    ui->salesTable->setSortingEnabled(true);
+    ui->salesTable2->setSortingEnabled(true);
 }
 
 void MainWindow::displayMembersByDate()
 {
+    ui->salesTable->setSortingEnabled(false);
+    ui->salesTable2->setSortingEnabled(false);
+
     this->ui->salesTable2->setRowCount(0);
 
     QStringList dateOptions;
@@ -411,6 +416,9 @@ void MainWindow::displayMembersByDate()
     }
 
     this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+
+    ui->salesTable->setSortingEnabled(true);
+    ui->salesTable2->setSortingEnabled(true);
 }
 
 void MainWindow::on_memberBackBtn_clicked()
@@ -460,15 +468,23 @@ void MainWindow::on_memberRebatesBtn_clicked()
         membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 1, membershipNumber);
 
+        double totalSpentAmount = data.getTotalSpent();
+        double totalSpentAmountWithoutTaxes = totalSpentAmount - (totalSpentAmount * TAX);
+
+        QTableWidgetItem  *spentWithoutTaxes = new QTableWidgetItem;
+        spentWithoutTaxes->setData(Qt::EditRole, "$" + QString::number(totalSpentAmountWithoutTaxes, 'f', 2));
+        spentWithoutTaxes->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 2, spentWithoutTaxes);
+
         QTableWidgetItem  *spent = new QTableWidgetItem;
-        spent->setData(Qt::EditRole, "$" + QString::number(data.getTotalSpent(), 'f', 2));
+        spent->setData(Qt::EditRole, "$" + QString::number(totalSpentAmount, 'f', 2));
         spent->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
-        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 2, spent);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 3, spent);
 
         QTableWidgetItem  *rebate = new QTableWidgetItem;
         rebate->setData(Qt::EditRole, "$" + QString::number(data.getRebateAmount(), 'f', 2));
         rebate->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
-        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 3, rebate);
+        this->ui->memberRebatesTable->setItem(this->ui->memberRebatesTable->rowCount() - 1, 4, rebate);
     }
 
     this->ui->memberRebatesPanel->raise();
@@ -537,6 +553,9 @@ void MainWindow::on_salesSearchInput_textChanged()
     }
     else
     {
+        ui->salesTable->setSortingEnabled(false);
+        ui->salesTable2->setSortingEnabled(false);
+
         this->ui->salesTable->setRowCount(0);
 
         QStringList memberOptions;
@@ -706,6 +725,9 @@ void MainWindow::on_salesSearchInput_textChanged()
         }
 
         this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+
+        ui->salesTable->setSortingEnabled(true);
+        ui->salesTable2->setSortingEnabled(true);
     }
 }
 
