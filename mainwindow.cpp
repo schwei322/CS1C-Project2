@@ -39,9 +39,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->expiredExecutiveTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->expiredExecutiveTable->verticalHeader()->setVisible(false); 
 
-    ui->adminInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->adminMembersTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-
     this->displaySales();
 
     if (debugMode)
@@ -76,6 +73,7 @@ void MainWindow::userLogin()
     }
     else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
+        this->ui->admin->hide();
         this->ui->adminBtn->hide();
         this->ui->loginPanel->hide();
         this->ui->memberTable->setColumnHidden(5, true);
@@ -185,18 +183,18 @@ void MainWindow::displayMembers()
 
         if (membershipType == "Executive")
         {
-            if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+            if (totalSpentAmountWithoutTaxes * 0.02 < 55)
             {
-                recommendedConversion->setData(Qt::EditRole, "OK");
+                recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
             }
             else
             {
-                recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+                recommendedConversion->setData(Qt::EditRole, "OK");
             }
         }
         else if (membershipType == "Regular")
         {
-            if (totalSpentAmountWithoutTaxes * 0.02 >= 120)
+            if (totalSpentAmountWithoutTaxes * 0.02 > 55)
             {
                 recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
             }
