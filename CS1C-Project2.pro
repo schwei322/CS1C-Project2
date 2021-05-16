@@ -13,15 +13,13 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     member.cpp \
-    purchasedata.cpp \
-    miscellaneous_functions.cpp
+    purchasedata.cpp
 
 HEADERS += \
     database_manager.h \
     mainwindow.h \
     member.h \
-    purchasedata.h \
-    miscellaneous_functions.h
+    purchasedata.h
 
 FORMS += \
     mainwindow.ui

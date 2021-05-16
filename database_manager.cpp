@@ -1,7 +1,4 @@
 #include "database_manager.h"
-#include <QVariant>
-#include <QSqlField>
-#include "member.h"
 
 /****************************************************************************//**
  *      Constructor
@@ -42,10 +39,11 @@ DatabaseManager::~DatabaseManager()
  * form of a QStringList. Method uses membership_number to find member.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number : QString represents member's ID.
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return membersData : QStringList containing data of every member.
+ *              Each string contains data about each member.
 *******************************************************************************/
 
 QStringList DatabaseManager::get_memberInfo(QString membership_number) const
@@ -90,7 +88,7 @@ QStringList DatabaseManager::get_memberInfo(QString membership_number) const
  * made by a member. The element is a QStringList holding data about the purchase.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number : QString represents member's ID.
  *
  * \b OUTPUT:
  *      @return purchases : Purchases made by member. Vector of QStrings where a vector
@@ -183,14 +181,14 @@ QVector<QStringList> DatabaseManager::get_memberPurchases(QString membership_num
 /****************************************************************************//**
  *      get_itemInfo
  * ____________________________________________________________________________
- * Method returns a vector of QStringLists. A vector element represents an
- * item. The element is a QStringList holding data about the purchase.
+ * Method returns a QStringList where each string contains the information about
+ * an item. The QStringList provides information on all items from the Item table.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param item_name: QString representing item's name.
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return item_data_list : QStringList containing information about each item.
 *******************************************************************************/
 
 QStringList DatabaseManager::get_itemInfo(QString item_name) const
@@ -223,10 +221,11 @@ QStringList DatabaseManager::get_itemInfo(QString item_name) const
 /****************************************************************************//**
  *      update_totalAmountSpent
  * ____________________________________________________________________________
- * ___Description___
+ * Method updates the total amount spent field in the Member table.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number: QString representing members's ID.
+ *      @param total_amount_spent: QString representing total amount spent by a member.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -250,12 +249,13 @@ void DatabaseManager::update_totalAmountSpent(QString membership_number, QString
 
 
 /****************************************************************************//**
- *      update_totalAmountSpent
+ *      update_rebateAmount
  * ____________________________________________________________________________
- * ___Description___
+ * Method updates the rebate amount field for a member.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number: QString representing members's ID.
+ *      @param rebate_amount: QString representing rebate amount for member.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -279,12 +279,15 @@ void DatabaseManager::update_rebateAmount(QString membership_number, QString reb
 
 
 /****************************************************************************//**
- *      update_totalAmountSpent
+ *      insert_row_in_inventory
  * ____________________________________________________________________________
- * ___Description___
+ * Method inserts row into the Bulk Club database's Inventory table.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param item_name: QString representing item's name.
+ *      @param num_of_items: QString representing quantity of items.
+ *      @param sell_quantity: QString representing quantity sold.
+ *      @param total_revenue: QString representing total revenue earned by item.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -317,8 +320,8 @@ void DatabaseManager::insert_row_in_inventory(QString item_name, QString num_of_
  * two or more rows with the same name, ALL OF THEM WILL BE DELETED!!!
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
- *
+ *      @param item_name: QString representing item's name.
+
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
@@ -341,10 +344,11 @@ void DatabaseManager::delete_row_in_inventory(QString item_name) const
 /****************************************************************************//**
  *      add_item
  * ____________________________________________________________________________
- *
+ * Method adds item to Bulk Club database's Item table.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param item_name: QString representing item's name.
+ *      @param item_price: QString representing item's price.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -368,11 +372,11 @@ void DatabaseManager::add_item(QString item_name, QString item_price) const
 /****************************************************************************//**
  *      delete_item
  * ____________________________________________________________________________
- *
+ * Method deletes item from the bulk club database's Item table.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
- *
+ *      @param item_name: QString representing item's name.
+ *      @param item_id: QString representing item's ID. *
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
@@ -398,7 +402,8 @@ void DatabaseManager::delete_item(QString item_name, QString item_id) const
  * Checks if item exists in database. Returns true if item already exists.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param item_name: QString representing item's name.
+ *      @param item_price: QString representing item's price.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -425,10 +430,11 @@ void DatabaseManager::update_item(QString item_name, QString item_price) const
  * Checks if item exists in database. Returns true if item already exists.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param item_name
+ *      @param item_name: QString representing item's name.
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return Nitem_exists.toInt() : bool representing if item already exists.
+ *                      true => item exists
 *******************************************************************************/
 
 bool DatabaseManager::check_item_existance(QString item_name) const
@@ -467,7 +473,8 @@ bool DatabaseManager::check_item_existance(QString item_name) const
  *      @param item_id
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return Nitem_exists.toInt() : bool representing if item already exists.
+ *                      true => item exists
 *******************************************************************************/
 
 bool DatabaseManager::check_item_existance(QString item_name, QString item_id) const
@@ -499,10 +506,11 @@ bool DatabaseManager::check_item_existance(QString item_name, QString item_id) c
 /****************************************************************************//**
  *      add_member
  * ____________________________________________________________________________
- *
+ * Method adds a member to the Member table in the bulk club's database.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param member_name : QString representing member's name.
+ *      @param membership_type : QString representing member's membership type.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -526,10 +534,11 @@ void DatabaseManager::add_member(QString member_name, QString membership_type) c
 /****************************************************************************//**
  *      delete_member
  * ____________________________________________________________________________
- *
+ * Method deletes member from the Member table from the bulk club'a database.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param member_name : QString representing member's name
+ *      @param membership_id : QString representing member's member ID
  *
  * \b OUTPUT:
  *      @return N/A
@@ -557,10 +566,11 @@ void DatabaseManager::delete_member(QString member_name, QString membership_id) 
  * true if member exists; otherwise method returns false.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number : QString representing member's member ID
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return item_exists.toInt() : bool value representing member's existance. T
+ *                      true => member exists  |  false => member DNE
 *******************************************************************************/
 
 bool DatabaseManager::check_member_existance(QString membership_number) const
@@ -596,10 +606,12 @@ bool DatabaseManager::check_member_existance(QString membership_number) const
  * true if member exists; otherwise method returns false.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param member_name : QString representing member's name.
+ *      @param membership_number : QString representing member's member ID
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return item_exists.toInt() : bool value representing member's existance.
+ *                      true => member exists  |  false => member DNE
 *******************************************************************************/
 
 bool DatabaseManager::check_member_existance(QString member_name, QString membership_number) const
@@ -636,7 +648,11 @@ bool DatabaseManager::check_member_existance(QString member_name, QString member
  * id (member_number).
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number : QString representing member's member ID
+ *      @param product : QString representing product's name.
+ *      @param price : QString representing product's price.
+ *      @param quantity : QString representing quantitiy bought
+ *      @param date : QString representing data of purchase.
  *
  * \b OUTPUT:
  *      @return N/A

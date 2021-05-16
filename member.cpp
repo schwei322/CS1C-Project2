@@ -15,8 +15,8 @@ Member::Member()
     this->total_amount_spent = 0.0;
     this->rebate_amount = 0.0;
 }
-
 /********************************************************************************/
+
 
 
 /****************************************************************************//**
@@ -35,7 +35,6 @@ Member::Member(QString name, int membership_number, QString membership_type,
     this->total_amount_spent = total_amount_spent;
     this->rebate_amount = rebate_amount;
 }
-
 /********************************************************************************/
 
 
@@ -53,13 +52,13 @@ Member::~Member(){}
 /****************************************************************************//**
  *      get_name
  * ____________________________________________________________________________
- * ___Description___
+ * Method gets name for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return name : QString representing name of a member.
 ********************************************************************************/
 
 QString Member::get_name() const
@@ -74,13 +73,13 @@ QString Member::get_name() const
 /****************************************************************************//**
  *      get_membership_number
  * ____________________________________________________________________________
- * ___Description___
+ * Method gets membership number for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return membership_number : int representing membership_number.
 ********************************************************************************/
 
 int Member::get_membership_number() const
@@ -94,13 +93,13 @@ int Member::get_membership_number() const
 /****************************************************************************//**
  *      get_membership_type
  * ____________________________________________________________________________
- * ___Description___
+ * Method gets membership type for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return membership_type : QString representing membership type.
 ********************************************************************************/
 
 QString Member::get_membership_type() const
@@ -114,13 +113,13 @@ QString Member::get_membership_type() const
 /****************************************************************************//**
  *      get_membership_expiration_date
  * ____________________________________________________________________________
- * ___Description___
+ * Method gets membership expiration date for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return membership_expiration_date : QString representing expiration date.
 ********************************************************************************/
 
 QString Member::get_membership_expiration_date() const
@@ -134,13 +133,13 @@ QString Member::get_membership_expiration_date() const
 /****************************************************************************//**
  *      get_total_amount_spent
  * ____________________________________________________________________________
- * ___Description___
+ * Method gets total amount spent of a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return total_amount_spent : total amount spent by the instance.
 ********************************************************************************/
 
 double Member::get_total_amount_spent() const
@@ -154,13 +153,13 @@ double Member::get_total_amount_spent() const
 /****************************************************************************//**
  *      get_rebate_amount
  * ____________________________________________________________________________
- * ___Description___
+ * Method gets rebate amount for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return rebate_amount : rebate amount attribute of instance.
 ********************************************************************************/
 
 double Member::get_rebate_amount() const
@@ -174,10 +173,10 @@ double Member::get_rebate_amount() const
 /****************************************************************************//**
  *      set_name
  * ____________________________________________________________________________
- * ___Description___
+ * Method changes the name of a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param name : QString representing name of a member.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -194,10 +193,10 @@ void Member::set_name(QString name)
 /****************************************************************************//**
  *      set_membership_number
  * ____________________________________________________________________________
- * ___Description___
+ * Method changes membership number for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_number : int representing membership_number.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -215,10 +214,10 @@ void Member::set_membership_number(int membership_number)
 /****************************************************************************//**
  *      set_membership_type
  * ____________________________________________________________________________
- * ___Description___
+ * Method changes membership type for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_type : QString representing membership type.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -234,10 +233,10 @@ void Member::set_membership_type(QString membership_type)
 /****************************************************************************//**
  *      set_membership_expiration_date
  * ____________________________________________________________________________
- * ___Description___
+ * Method changes membership expiration data for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param membership_expiration_date : QString representing expiration date.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -254,10 +253,10 @@ void Member::set_membership_expiration_date(QString membership_expiration_date)
 /****************************************************************************//**
  *      set_total_amount_spent
  * ____________________________________________________________________________
- * ___Description___
+ * Method sets total amount spent attribute for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param total_amount_spent : total amount spent by the instance.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -272,10 +271,10 @@ void Member::set_total_amount_spent(double total_amount_spent)
 /****************************************************************************//**
  *      set_rebate_amount
  * ____________________________________________________________________________
- * ___Description___
+ * Method sets rebate amount for a Member instance.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param  rebate_amount : rebate amount attribute of instance.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -286,4 +285,5 @@ void Member::set_rebate_amount(double rebate_amount)
     this->rebate_amount = rebate_amount;
 }
 /*******************************************************************************/
+
 

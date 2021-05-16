@@ -8,7 +8,7 @@ class PurchaseData
 {
 public:
     PurchaseData();
-
+    ~PurchaseData();
     QString getDate() const;
     QString getName() const;
     int getMembershipNumber() const;

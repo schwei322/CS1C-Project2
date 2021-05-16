@@ -15,6 +15,10 @@ using namespace std;
 
 const double TAX = 0.0775;
 
+/****************************************************************************//**
+ *      Constructor
+*******************************************************************************/
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow), database_manager()
@@ -38,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->expiredRegularTable->verticalHeader()->setVisible(false);
 
     ui->expiredExecutiveTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->expiredExecutiveTable->verticalHeader()->setVisible(false); 
+    ui->expiredExecutiveTable->verticalHeader()->setVisible(false);
 
     ui->manageInventoryTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->manageInventoryTable->verticalHeader()->setVisible(false);
@@ -66,11 +70,25 @@ MainWindow::MainWindow(QWidget *parent)
         ui->adminBtn->hide();
     }
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      Deconstructor
+*******************************************************************************/
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      userLogin
+*******************************************************************************/
 
 void MainWindow::userLogin()
 {
@@ -99,6 +117,13 @@ void MainWindow::userLogin()
     this->ui->usernameInput->clear();
     this->ui->passwordInput->clear();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      userLogout
+*******************************************************************************/
 
 void MainWindow::userLogout()
 {
@@ -107,6 +132,13 @@ void MainWindow::userLogout()
     this->ui->loginPanel->show();
     this->ui->loginPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      displaySales
+*******************************************************************************/
 
 void MainWindow::displaySales()
 {
@@ -119,6 +151,14 @@ void MainWindow::displaySales()
     this->displaySalesByDate();
     this->displayMembersByDate();
 }
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      displayMembers
+*******************************************************************************/
 
 void MainWindow::displayMembers()
 {
@@ -236,6 +276,12 @@ void MainWindow::displayMembers()
 
     this->ui->members->raise();
 }
+/*******************************************************************************/
+
+
+/****************************************************************************//**
+ *      displayAdmin
+*******************************************************************************/
 
 void MainWindow::displayAdmin()
 {
@@ -307,6 +353,13 @@ void MainWindow::displayAdmin()
 
     this->ui->admin->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      displaySalesByDate
+*******************************************************************************/
 
 void MainWindow::displaySalesByDate()
 {
@@ -438,6 +491,13 @@ void MainWindow::displaySalesByDate()
     ui->salesTable->setSortingEnabled(true);
     ui->salesTable2->setSortingEnabled(true);
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      displayMembersByDate
+*******************************************************************************/
 
 void MainWindow::displayMembersByDate()
 {
@@ -497,6 +557,13 @@ void MainWindow::displayMembersByDate()
     ui->salesTable->setSortingEnabled(true);
     ui->salesTable2->setSortingEnabled(true);
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_memberBackBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_memberBackBtn_clicked()
 {
@@ -505,6 +572,13 @@ void MainWindow::on_memberBackBtn_clicked()
     this->ui->memberSearchInput->show();
     this->ui->memberBackBtn->hide();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_memberRebatesBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_memberRebatesBtn_clicked()
 {
@@ -569,6 +643,13 @@ void MainWindow::on_memberRebatesBtn_clicked()
     this->ui->memberSearchInput->hide();
     this->ui->memberBackBtn->show();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_memberExpirationBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_memberExpirationBtn_clicked()
 {
@@ -581,6 +662,13 @@ void MainWindow::on_memberExpirationBtn_clicked()
     this->ui->memberSearchInput->hide();
     this->ui->memberBackBtn->show();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_expirationMonthSelect_currentIndexChanged
+*******************************************************************************/
 
 void MainWindow::on_expirationMonthSelect_currentIndexChanged()
 {
@@ -620,6 +708,13 @@ void MainWindow::on_expirationMonthSelect_currentIndexChanged()
         }
     }
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_salesSearchInput_textChanged
+*******************************************************************************/
 
 void MainWindow::on_salesSearchInput_textChanged()
 {
@@ -807,6 +902,13 @@ void MainWindow::on_salesSearchInput_textChanged()
         ui->salesTable2->setSortingEnabled(true);
     }
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_memberSearchInput_textChanged
+*******************************************************************************/
 
 void MainWindow::on_memberSearchInput_textChanged()
 {
@@ -923,21 +1025,50 @@ void MainWindow::on_memberSearchInput_textChanged()
     }
 }
 
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageInventoryBtn_clicked
+*******************************************************************************/
+
 void MainWindow::on_manageInventoryBtn_clicked()
 {
     this->ui->manageInventoryPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageMemberBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageMemberBtn_clicked()
 {
     this->ui->manageMemberPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageAddItemBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageAddItemBtn_clicked()
 {
     this->ui->addItemPanel->show();
     this->ui->addItemPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_addItemOkBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_addItemOkBtn_clicked()
 {
@@ -994,6 +1125,13 @@ void MainWindow::on_addItemOkBtn_clicked()
     this->ui->addItemPanel->hide();
     this->displayAdmin();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_addItemCancelBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_addItemCancelBtn_clicked()
 {
@@ -1002,12 +1140,26 @@ void MainWindow::on_addItemCancelBtn_clicked()
 
     this->ui->addItemPanel->hide();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageDelItemBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageDelItemBtn_clicked()
 {
     this->ui->delItemPanel->show();
     this->ui->delItemPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_delItemOkBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_delItemOkBtn_clicked()
 {
@@ -1032,6 +1184,13 @@ void MainWindow::on_delItemOkBtn_clicked()
     this->ui->delItemPanel->hide();
     this->displayAdmin();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_delItemCancelBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_delItemCancelBtn_clicked()
 {
@@ -1040,12 +1199,26 @@ void MainWindow::on_delItemCancelBtn_clicked()
 
     this->ui->delItemPanel->hide();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageUpItemBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageUpItemBtn_clicked()
 {
     this->ui->upItemPanel->show();
     this->ui->upItemPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_upItemOkBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_upItemOkBtn_clicked()
 {
@@ -1070,6 +1243,13 @@ void MainWindow::on_upItemOkBtn_clicked()
     this->ui->upItemPanel->hide();
     this->displayAdmin();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_upItemCancelBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_upItemCancelBtn_clicked()
 {
@@ -1078,12 +1258,26 @@ void MainWindow::on_upItemCancelBtn_clicked()
 
     this->ui->upItemPanel->hide();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageAddMemBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageAddMemBtn_clicked()
 {
     this->ui->addMemPanel->show();
     this->ui->addMemPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_addMemOkBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_addMemOkBtn_clicked()
 {
@@ -1142,6 +1336,13 @@ void MainWindow::on_addMemOkBtn_clicked()
     this->ui->addMemPanel->hide();
     this->displayAdmin();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_addMemCancelBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_addMemCancelBtn_clicked()
 {
@@ -1149,12 +1350,26 @@ void MainWindow::on_addMemCancelBtn_clicked()
 
     this->ui->addMemPanel->hide();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageDelMemBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageDelMemBtn_clicked()
 {
     this->ui->delMemPanel->show();
     this->ui->delMemPanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_delMemOkBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_delMemOkBtn_clicked()
 {
@@ -1184,6 +1399,15 @@ void MainWindow::on_delMemOkBtn_clicked()
     this->ui->delMemPanel->hide();
     this->displayAdmin();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_delMemCancelBtn_clicked
+ * ____________________________________________________________________________
+
+*******************************************************************************/
 
 void MainWindow::on_delMemCancelBtn_clicked()
 {
@@ -1192,12 +1416,26 @@ void MainWindow::on_delMemCancelBtn_clicked()
 
     this->ui->delMemPanel->hide();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_manageAddPurchaseBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_manageAddPurchaseBtn_clicked()
 {
     this->ui->addPurchasePanel->show();
     this->ui->addPurchasePanel->raise();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_addPurchaseOkBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_addPurchaseOkBtn_clicked()
 {
@@ -1242,6 +1480,13 @@ void MainWindow::on_addPurchaseOkBtn_clicked()
     this->ui->addPurchasePanel->hide();
     this->displayAdmin();
 }
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      on_addPurchaseCancelBtn_clicked
+*******************************************************************************/
 
 void MainWindow::on_addPurchaseCancelBtn_clicked()
 {
@@ -1253,15 +1498,22 @@ void MainWindow::on_addPurchaseCancelBtn_clicked()
 
     this->ui->addPurchasePanel->hide();
 }
+/*******************************************************************************/
+
 
 
 /****************************************************************************//**
  *      checkLineEdits
  * ____________________________________________________________________________
- *
+ * Function checks the inputs of the line edits. The line edits checks the inputs
+ * for the add purchase functionality.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param memberID : QString representing member's member ID
+ *      @param product_name : QString representing product's name.
+ *      @param product_price : QString representing product's price.
+ *      @param quantity : QString representing quantity bought
+ *      @param date : QString representing data of purchase.
  *
  * \b OUTPUT:
  *      @return N/A
@@ -1319,17 +1571,16 @@ bool MainWindow::checkLineEdits(QString& memberID, QString& product_name, QStrin
 
 
 
-
 /****************************************************************************//**
  *      isWhiteSpace
  * ____________________________________________________________________________
- *
+ * Function checks if a string contains only white spaces.
  * ____________________________________________________________________________
  * \b INPUT:
- *      @param N/A
+ *      @param str : QString that needs to be checked.
  *
  * \b OUTPUT:
- *      @return N/A
+ *      @return  QRegExp("\\s*").exactMatch(str) :
 *******************************************************************************/
 
 bool MainWindow::isWhiteSpace(const QString & str) const
@@ -1337,4 +1588,5 @@ bool MainWindow::isWhiteSpace(const QString & str) const
   return QRegExp("\\s*").exactMatch(str);
 }
 /*******************************************************************************/
+
 
