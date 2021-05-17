@@ -8,6 +8,9 @@
 #include <QString>
 #include <QVariant>
 
+/// Brief description
+///
+/// Detailed Description
 class PurchaseData
 {
 public:
@@ -15,6 +18,10 @@ public:
      * @brief holds information about Data Purchased
      */
     PurchaseData();
+    /**
+     * @brief Deconstructor
+     */
+    ~PurchaseData();
     /**
      * @brief obtains Date
      */

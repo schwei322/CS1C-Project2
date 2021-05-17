@@ -8,7 +8,7 @@
 
 #include <QMainWindow>
 #include <QtDebug>
-
+#include <QRegExp>
 #include "database_manager.h"
 #include "purchasedata.h"
 

@@ -15,7 +15,9 @@
 #include <QtDebug>
 #include <QVector>
 #include "member.h"
-
+#include <QVariant>
+#include <QSqlField>
+#include "member.h"
 #include "purchasedata.h"
 
 ///@brief path that connects to the database
@@ -23,7 +25,10 @@ const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBP
 
 /// Class instance connects to Bulk Club's database.
 ///
-/// Has methods that can change database fields.
+/// The DatabaseManager class allows for an instance that can conect and interact with a SQLite database.
+/// The SQLite database is called bulk_club_database which contains all information regarding Inventory
+/// and Membership. There are methods for retrieving specifc or all information from specifc tables within the
+/// database.
 class DatabaseManager
 {
 private:
@@ -152,7 +157,6 @@ public:
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
     QVector<Member> get_report_expired_memberships_by_month(int month);
     QVector<MemberPurchaseData> get_report_all_purchases_per_member();
-
 };
 
 #endif // DATABASE_MANAGER_H
