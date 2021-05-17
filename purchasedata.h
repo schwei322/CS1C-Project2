@@ -8,19 +8,19 @@ class PurchaseData
 {
 public:
     /**
-     * @brief PurchaseData
+     * @brief holds information about Data Purchased
      */
     PurchaseData();
     /**
-     * @brief getDate
+     * @brief obtains Date
      */
     QString getDate() const;
     /**
-     * @brief getName
+     * @brief  obtains Name
      */
     QString getName() const;
     /**
-     * @brief getMembershipNumber
+     * @brief  obtains Membership Number
      */
     int getMembershipNumber() const;
     QString getProduct() const;
