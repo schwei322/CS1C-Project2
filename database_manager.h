@@ -14,6 +14,7 @@
 
 #include "purchasedata.h"
 
+///@brief path that connects to the database
 const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBPATH");
 
 /// Class instance connects to Bulk Club's database.
@@ -22,6 +23,9 @@ const QString databasePath = QProcessEnvironment::systemEnvironment().value("DBP
 class DatabaseManager
 {
 private:
+    /**
+     * @brief database queries
+     */
     QSqlDatabase database;
     QVector<PurchaseData> issue_items_query(QString command);
     QVector<PurchaseData> issue_purchases_query(QString command);
@@ -33,8 +37,23 @@ public:
     DatabaseManager();
     ~DatabaseManager();
 
+    /**
+     * @brief string get_memberInfo search members by membership number
+     * @param membership_number
+     * @return The member information
+     */
     QStringList get_memberInfo(QString membership_number) const;
+    /**
+     * @brief get_memberPurchases searches by membership number
+     * @param membership_number
+     * @return The member purchases information
+     */
     QVector<QStringList> get_memberPurchases(QString membership_number) const;
+    /**
+     * @brief get_itemInfo
+     * @param item_name
+     * @return The item information (quantity, name)
+     */
     QStringList get_itemInfo(QString item_name) const;
 
     void update_totalAmountSpent(QString membership_number, QString totalAmountSpent) const;

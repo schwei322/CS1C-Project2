@@ -1,3 +1,6 @@
+/** @brief contain slots that handle the GUI
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -29,6 +32,14 @@ public slots:
     void displaySalesByDate();
     void displayMembersByDate();
 
+    /**
+     * @brief checkLineEdits
+     * @param memberID         identifies member
+     * @param product_name     identifies product
+     * @param product_price    product cost
+     * @param quantity         amount of the product
+     * @param date             identifies the purchase date, expiration date.
+     */
     bool checkLineEdits(QString& memberID, QString& product_name, QString& product_price, QString& quantity,  QString& date) const;
     bool isWhiteSpace(const QString & str) const;
 

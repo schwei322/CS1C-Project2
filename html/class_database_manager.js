@@ -1,0 +1,27 @@
+var class_database_manager =
+[
+    [ "DatabaseManager", "class_database_manager.html#aa162d97472e6c31a4e873adda435dbb6", null ],
+    [ "~DatabaseManager", "class_database_manager.html#ae9b3a5da1e04fbb00faf8a034da1d063", null ],
+    [ "add_item", "class_database_manager.html#a9a46a233918401da11bcbe5c73f8ff58", null ],
+    [ "add_member", "class_database_manager.html#a538364cb308c849d6d11432f851ddd74", null ],
+    [ "add_member_purchase", "class_database_manager.html#a8862583f639adfbad111aedad9dfde4b", null ],
+    [ "check_item_existance", "class_database_manager.html#a9240e2e69d36f86f1cf7da96baed5315", null ],
+    [ "check_item_existance", "class_database_manager.html#ab4dd4da9088c240986576c353c3d12c8", null ],
+    [ "check_member_existance", "class_database_manager.html#a14bfdddc9e04fe6c73055903e179bfb9", null ],
+    [ "check_member_existance", "class_database_manager.html#aee0cf2004a74ace68381183e976ae54b", null ],
+    [ "delete_item", "class_database_manager.html#acb1c0dc0885807e6720ddb8aaa1c6db5", null ],
+    [ "delete_member", "class_database_manager.html#a8374887cbe150e121e6d98872d94c8ae", null ],
+    [ "delete_row_in_inventory", "class_database_manager.html#a23b5a4db9e5cb9a031f3d7a692a5485e", null ],
+    [ "get_itemInfo", "class_database_manager.html#aa5c67b6fbc132ce2d2636d919ce7b1d9", null ],
+    [ "get_memberInfo", "class_database_manager.html#abb5d5d299c8ae0c257b40ecbe3ca487a", null ],
+    [ "get_memberPurchases", "class_database_manager.html#af08cb1b453d8416634e5b205933203d4", null ],
+    [ "get_report_all_items", "class_database_manager.html#a556369b7cdc7c00aff2917cbe0eca6f8", null ],
+    [ "get_report_all_purchases", "class_database_manager.html#aeede3ac16437497d826d1a3ed8ce0276", null ],
+    [ "get_report_all_purchases_per_member", "class_database_manager.html#ae1f16cc1b927eac5c35118385a464dc1", null ],
+    [ "get_report_expired_memberships_by_month", "class_database_manager.html#aaba3eaf04ade7821860e8d4197914dd5", null ],
+    [ "get_report_purchases_by_date", "class_database_manager.html#ad212654039e87ab01013c71e50ca8563", null ],
+    [ "insert_row_in_inventory", "class_database_manager.html#a1f3f788e9683ad8cdd1898b5727eb1b6", null ],
+    [ "update_item", "class_database_manager.html#a2512ea7ae2a967c9c1a1deb6f6850fdc", null ],
+    [ "update_rebateAmount", "class_database_manager.html#a0a53f052e3d43e531d1d6c65ebc358bc", null ],
+    [ "update_totalAmountSpent", "class_database_manager.html#a48ad0f5e949ffb327501fc7e387944b7", null ]
+];
