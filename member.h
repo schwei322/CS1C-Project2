@@ -19,6 +19,15 @@ private:
 
 public:
     Member();
+    /**
+     * @brief Member
+     * @param name
+     * @param membership_number
+     * @param membership_type
+     * @param membership_expiration_date
+     * @param total_amount_spent
+     * @param rebate_amount
+     */
     Member(QString name, int membership_number, QString membership_type, QString membership_expiration_date, double total_amount_spent, double rebate_amount);
     ~Member();
 

@@ -7,10 +7,21 @@
 class PurchaseData
 {
 public:
+    /**
+     * @brief PurchaseData
+     */
     PurchaseData();
-
+    /**
+     * @brief getDate
+     */
     QString getDate() const;
+    /**
+     * @brief getName
+     */
     QString getName() const;
+    /**
+     * @brief getMembershipNumber
+     */
     int getMembershipNumber() const;
     QString getProduct() const;
     float getPrice() const;
