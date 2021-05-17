@@ -8,7 +8,7 @@
 #include <QtCore>
 typedef int Date; // ***Remove after you impliment Date class.***
 
-/// Brief Description
+/// Member class also
 ///
 /// Detailed Description
 class Member
