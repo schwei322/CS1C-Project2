@@ -19,6 +19,10 @@ public:
      */
     PurchaseData();
     /**
+     * @brief Deconstructor
+     */
+    ~PurchaseData();
+    /**
      * @brief obtains Date
      */
     QString getDate() const;
