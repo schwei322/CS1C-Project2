@@ -13,5 +13,11 @@ var class_purchase_data =
     [ "setName", "class_purchase_data.html#adf9102d36dc191d2fe61507adfd868f4", null ],
     [ "setPrice", "class_purchase_data.html#aa9ea87520ef204cb32845ac97a78ba19", null ],
     [ "setProduct", "class_purchase_data.html#a28637e4e8f4ffd862f33ba260d8f9e5c", null ],
-    [ "setQuantity", "class_purchase_data.html#aef7498824e91f155ff3c77c3e7f65fe9", null ]
+    [ "setQuantity", "class_purchase_data.html#aef7498824e91f155ff3c77c3e7f65fe9", null ],
+    [ "date", "class_purchase_data.html#a17230ba507f6b564ec6ed6ba1ac0e6f6", null ],
+    [ "membershipNumber", "class_purchase_data.html#ac79ed909655499b8ca54d42be50b6aaf", null ],
+    [ "name", "class_purchase_data.html#a7aafbed48dc59c9ae6a1b881373fa739", null ],
+    [ "price", "class_purchase_data.html#a0a92b3d1ce9246a3e25d6f536b2a0ba0", null ],
+    [ "product", "class_purchase_data.html#ae56474aadb2a40ea93da8f17354d05df", null ],
+    [ "quantity", "class_purchase_data.html#a037755225fd420707e49b4f2961bf68d", null ]
 ];

@@ -1,3 +1,7 @@
+/**
+ *  @file member.h
+ *  @brief handles and contains the data of the Bulk Club members
+*/
 #ifndef MEMBER_H
 #define MEMBER_H
 

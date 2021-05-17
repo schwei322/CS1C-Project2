@@ -1,3 +1,7 @@
+/**
+ *  @file miscellaneous_functions.h
+ *  @brief convert string to double
+*/
 #ifndef MISCELLANEOUS_FUNCTIONS_H
 #define MISCELLANEOUS_FUNCTIONS_H
 

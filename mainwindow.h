@@ -1,4 +1,6 @@
-/** @brief contain slots that handle the GUI
+/**
+ *  @file mainwindow.h
+ *  @brief contain slots that handle the GUI
 */
 
 #ifndef MAINWINDOW_H

@@ -8,5 +8,9 @@ var class_member_purchase_data =
     [ "setExpirationDate", "class_member_purchase_data.html#a8224ca5dc785b1fa79e678981aeed24d", null ],
     [ "setMembershipType", "class_member_purchase_data.html#a4b5289329a7aec5b2114d0bf17c6b714", null ],
     [ "setRebateAmount", "class_member_purchase_data.html#a35420c3e08df3d54c4e1131d06b1621d", null ],
-    [ "setTotalSpent", "class_member_purchase_data.html#af48c4efd13afdf6e59ca1a06b081a540", null ]
+    [ "setTotalSpent", "class_member_purchase_data.html#af48c4efd13afdf6e59ca1a06b081a540", null ],
+    [ "expirationDate", "class_member_purchase_data.html#a4accd4dc3b18e05518e8689ee7964f83", null ],
+    [ "membershipType", "class_member_purchase_data.html#ac637b1a629fdb7b079173d4ae24395d7", null ],
+    [ "rebateAmount", "class_member_purchase_data.html#a647daa750e78e2677b5d3b8b41af882b", null ],
+    [ "totalSpent", "class_member_purchase_data.html#a10f8c927d68562e518d93717a5ac0361", null ]
 ];

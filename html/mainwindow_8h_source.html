@@ -88,97 +88,125 @@ $(document).ready(function(){initNavTree('mainwindow_8h_source.html',''); initRe
 </div><!--header-->
 <div class="contents">
 <a href="mainwindow_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef MAINWINDOW_H</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#define MAINWINDOW_H</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;QMainWindow&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;QtDebug&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="database__manager_8h.html">database_manager.h</a>&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="purchasedata_8h.html">purchasedata.h</a>&quot;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;QT_BEGIN_NAMESPACE</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="namespace_ui.html">   14</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_ui.html">Ui</a> { <span class="keyword">class </span><a class="code" href="class_main_window.html">MainWindow</a>; }</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;QT_END_NAMESPACE</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="class_main_window.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_main_window.html">MainWindow</a> : <span class="keyword">public</span> QMainWindow</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    Q_OBJECT</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d">MainWindow</a>(QWidget *parent = <span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7">~MainWindow</a>();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span> slots:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a339962b149079e9cdb8928c5528113ea">userLogin</a>();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a45ff52a8f8942f61cd7832eb4c1eca36">userLogout</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a9029cc703d3000f6233f491e9db66c1b">displaySales</a>();</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aa307070f62edb7093532859955b6c263">displayMembers</a>();</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a9df76e2d80b6d9850af041d5131ce8c7">displayAdmin</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a276810d15d2ebcc0ce1016d4e5c4409a">displaySalesByDate</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#ad3836480dce46b37f39636ae84938959">displayMembersByDate</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_main_window.html#ab984e379981cbba32c787adffd3d5388">checkLineEdits</a>(QString&amp; memberID, QString&amp; product_name, QString&amp; product_price, QString&amp; quantity,  QString&amp; date) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_main_window.html#a8732693c371e3d3dd59f488da19cdd97">isWhiteSpace</a>(<span class="keyword">const</span> QString &amp; str) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span> slots:</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> on_memberBackBtn_clicked();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> on_memberRebatesBtn_clicked();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> on_memberExpirationBtn_clicked();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> on_expirationMonthSelect_currentIndexChanged();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> on_salesSearchInput_textChanged();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> on_memberSearchInput_textChanged();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> on_manageInventoryBtn_clicked();</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> on_manageMemberBtn_clicked();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> on_manageAddItemBtn_clicked();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> on_addItemOkBtn_clicked();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> on_addItemCancelBtn_clicked();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> on_manageDelItemBtn_clicked();</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordtype">void</span> on_delItemOkBtn_clicked();</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> on_delItemCancelBtn_clicked();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> on_manageUpItemBtn_clicked();</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordtype">void</span> on_upItemOkBtn_clicked();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> on_upItemCancelBtn_clicked();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> on_manageAddMemBtn_clicked();</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> on_addMemOkBtn_clicked();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> on_addMemCancelBtn_clicked();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> on_manageDelMemBtn_clicked();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> on_delMemOkBtn_clicked();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> on_delMemCancelBtn_clicked();</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> on_manageAddPurchaseBtn_clicked();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">void</span> on_addPurchaseOkBtn_clicked();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> on_addPurchaseCancelBtn_clicked();</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    Ui::MainWindow *ui;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="class_database_manager.html">DatabaseManager</a> database_manager;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;};</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// MAINWINDOW_H</span></div>
-<div class="ttc" id="aclass_database_manager_html"><div class="ttname"><a href="class_database_manager.html">DatabaseManager</a></div><div class="ttdef"><b>Definition:</b> database_manager.h:24</div></div>
-<div class="ttc" id="aclass_main_window_html"><div class="ttname"><a href="class_main_window.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:18</div></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#ifndef MAINWINDOW_H</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#define MAINWINDOW_H</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;QMainWindow&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;QtDebug&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="database__manager_8h.html">database_manager.h</a>&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="purchasedata_8h.html">purchasedata.h</a>&quot;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;QT_BEGIN_NAMESPACE</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="namespace_ui.html">   16</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespace_ui.html">Ui</a> { <span class="keyword">class </span><a class="code" href="class_main_window.html">MainWindow</a>; }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;QT_END_NAMESPACE</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="class_main_window.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_main_window.html">MainWindow</a> : <span class="keyword">public</span> QMainWindow</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    Q_OBJECT</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d">MainWindow</a>(QWidget *parent = <span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7">~MainWindow</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span> slots:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a339962b149079e9cdb8928c5528113ea">userLogin</a>();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a45ff52a8f8942f61cd7832eb4c1eca36">userLogout</a>();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a9029cc703d3000f6233f491e9db66c1b">displaySales</a>();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aa307070f62edb7093532859955b6c263">displayMembers</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a9df76e2d80b6d9850af041d5131ce8c7">displayAdmin</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a276810d15d2ebcc0ce1016d4e5c4409a">displaySalesByDate</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#ad3836480dce46b37f39636ae84938959">displayMembersByDate</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_main_window.html#ab984e379981cbba32c787adffd3d5388">checkLineEdits</a>(QString&amp; memberID, QString&amp; product_name, QString&amp; product_price, QString&amp; quantity,  QString&amp; date) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="class_main_window.html#a8732693c371e3d3dd59f488da19cdd97">isWhiteSpace</a>(<span class="keyword">const</span> QString &amp; str) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span> slots:</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a50e1372bc3bee900d452da06377b47ca">on_memberBackBtn_clicked</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aa747c66214ad62084f1ae25f77b4478f">on_memberRebatesBtn_clicked</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#abcca4c27509dcb784e12aabe1f24dda0">on_memberExpirationBtn_clicked</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a2606e97de4ffaa1bc345969f41b5ad6f">on_expirationMonthSelect_currentIndexChanged</a>();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a3562292ad55c1287d78e6e53806dc9aa">on_salesSearchInput_textChanged</a>();</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a937c96a29324934264732e93c454fda2">on_memberSearchInput_textChanged</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a533778036f46213643a50b8adeedb316">on_manageInventoryBtn_clicked</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a17a5990386ae97363e048d90cf556f93">on_manageMemberBtn_clicked</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a460e6e142374eaa35e502b32d4f7ed3c">on_manageAddItemBtn_clicked</a>();</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a67793026e82702405069fac076483158">on_addItemOkBtn_clicked</a>();</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a2faf3edb29691fba50868e4cdccdf181">on_addItemCancelBtn_clicked</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#adc7c955df2fa225d5771eb4dc1c7f62d">on_manageDelItemBtn_clicked</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#adf47c83a7f929b371c7bb306611900d7">on_delItemOkBtn_clicked</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a3491d367e6dade6fc5e5d5f71342e271">on_delItemCancelBtn_clicked</a>();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a4fbd668e7b8871c486cafd327e542185">on_manageUpItemBtn_clicked</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a6e345590f437a674e06cbabf75823e46">on_upItemOkBtn_clicked</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a39f8056aa9952710822b778587e71d8e">on_upItemCancelBtn_clicked</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a0f5363e3fc6680d208a11f461dd8ab16">on_manageAddMemBtn_clicked</a>();</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aa48cc1a15c536c5e2855da33ae55d9f1">on_addMemOkBtn_clicked</a>();</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#ad51a5468bda1e7733ad74915f51cfd74">on_addMemCancelBtn_clicked</a>();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aaf7a4ab17c1d5331433fab64018dfcc6">on_manageDelMemBtn_clicked</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a5c708fba8ee1799a06a73260b21b6120">on_delMemOkBtn_clicked</a>();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aa4351fe1ffdd415707816acddf77174d">on_delMemCancelBtn_clicked</a>();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a82ce218a9f12221aadf5da5a4c014b88">on_manageAddPurchaseBtn_clicked</a>();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#a861e6c0b208c8431c89c64ef0082628b">on_addPurchaseOkBtn_clicked</a>();</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="class_main_window.html#aeeefe00793722d15d019023c8d3c8aed">on_addPurchaseCancelBtn_clicked</a>();</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="class_main_window.html#a35466a70ed47252a0191168126a352a5">   84</a></span>&#160;    Ui::MainWindow *<a class="code" href="class_main_window.html#a35466a70ed47252a0191168126a352a5">ui</a>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="class_main_window.html#aa43be3fa9161c4c1ba3307d295012b7e">   85</a></span>&#160;    <a class="code" href="class_database_manager.html">DatabaseManager</a> <a class="code" href="class_main_window.html#aa43be3fa9161c4c1ba3307d295012b7e">database_manager</a>;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;};</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// MAINWINDOW_H</span></div>
+<div class="ttc" id="aclass_database_manager_html"><div class="ttname"><a href="class_database_manager.html">DatabaseManager</a></div><div class="ttdef"><b>Definition:</b> database_manager.h:28</div></div>
+<div class="ttc" id="aclass_main_window_html"><div class="ttname"><a href="class_main_window.html">MainWindow</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:20</div></div>
+<div class="ttc" id="aclass_main_window_html_a0f5363e3fc6680d208a11f461dd8ab16"><div class="ttname"><a href="class_main_window.html#a0f5363e3fc6680d208a11f461dd8ab16">MainWindow::on_manageAddMemBtn_clicked</a></div><div class="ttdeci">void on_manageAddMemBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1115</div></div>
+<div class="ttc" id="aclass_main_window_html_a17a5990386ae97363e048d90cf556f93"><div class="ttname"><a href="class_main_window.html#a17a5990386ae97363e048d90cf556f93">MainWindow::on_manageMemberBtn_clicked</a></div><div class="ttdeci">void on_manageMemberBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:949</div></div>
+<div class="ttc" id="aclass_main_window_html_a2606e97de4ffaa1bc345969f41b5ad6f"><div class="ttname"><a href="class_main_window.html#a2606e97de4ffaa1bc345969f41b5ad6f">MainWindow::on_expirationMonthSelect_currentIndexChanged</a></div><div class="ttdeci">void on_expirationMonthSelect_currentIndexChanged()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:594</div></div>
 <div class="ttc" id="aclass_main_window_html_a276810d15d2ebcc0ce1016d4e5c4409a"><div class="ttname"><a href="class_main_window.html#a276810d15d2ebcc0ce1016d4e5c4409a">MainWindow::displaySalesByDate</a></div><div class="ttdeci">void displaySalesByDate()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:311</div></div>
+<div class="ttc" id="aclass_main_window_html_a2faf3edb29691fba50868e4cdccdf181"><div class="ttname"><a href="class_main_window.html#a2faf3edb29691fba50868e4cdccdf181">MainWindow::on_addItemCancelBtn_clicked</a></div><div class="ttdeci">void on_addItemCancelBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1022</div></div>
 <div class="ttc" id="aclass_main_window_html_a339962b149079e9cdb8928c5528113ea"><div class="ttname"><a href="class_main_window.html#a339962b149079e9cdb8928c5528113ea">MainWindow::userLogin</a></div><div class="ttdeci">void userLogin()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:75</div></div>
+<div class="ttc" id="aclass_main_window_html_a3491d367e6dade6fc5e5d5f71342e271"><div class="ttname"><a href="class_main_window.html#a3491d367e6dade6fc5e5d5f71342e271">MainWindow::on_delItemCancelBtn_clicked</a></div><div class="ttdeci">void on_delItemCancelBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1064</div></div>
+<div class="ttc" id="aclass_main_window_html_a35466a70ed47252a0191168126a352a5"><div class="ttname"><a href="class_main_window.html#a35466a70ed47252a0191168126a352a5">MainWindow::ui</a></div><div class="ttdeci">Ui::MainWindow * ui</div><div class="ttdef"><b>Definition:</b> mainwindow.h:84</div></div>
+<div class="ttc" id="aclass_main_window_html_a3562292ad55c1287d78e6e53806dc9aa"><div class="ttname"><a href="class_main_window.html#a3562292ad55c1287d78e6e53806dc9aa">MainWindow::on_salesSearchInput_textChanged</a></div><div class="ttdeci">void on_salesSearchInput_textChanged()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:633</div></div>
+<div class="ttc" id="aclass_main_window_html_a39f8056aa9952710822b778587e71d8e"><div class="ttname"><a href="class_main_window.html#a39f8056aa9952710822b778587e71d8e">MainWindow::on_upItemCancelBtn_clicked</a></div><div class="ttdeci">void on_upItemCancelBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1107</div></div>
 <div class="ttc" id="aclass_main_window_html_a45ff52a8f8942f61cd7832eb4c1eca36"><div class="ttname"><a href="class_main_window.html#a45ff52a8f8942f61cd7832eb4c1eca36">MainWindow::userLogout</a></div><div class="ttdeci">void userLogout()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:103</div></div>
+<div class="ttc" id="aclass_main_window_html_a460e6e142374eaa35e502b32d4f7ed3c"><div class="ttname"><a href="class_main_window.html#a460e6e142374eaa35e502b32d4f7ed3c">MainWindow::on_manageAddItemBtn_clicked</a></div><div class="ttdeci">void on_manageAddItemBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:954</div></div>
+<div class="ttc" id="aclass_main_window_html_a4fbd668e7b8871c486cafd327e542185"><div class="ttname"><a href="class_main_window.html#a4fbd668e7b8871c486cafd327e542185">MainWindow::on_manageUpItemBtn_clicked</a></div><div class="ttdeci">void on_manageUpItemBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1071</div></div>
+<div class="ttc" id="aclass_main_window_html_a50e1372bc3bee900d452da06377b47ca"><div class="ttname"><a href="class_main_window.html#a50e1372bc3bee900d452da06377b47ca">MainWindow::on_memberBackBtn_clicked</a></div><div class="ttdeci">void on_memberBackBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:510</div></div>
+<div class="ttc" id="aclass_main_window_html_a533778036f46213643a50b8adeedb316"><div class="ttname"><a href="class_main_window.html#a533778036f46213643a50b8adeedb316">MainWindow::on_manageInventoryBtn_clicked</a></div><div class="ttdeci">void on_manageInventoryBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:944</div></div>
+<div class="ttc" id="aclass_main_window_html_a5c708fba8ee1799a06a73260b21b6120"><div class="ttname"><a href="class_main_window.html#a5c708fba8ee1799a06a73260b21b6120">MainWindow::on_delMemOkBtn_clicked</a></div><div class="ttdeci">void on_delMemOkBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1204</div></div>
+<div class="ttc" id="aclass_main_window_html_a67793026e82702405069fac076483158"><div class="ttname"><a href="class_main_window.html#a67793026e82702405069fac076483158">MainWindow::on_addItemOkBtn_clicked</a></div><div class="ttdeci">void on_addItemOkBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:966</div></div>
+<div class="ttc" id="aclass_main_window_html_a6e345590f437a674e06cbabf75823e46"><div class="ttname"><a href="class_main_window.html#a6e345590f437a674e06cbabf75823e46">MainWindow::on_upItemOkBtn_clicked</a></div><div class="ttdeci">void on_upItemOkBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1083</div></div>
+<div class="ttc" id="aclass_main_window_html_a82ce218a9f12221aadf5da5a4c014b88"><div class="ttname"><a href="class_main_window.html#a82ce218a9f12221aadf5da5a4c014b88">MainWindow::on_manageAddPurchaseBtn_clicked</a></div><div class="ttdeci">void on_manageAddPurchaseBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1241</div></div>
+<div class="ttc" id="aclass_main_window_html_a861e6c0b208c8431c89c64ef0082628b"><div class="ttname"><a href="class_main_window.html#a861e6c0b208c8431c89c64ef0082628b">MainWindow::on_addPurchaseOkBtn_clicked</a></div><div class="ttdeci">void on_addPurchaseOkBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1253</div></div>
 <div class="ttc" id="aclass_main_window_html_a8732693c371e3d3dd59f488da19cdd97"><div class="ttname"><a href="class_main_window.html#a8732693c371e3d3dd59f488da19cdd97">MainWindow::isWhiteSpace</a></div><div class="ttdeci">bool isWhiteSpace(const QString &amp;str) const</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1386</div></div>
 <div class="ttc" id="aclass_main_window_html_a9029cc703d3000f6233f491e9db66c1b"><div class="ttname"><a href="class_main_window.html#a9029cc703d3000f6233f491e9db66c1b">MainWindow::displaySales</a></div><div class="ttdeci">void displaySales()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:111</div></div>
+<div class="ttc" id="aclass_main_window_html_a937c96a29324934264732e93c454fda2"><div class="ttname"><a href="class_main_window.html#a937c96a29324934264732e93c454fda2">MainWindow::on_memberSearchInput_textChanged</a></div><div class="ttdeci">void on_memberSearchInput_textChanged()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:829</div></div>
 <div class="ttc" id="aclass_main_window_html_a996c5a2b6f77944776856f08ec30858d"><div class="ttname"><a href="class_main_window.html#a996c5a2b6f77944776856f08ec30858d">MainWindow::MainWindow</a></div><div class="ttdeci">MainWindow(QWidget *parent=nullptr)</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:18</div></div>
 <div class="ttc" id="aclass_main_window_html_a9df76e2d80b6d9850af041d5131ce8c7"><div class="ttname"><a href="class_main_window.html#a9df76e2d80b6d9850af041d5131ce8c7">MainWindow::displayAdmin</a></div><div class="ttdeci">void displayAdmin()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:240</div></div>
 <div class="ttc" id="aclass_main_window_html_aa307070f62edb7093532859955b6c263"><div class="ttname"><a href="class_main_window.html#aa307070f62edb7093532859955b6c263">MainWindow::displayMembers</a></div><div class="ttdeci">void displayMembers()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:123</div></div>
+<div class="ttc" id="aclass_main_window_html_aa4351fe1ffdd415707816acddf77174d"><div class="ttname"><a href="class_main_window.html#aa4351fe1ffdd415707816acddf77174d">MainWindow::on_delMemCancelBtn_clicked</a></div><div class="ttdeci">void on_delMemCancelBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1233</div></div>
+<div class="ttc" id="aclass_main_window_html_aa43be3fa9161c4c1ba3307d295012b7e"><div class="ttname"><a href="class_main_window.html#aa43be3fa9161c4c1ba3307d295012b7e">MainWindow::database_manager</a></div><div class="ttdeci">DatabaseManager database_manager</div><div class="ttdef"><b>Definition:</b> mainwindow.h:85</div></div>
+<div class="ttc" id="aclass_main_window_html_aa48cc1a15c536c5e2855da33ae55d9f1"><div class="ttname"><a href="class_main_window.html#aa48cc1a15c536c5e2855da33ae55d9f1">MainWindow::on_addMemOkBtn_clicked</a></div><div class="ttdeci">void on_addMemOkBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1127</div></div>
+<div class="ttc" id="aclass_main_window_html_aa747c66214ad62084f1ae25f77b4478f"><div class="ttname"><a href="class_main_window.html#aa747c66214ad62084f1ae25f77b4478f">MainWindow::on_memberRebatesBtn_clicked</a></div><div class="ttdeci">void on_memberRebatesBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:518</div></div>
+<div class="ttc" id="aclass_main_window_html_aaf7a4ab17c1d5331433fab64018dfcc6"><div class="ttname"><a href="class_main_window.html#aaf7a4ab17c1d5331433fab64018dfcc6">MainWindow::on_manageDelMemBtn_clicked</a></div><div class="ttdeci">void on_manageDelMemBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1192</div></div>
 <div class="ttc" id="aclass_main_window_html_ab984e379981cbba32c787adffd3d5388"><div class="ttname"><a href="class_main_window.html#ab984e379981cbba32c787adffd3d5388">MainWindow::checkLineEdits</a></div><div class="ttdeci">bool checkLineEdits(QString &amp;memberID, QString &amp;product_name, QString &amp;product_price, QString &amp;quantity, QString &amp;date) const</div><div class="ttdoc">checkLineEdits</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1322</div></div>
+<div class="ttc" id="aclass_main_window_html_abcca4c27509dcb784e12aabe1f24dda0"><div class="ttname"><a href="class_main_window.html#abcca4c27509dcb784e12aabe1f24dda0">MainWindow::on_memberExpirationBtn_clicked</a></div><div class="ttdeci">void on_memberExpirationBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:582</div></div>
 <div class="ttc" id="aclass_main_window_html_ad3836480dce46b37f39636ae84938959"><div class="ttname"><a href="class_main_window.html#ad3836480dce46b37f39636ae84938959">MainWindow::displayMembersByDate</a></div><div class="ttdeci">void displayMembersByDate()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:442</div></div>
+<div class="ttc" id="aclass_main_window_html_ad51a5468bda1e7733ad74915f51cfd74"><div class="ttname"><a href="class_main_window.html#ad51a5468bda1e7733ad74915f51cfd74">MainWindow::on_addMemCancelBtn_clicked</a></div><div class="ttdeci">void on_addMemCancelBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1185</div></div>
+<div class="ttc" id="aclass_main_window_html_adc7c955df2fa225d5771eb4dc1c7f62d"><div class="ttname"><a href="class_main_window.html#adc7c955df2fa225d5771eb4dc1c7f62d">MainWindow::on_manageDelItemBtn_clicked</a></div><div class="ttdeci">void on_manageDelItemBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1030</div></div>
+<div class="ttc" id="aclass_main_window_html_adf47c83a7f929b371c7bb306611900d7"><div class="ttname"><a href="class_main_window.html#adf47c83a7f929b371c7bb306611900d7">MainWindow::on_delItemOkBtn_clicked</a></div><div class="ttdeci">void on_delItemOkBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1042</div></div>
 <div class="ttc" id="aclass_main_window_html_ae98d00a93bc118200eeef9f9bba1dba7"><div class="ttname"><a href="class_main_window.html#ae98d00a93bc118200eeef9f9bba1dba7">MainWindow::~MainWindow</a></div><div class="ttdeci">~MainWindow()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:70</div></div>
-<div class="ttc" id="adatabase__manager_8h_html"><div class="ttname"><a href="database__manager_8h.html">database_manager.h</a></div></div>
-<div class="ttc" id="anamespace_ui_html"><div class="ttname"><a href="namespace_ui.html">Ui</a></div><div class="ttdoc">contain slots that handle the GUI</div><div class="ttdef"><b>Definition:</b> mainwindow.h:14</div></div>
-<div class="ttc" id="apurchasedata_8h_html"><div class="ttname"><a href="purchasedata_8h.html">purchasedata.h</a></div></div>
+<div class="ttc" id="aclass_main_window_html_aeeefe00793722d15d019023c8d3c8aed"><div class="ttname"><a href="class_main_window.html#aeeefe00793722d15d019023c8d3c8aed">MainWindow::on_addPurchaseCancelBtn_clicked</a></div><div class="ttdeci">void on_addPurchaseCancelBtn_clicked()</div><div class="ttdef"><b>Definition:</b> mainwindow.cpp:1297</div></div>
+<div class="ttc" id="adatabase__manager_8h_html"><div class="ttname"><a href="database__manager_8h.html">database_manager.h</a></div><div class="ttdoc">Handles and creates queries to get data from the data base.</div></div>
+<div class="ttc" id="anamespace_ui_html"><div class="ttname"><a href="namespace_ui.html">Ui</a></div><div class="ttdef"><b>Definition:</b> mainwindow.h:16</div></div>
+<div class="ttc" id="apurchasedata_8h_html"><div class="ttname"><a href="purchasedata_8h.html">purchasedata.h</a></div><div class="ttdoc">handles member, sort by expiration month, gets total rebate and total spent</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

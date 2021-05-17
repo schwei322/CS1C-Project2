@@ -14,5 +14,11 @@ var class_member =
     [ "set_membership_type", "class_member.html#a519edaac7fb40ea49e3c071fdb92618a", null ],
     [ "set_name", "class_member.html#a0aa4afdd4d0bae38ae3aae5e1022a6cd", null ],
     [ "set_rebate_amount", "class_member.html#a04f0a515c99a550c87fc767df2cbec0a", null ],
-    [ "set_total_amount_spent", "class_member.html#aaf1ac56b60a7e1835232724ee6388f3f", null ]
+    [ "set_total_amount_spent", "class_member.html#aaf1ac56b60a7e1835232724ee6388f3f", null ],
+    [ "membership_expiration_date", "class_member.html#a62f842a7e0a73bf5137f17307a0bb195", null ],
+    [ "membership_number", "class_member.html#ad58a4a5fca358cd88d8e35d91c22a329", null ],
+    [ "membership_type", "class_member.html#a91115f7ebf28e885512edc501d95289f", null ],
+    [ "name", "class_member.html#a8e7e7403733d829781b52d3391fc680c", null ],
+    [ "rebate_amount", "class_member.html#a97e34d3826807bf410f176e25c161f97", null ],
+    [ "total_amount_spent", "class_member.html#ada0d520058fd6e4c31e6b3bb3c237988", null ]
 ];

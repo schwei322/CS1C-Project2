@@ -5,6 +5,9 @@ var class_database_manager =
     [ "add_item", "class_database_manager.html#a9a46a233918401da11bcbe5c73f8ff58", null ],
     [ "add_member", "class_database_manager.html#a538364cb308c849d6d11432f851ddd74", null ],
     [ "add_member_purchase", "class_database_manager.html#a8862583f639adfbad111aedad9dfde4b", null ],
+    [ "aggregate_items_data", "class_database_manager.html#a298f21cf17a058cef1b714e810aa7671", null ],
+    [ "aggregate_member_data", "class_database_manager.html#a7319e65f34e671946fe90a7862ab68c6", null ],
+    [ "aggregate_purchases_data", "class_database_manager.html#a509b982c4b9ee3a903b9939085ee5b33", null ],
     [ "check_item_existance", "class_database_manager.html#a9240e2e69d36f86f1cf7da96baed5315", null ],
     [ "check_item_existance", "class_database_manager.html#ab4dd4da9088c240986576c353c3d12c8", null ],
     [ "check_member_existance", "class_database_manager.html#a14bfdddc9e04fe6c73055903e179bfb9", null ],
@@ -21,7 +24,10 @@ var class_database_manager =
     [ "get_report_expired_memberships_by_month", "class_database_manager.html#aaba3eaf04ade7821860e8d4197914dd5", null ],
     [ "get_report_purchases_by_date", "class_database_manager.html#ad212654039e87ab01013c71e50ca8563", null ],
     [ "insert_row_in_inventory", "class_database_manager.html#a1f3f788e9683ad8cdd1898b5727eb1b6", null ],
+    [ "issue_items_query", "class_database_manager.html#a6194bc38e24cf05b4e574e00caefa2b6", null ],
+    [ "issue_purchases_query", "class_database_manager.html#af52843250ca91b0367023d2fe917a68f", null ],
     [ "update_item", "class_database_manager.html#a2512ea7ae2a967c9c1a1deb6f6850fdc", null ],
     [ "update_rebateAmount", "class_database_manager.html#a0a53f052e3d43e531d1d6c65ebc358bc", null ],
-    [ "update_totalAmountSpent", "class_database_manager.html#a48ad0f5e949ffb327501fc7e387944b7", null ]
+    [ "update_totalAmountSpent", "class_database_manager.html#a48ad0f5e949ffb327501fc7e387944b7", null ],
+    [ "database", "class_database_manager.html#ac59e194df96c891e617fcff06a56745b", null ]
 ];

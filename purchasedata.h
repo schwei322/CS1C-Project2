@@ -1,3 +1,7 @@
+/**
+ *  @file purchasedata.h
+ *  @brief handles member, sort by expiration month, gets total rebate and total spent
+*/
 #ifndef PURCHASEDATA_H
 #define PURCHASEDATA_H
 
@@ -23,15 +27,47 @@ public:
      * @brief  obtains Membership Number
      */
     int getMembershipNumber() const;
+    /**
+     * @brief obtains Product
+     */
     QString getProduct() const;
+    /**
+     * @brief  obtains Price
+     */
     float getPrice() const;
+    /**
+     * @brief  obtains Quantity
+     */
     int getQuantity() const;
-
+    /**
+     * @brief Sort data by date
+     * @param date
+     */
     void setDate(QString date);
+    /**
+     * @brief set Name
+     * @param name
+     */
     void setName(QString name);
+    /**
+     * @brief set Membership Number
+     * @param membershipNumber
+     */
     void setMembershipNumber(int membershipNumber);
+    /**
+     * @brief set Product
+     * @param product
+     */
     void setProduct(QString product);
+    /**
+     * @brief set Price
+     * @param price
+     */
     void setPrice(float price);
+    /**
+     * @brief set Quantity
+     * @param quantity
+     */
     void setQuantity(int quantity);
 
     bool operator==(const PurchaseData& otherPurchaseData);

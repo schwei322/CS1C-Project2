@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tax_80',['TAX',['../mainwindow_8cpp.html#a9089e81e07d0bcadfd24d0bf651fd73a',1,'mainwindow.cpp']]]
+  ['quantity_105',['quantity',['../class_purchase_data.html#a037755225fd420707e49b4f2961bf68d',1,'PurchaseData']]]
 ];

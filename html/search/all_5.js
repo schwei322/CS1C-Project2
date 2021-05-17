@@ -1,14 +1,7 @@
 var searchData=
 [
-  ['main_47',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['main_2ecpp_48',['main.cpp',['../main_8cpp.html',1,'']]],
-  ['mainwindow_49',['MainWindow',['../class_main_window.html',1,'MainWindow'],['../class_main_window.html#a996c5a2b6f77944776856f08ec30858d',1,'MainWindow::MainWindow()']]],
-  ['mainwindow_2ecpp_50',['mainwindow.cpp',['../mainwindow_8cpp.html',1,'']]],
-  ['mainwindow_2eh_51',['mainwindow.h',['../mainwindow_8h.html',1,'']]],
-  ['member_52',['Member',['../class_member.html',1,'Member'],['../class_member.html#a44241aa6aa9b792b550d9cc29e7ad050',1,'Member::Member()'],['../class_member.html#ac828432522bfec47da38154ed1d0567c',1,'Member::Member(QString name, int membership_number, QString membership_type, QString membership_expiration_date, double total_amount_spent, double rebate_amount)']]],
-  ['member_2ecpp_53',['member.cpp',['../member_8cpp.html',1,'']]],
-  ['member_2eh_54',['member.h',['../member_8h.html',1,'']]],
-  ['memberpurchasedata_55',['MemberPurchaseData',['../class_member_purchase_data.html',1,'MemberPurchaseData'],['../class_member_purchase_data.html#a9f3455545c938d3fd7e32c0d5e765432',1,'MemberPurchaseData::MemberPurchaseData()']]],
-  ['miscellaneous_5ffunctions_2ecpp_56',['miscellaneous_functions.cpp',['../miscellaneous__functions_8cpp.html',1,'']]],
-  ['miscellaneous_5ffunctions_2eh_57',['miscellaneous_functions.h',['../miscellaneous__functions_8h.html',1,'']]]
+  ['insert_5frow_5fin_5finventory_52',['insert_row_in_inventory',['../class_database_manager.html#a1f3f788e9683ad8cdd1898b5727eb1b6',1,'DatabaseManager']]],
+  ['issue_5fitems_5fquery_53',['issue_items_query',['../class_database_manager.html#a6194bc38e24cf05b4e574e00caefa2b6',1,'DatabaseManager']]],
+  ['issue_5fpurchases_5fquery_54',['issue_purchases_query',['../class_database_manager.html#af52843250ca91b0367023d2fe917a68f',1,'DatabaseManager']]],
+  ['iswhitespace_55',['isWhiteSpace',['../class_main_window.html#a8732693c371e3d3dd59f488da19cdd97',1,'MainWindow']]]
 ];
