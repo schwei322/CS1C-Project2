@@ -682,6 +682,20 @@ void DatabaseManager::add_member_purchase(QString membership_number, QString pro
 
 /* PurchaseData */
 
+
+/****************************************************************************//**
+ *      PurchaseData
+ * ____________________________________________________________________________
+ * Method returns issued items query.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param command : QString representing SQLite commmand.
+ *
+ * \b OUTPUT:
+ *      @return result : QVector representing purchase data.
+*******************************************************************************/
+
+
 QVector<PurchaseData> DatabaseManager::issue_items_query(QString command)
 {
     QVector<PurchaseData> result;
@@ -701,6 +715,7 @@ QVector<PurchaseData> DatabaseManager::issue_items_query(QString command)
 
     return result;
 }
+
 /****************************************************************************//**
  *      issue_purchases_query
  * ____________________________________________________________________________
@@ -712,6 +727,24 @@ QVector<PurchaseData> DatabaseManager::issue_items_query(QString command)
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      issue_purchases_query
+ * ____________________________________________________________________________
+ * Method queries purchases. Returns a QVector containing purchase data.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param command : QString representing SQLite commmand.
+ *
+ * \b OUTPUT:
+ *      @return result : QVector representing purchase data.
+*******************************************************************************/
+
+
 QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
 {
     QVector<PurchaseData> result;
@@ -731,6 +764,7 @@ QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
 
     return result;
 }
+
 /****************************************************************************//**
  *      aggregate_items_data
  * ____________________________________________________________________________
@@ -742,6 +776,23 @@ QVector<PurchaseData> DatabaseManager::issue_purchases_query(QString command)
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      aggregate_items_data
+ * ____________________________________________________________________________
+ * Method aggregates a set of items data.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param query : SqlQuery instance needed to query the Bulk Club database.
+ *
+ * \b OUTPUT:
+ *      @return result : QVector representing purchase data.
+*******************************************************************************/
+
 QVector<PurchaseData> DatabaseManager::aggregate_items_data(QSqlQuery query)
 {
     QVector<PurchaseData> result;
@@ -773,6 +824,7 @@ QVector<PurchaseData> DatabaseManager::aggregate_items_data(QSqlQuery query)
 
     return result;
 }
+
 /****************************************************************************//**
  *      aggregate_purchases_data
  * ____________________________________________________________________________
@@ -784,6 +836,24 @@ QVector<PurchaseData> DatabaseManager::aggregate_items_data(QSqlQuery query)
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      aggregate_purchases_data
+ * ____________________________________________________________________________
+ * Method aggregates purchase data from database.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param query : SqlQuery instance needed to query the Bulk Club database.
+ *
+ * \b OUTPUT:
+ *      @return result : QVector representing purchase data.
+*******************************************************************************/
+
+
 QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
 {
     QVector<PurchaseData> result;
@@ -824,6 +894,7 @@ QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
 
     return result;
 }
+
 /****************************************************************************//**
  *      aggregate_purchases_data
  * ____________________________________________________________________________
@@ -835,6 +906,24 @@ QVector<PurchaseData> DatabaseManager::aggregate_purchases_data(QSqlQuery query)
  * \b OUTPUT:
  *      @return N/A
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      aggregate_member_data
+ * ____________________________________________________________________________
+ * Method aggregates member data from Bulk Club database.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param query : SqlQuery instance needed to query the Bulk Club database.
+ *
+ * \b OUTPUT:
+ *      @return result : QVector representing purchase data.
+*******************************************************************************/
+
+
 QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
 {
     QVector<Member> result;
@@ -878,6 +967,7 @@ QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
 
     return result;
 }
+
 /****************************************************************************//**
  *      get_report_all_items
  * ____________________________________________________________________________
@@ -889,6 +979,23 @@ QVector<Member> DatabaseManager::aggregate_member_data(QSqlQuery query)
  * \b OUTPUT:
  *      @return The items in the data base
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_report_all_items
+ * ____________________________________________________________________________
+ * Method gets report for all items.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return issue_items_query(str) : QVector
+*******************************************************************************/
+
 QVector<PurchaseData> DatabaseManager::get_report_all_items()
 {
     if (!database.isOpen())
@@ -902,6 +1009,7 @@ QVector<PurchaseData> DatabaseManager::get_report_all_items()
 
     return issue_items_query(str);
 }
+
 /****************************************************************************//**
  *      get_report_all_purchases
  * ____________________________________________________________________________
@@ -913,6 +1021,23 @@ QVector<PurchaseData> DatabaseManager::get_report_all_items()
  * \b OUTPUT:
  *      @return all the purchases in the data base
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_report_all_purchases
+ * ____________________________________________________________________________
+ * Method gets all purchases.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param N/A
+ *
+ * \b OUTPUT:
+ *      @return issue_purchases_query(str) : QVector containing purchase information.
+*******************************************************************************/
+
 QVector<PurchaseData> DatabaseManager::get_report_all_purchases()
 {
     if (!database.isOpen())
@@ -926,6 +1051,7 @@ QVector<PurchaseData> DatabaseManager::get_report_all_purchases()
 
     return issue_purchases_query(str);
 }
+
 /****************************************************************************//**
  *      get_report_purchases_by_date
  * ____________________________________________________________________________
@@ -938,6 +1064,23 @@ QVector<PurchaseData> DatabaseManager::get_report_all_purchases()
  * \b OUTPUT:
  *      @return the purchases of the selected day
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_report_purchases_by_date
+ * ____________________________________________________________________________
+ * Method gets purchases sorted by date.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param date : QDate representing date
+ *
+ * \b OUTPUT:
+ *      @return issue_purchases_query(str) : QVector
+*******************************************************************************/
+
 QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
 {
     if (!database.isOpen())
@@ -951,6 +1094,7 @@ QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
 
     return issue_purchases_query(str);
 }
+
 /****************************************************************************//**
  *      get_report_expired_memberships_by_month
  * ____________________________________________________________________________
@@ -963,6 +1107,24 @@ QVector<PurchaseData> DatabaseManager::get_report_purchases_by_date(QDate date)
  * \b OUTPUT:
  *      @return member who`s membershyp expires the selected month
 *******************************************************************************/
+
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_report_expired_memberships_by_month
+ * ____________________________________________________________________________
+ * Method gets expired memberships by month.
+ * ____________________________________________________________________________
+ * \b INPUT:
+ *      @param month : integer representing month.
+ *
+ * \b OUTPUT:
+ *      @return result : QVector representing purchase data.
+*******************************************************************************/
+
+
 QVector<Member> DatabaseManager::get_report_expired_memberships_by_month(int month)
 {
     if (!database.isOpen())
@@ -997,6 +1159,14 @@ QVector<Member> DatabaseManager::get_report_expired_memberships_by_month(int mon
  * ____________________________________________________________________________
  * Method that traverse the database finding and sorting all the purchases
  * made by a member
+/*******************************************************************************/
+
+
+
+/****************************************************************************//**
+ *      get_report_all_purchases_per_member
+ * ____________________________________________________________________________
+ * Method gets all purchases per member
  * ____________________________________________________________________________
  * \b INPUT:
  *      @param N/A
@@ -1004,6 +1174,7 @@ QVector<Member> DatabaseManager::get_report_expired_memberships_by_month(int mon
  * \b OUTPUT:
  *      @return all purchases by member
 *******************************************************************************/
+
 QVector<MemberPurchaseData> DatabaseManager::get_report_all_purchases_per_member()
 {
     if (!database.isOpen())
@@ -1075,3 +1246,5 @@ QVector<MemberPurchaseData> DatabaseManager::get_report_all_purchases_per_member
 
     return result;
 }
+/*******************************************************************************/
+
