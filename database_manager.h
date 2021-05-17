@@ -151,11 +151,32 @@ public:
      * @param date
      */
     void add_member_purchase(QString membership_number, QString product, QString price, QString quantity, QString date) const;
-
+    /**
+     * @brief check member existance
+     * @return QVector
+     */
     QVector<PurchaseData> get_report_all_items();
+    /**
+     * @brief check member existance
+     * @return QVector
+     */
     QVector<PurchaseData> get_report_all_purchases();
+    /**
+     * @brief check member existance
+     * @return QVector
+     */
     QVector<PurchaseData> get_report_purchases_by_date(QDate date);
+    /**
+     * @brief check member existance
+     * @param date
+     * @return QVector
+     */
     QVector<Member> get_report_expired_memberships_by_month(int month);
+    /**
+     * @brief check member existance
+     * @param month
+     * @return QVector
+     */
     QVector<MemberPurchaseData> get_report_all_purchases_per_member();
 };
 
