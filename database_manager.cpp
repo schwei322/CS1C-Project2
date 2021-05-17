@@ -377,10 +377,10 @@ void DatabaseManager::add_item(QString item_name, QString item_price) const
  *      @return N/A
 *******************************************************************************/
 
-void DatabaseManager::delete_item(QString item_name, QString item_id) const
+void DatabaseManager::delete_item(QString item_name) const
 {
     QSqlQuery query(database);
-    QString sql_command = "DELETE FROM Items WHERE item_name = '"+item_name+"' and item_id = '"+item_id+"'";
+    QString sql_command = "DELETE FROM Items WHERE item_name = '"+item_name+"'";
 
     query.prepare(sql_command);
     if(!query.exec())

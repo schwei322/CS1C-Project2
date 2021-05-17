@@ -257,7 +257,7 @@ void MainWindow::displayAdmin()
         this->ui->manageInventoryTable->setItem(this->ui->manageInventoryTable->rowCount() - 1, 0, itemName);
 
         QTableWidgetItem  *itemPrice = new QTableWidgetItem;
-        itemPrice->setData(Qt::EditRole, data.getPrice());
+        itemPrice->setData(Qt::EditRole, "$" + QString::number(data.getPrice(), 'f', 2));
         itemPrice->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
         this->ui->manageInventoryTable->setItem(this->ui->manageInventoryTable->rowCount() - 1, 1, itemPrice);
     }
@@ -470,6 +470,9 @@ void MainWindow::displayMembersByDate()
 
     int memberSelectionIndex = memberOptions.indexOf(this->ui->membersFilterSelect->currentText());
 
+    int regularShoppersCount = 0;
+    int executiveShoppersCount = 0;
+
     QVector<int> tempMemberVec;
     for(PurchaseData& data : purchaseDataList)
     {
@@ -489,10 +492,16 @@ void MainWindow::displayMembersByDate()
             this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
             tempMemberVec.append(data.getMembershipNumber());
+
+            if (memberInfo.at(2) == "Regular")
+                ++regularShoppersCount;
+            else
+                ++executiveShoppersCount;
         }
     }
 
-    this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+    this->ui->regularShoppersDisplay->setText(QString::number(regularShoppersCount));
+    this->ui->executiveShoppersDisplay->setText(QString::number(executiveShoppersCount));
 
     ui->salesTable->setSortingEnabled(true);
     ui->salesTable2->setSortingEnabled(true);
@@ -643,7 +652,7 @@ void MainWindow::on_salesSearchInput_textChanged()
 
         QStringList dateOptions;
 
-        dateOptions << "All days" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
+        dateOptions << "All purchases" << "04/01/2021" << "04/02/2021" << "04/03/2021" << "04/04/2021" << "04/05/2021" << "04/06/2021" << "04/07/2021";
 
         QVector<PurchaseData> purchaseDataList;
 
@@ -777,6 +786,9 @@ void MainWindow::on_salesSearchInput_textChanged()
             purchaseDataList2 = this->database_manager.get_report_all_purchases();
         }
 
+        int regularShoppersCount = 0;
+        int executiveShoppersCount = 0;
+
         QVector<int> tempMemberVec;
         for(PurchaseData& data : purchaseDataList2)
         {
@@ -797,11 +809,17 @@ void MainWindow::on_salesSearchInput_textChanged()
                     this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
                     tempMemberVec.append(data.getMembershipNumber());
+
+                    if (memberInfo.at(2) == "Regular")
+                        ++regularShoppersCount;
+                    else
+                        ++executiveShoppersCount;
                 }
             }
         }
 
-        this->ui->salesShoppersDisplay->setText(QString::number(tempMemberVec.size()));
+        this->ui->regularShoppersDisplay->setText(QString::number(regularShoppersCount));
+        this->ui->executiveShoppersDisplay->setText(QString::number(executiveShoppersCount));
 
         ui->salesTable->setSortingEnabled(true);
         ui->salesTable2->setSortingEnabled(true);
@@ -936,6 +954,12 @@ void MainWindow::on_manageMemberBtn_clicked()
 void MainWindow::on_manageAddItemBtn_clicked()
 {
     this->ui->addItemPanel->show();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->addItemPanel->raise();
 }
 
@@ -1005,20 +1029,25 @@ void MainWindow::on_addItemCancelBtn_clicked()
 
 void MainWindow::on_manageDelItemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
     this->ui->delItemPanel->show();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->delItemPanel->raise();
 }
 
 void MainWindow::on_delItemOkBtn_clicked()
 {
     QString item_name = this->ui->delItemNameInput->text();
-    QString item_id = this->ui->delItemIdInput->text();
 
     QMessageBox errorMessageBox;
 
-    if (this->database_manager.check_item_existance(item_name, item_id))
+    if (this->database_manager.check_item_existance(item_name))
     {
-        this->database_manager.delete_item(item_name, item_id);
+        this->database_manager.delete_item(item_name);
     }
     else
     {
@@ -1027,7 +1056,6 @@ void MainWindow::on_delItemOkBtn_clicked()
     }
 
     this->ui->delItemNameInput->clear();
-    this->ui->delItemIdInput->clear();
 
     this->ui->delItemPanel->hide();
     this->displayAdmin();
@@ -1036,14 +1064,19 @@ void MainWindow::on_delItemOkBtn_clicked()
 void MainWindow::on_delItemCancelBtn_clicked()
 {
     this->ui->delItemNameInput->clear();
-    this->ui->delItemIdInput->clear();
 
     this->ui->delItemPanel->hide();
 }
 
 void MainWindow::on_manageUpItemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
     this->ui->upItemPanel->show();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->upItemPanel->raise();
 }
 
@@ -1081,7 +1114,13 @@ void MainWindow::on_upItemCancelBtn_clicked()
 
 void MainWindow::on_manageAddMemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
     this->ui->addMemPanel->show();
+    this->ui->delMemPanel->hide();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->addMemPanel->raise();
 }
 
@@ -1152,7 +1191,13 @@ void MainWindow::on_addMemCancelBtn_clicked()
 
 void MainWindow::on_manageDelMemBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
     this->ui->delMemPanel->show();
+    this->ui->addPurchasePanel->hide();
+
     this->ui->delMemPanel->raise();
 }
 
@@ -1195,7 +1240,13 @@ void MainWindow::on_delMemCancelBtn_clicked()
 
 void MainWindow::on_manageAddPurchaseBtn_clicked()
 {
+    this->ui->addItemPanel->hide();
+    this->ui->delItemPanel->hide();
+    this->ui->upItemPanel->hide();
+    this->ui->addMemPanel->hide();
+    this->ui->delMemPanel->hide();
     this->ui->addPurchasePanel->show();
+
     this->ui->addPurchasePanel->raise();
 }
 
