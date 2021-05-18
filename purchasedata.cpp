@@ -1,5 +1,10 @@
 #include "purchasedata.h"
 
+/**
+ * @brief constructor
+ * @param date, name, membershipNumber,product, price, quantity
+ */
+
 /****************************************************************************//**
  *      Constructor
  * ____________________________________________________________________________
@@ -10,6 +15,7 @@
  *      @return  N/A
 *******************************************************************************/
 
+
 PurchaseData::PurchaseData()
 {
     this->date = "";
@@ -19,6 +25,12 @@ PurchaseData::PurchaseData()
     this->price = 0.0;
     this->quantity = 0;
 }
+
+/**
+ * @brief Accessor to get the date
+ * @return date
+ */
+
 /*******************************************************************************/
 
 
@@ -58,10 +70,17 @@ PurchaseData::~PurchaseData()
  *      @return  N/A
 *******************************************************************************/
 
+
 QString PurchaseData::getDate() const
 {
     return this->date;
 }
+
+/**
+ * @brief Accesor to get the name
+ * @return name
+ */
+
 /*******************************************************************************/
 
 
@@ -83,6 +102,12 @@ QString PurchaseData::getName() const
 {
     return this->name;
 }
+
+/**
+ * @brief Accesor to get MembershipNumber
+ * @return membershipNumber
+ */
+
 /*******************************************************************************/
 
 
@@ -99,10 +124,16 @@ QString PurchaseData::getName() const
  *      @return  N/A
 *******************************************************************************/
 
+
 int PurchaseData::getMembershipNumber() const
 {
     return this->membershipNumber;
 }
+
+/**
+ * @brief accesor to get Product
+ * @return product
+ */
 /*******************************************************************************/
 
 
@@ -119,10 +150,16 @@ int PurchaseData::getMembershipNumber() const
  *      @return  N/A
 *******************************************************************************/
 
+
 QString PurchaseData::getProduct() const
 {
     return this->product;
 }
+
+/**
+ * @brieaccessor to get Price
+ * @return price
+ */
 /*******************************************************************************/
 
 
@@ -139,10 +176,15 @@ QString PurchaseData::getProduct() const
  *      @return  N/A
 *******************************************************************************/
 
+
 float PurchaseData::getPrice() const
 {
     return this->price;
 }
+/**
+ * @brief Accessor to get Quantity
+ * @return quantity
+ */
 /*******************************************************************************/
 
 
@@ -159,10 +201,17 @@ float PurchaseData::getPrice() const
  *      @return  N/A
 *******************************************************************************/
 
+
 int PurchaseData::getQuantity() const
 {
     return this->quantity;
 }
+
+/**
+ * @brief mutator to set Date
+ * @param date
+ */
+
 /*******************************************************************************/
 
 
@@ -179,10 +228,16 @@ int PurchaseData::getQuantity() const
  *      @return  N/A
 *******************************************************************************/
 
+
 void PurchaseData::setDate(QString date)
 {
     this->date = date;
 }
+/**
+ * @brief mutator to set Name
+ * @param name
+ */
+
 /*******************************************************************************/
 
 
@@ -199,10 +254,17 @@ void PurchaseData::setDate(QString date)
  *      @return  N/A
 *******************************************************************************/
 
+
 void PurchaseData::setName(QString name)
 {
     this->name = name;
 }
+
+/**
+ * @brief  mutator to set MembershipNumber
+ * @param membershipNumber
+ */
+
 /*******************************************************************************/
 
 
@@ -219,10 +281,17 @@ void PurchaseData::setName(QString name)
  *      @return  N/A
 *******************************************************************************/
 
+
 void PurchaseData::setMembershipNumber(int membershipNumber)
 {
     this->membershipNumber = membershipNumber;
 }
+
+/**
+ * @brief mutator to set Product
+ * @param product
+ */
+
 /*******************************************************************************/
 
 
@@ -239,10 +308,17 @@ void PurchaseData::setMembershipNumber(int membershipNumber)
  *      @return  N/A
 *******************************************************************************/
 
+
 void PurchaseData::setProduct(QString product)
 {
     this->product = product;
 }
+
+/**
+ * @brief  mutator to set Price
+ * @param price
+ */
+
 /*******************************************************************************/
 
 
@@ -259,10 +335,15 @@ void PurchaseData::setProduct(QString product)
  *      @return  N/A
 *******************************************************************************/
 
+
 void PurchaseData::setPrice(float price)
 {
     this->price = price;
 }
+/**
+ * @brief mutator to set Quantity
+ * @param quantity
+ */
 /*******************************************************************************/
 
 
@@ -279,10 +360,18 @@ void PurchaseData::setPrice(float price)
  *      @return  N/A
 *******************************************************************************/
 
+
 void PurchaseData::setQuantity(int quantity)
 {
     this->quantity = quantity;
 }
+
+/**
+ * @brief PurchaseData::operator ==
+ * @param otherPurchaseData
+ * @return
+ */
+
 /*******************************************************************************/
 
 
@@ -303,6 +392,11 @@ bool PurchaseData::operator==(const PurchaseData& otherPurchaseData)
 {
     return this->product == otherPurchaseData.product;
 }
+
+/**
+ * @brief MemberPurchaseData::MemberPurchaseData
+ */
+
 /*******************************************************************************/
 
 
@@ -319,12 +413,18 @@ bool PurchaseData::operator==(const PurchaseData& otherPurchaseData)
  *      @return  N/A
 *******************************************************************************/
 
+
 MemberPurchaseData::MemberPurchaseData()
 {
     this->membershipType = "";
     this->expirationDate = "";
     this->totalSpent = 0.0;
 }
+
+/**
+ * @brief get MembershipType
+ * @return membership type
+ */
 /*******************************************************************************/
 
 
@@ -345,6 +445,11 @@ QString MemberPurchaseData::getMembershipType() const
 {
     return this->membershipType;
 }
+
+/**
+ * @brief get the Expiration Date
+ * @return expiration date
+ */
 /*******************************************************************************/
 
 
@@ -365,6 +470,12 @@ QString MemberPurchaseData::getExpirationDate() const
 {
     return this->expirationDate;
 }
+
+/**
+ * @brief get Total Spent
+ * @return total spent
+ */
+
 /*******************************************************************************/
 
 
@@ -381,10 +492,17 @@ QString MemberPurchaseData::getExpirationDate() const
  *      @return  N/A
 *******************************************************************************/
 
+
 double MemberPurchaseData::getTotalSpent() const
 {
     return this->totalSpent;
 }
+
+/**
+ * @brief get Rebate Amount
+ * @return rebate amount
+ */
+
 /*******************************************************************************/
 
 
@@ -405,6 +523,12 @@ double MemberPurchaseData::getRebateAmount() const
 {
     return this->rebateAmount;
 }
+
+/**
+ * @brief set Membership Type
+ * @param membershipType
+ */
+
 /*******************************************************************************/
 
 
@@ -422,10 +546,18 @@ double MemberPurchaseData::getRebateAmount() const
 *******************************************************************************/
 
 
+
 void MemberPurchaseData::setMembershipType(QString membershipType)
 {
     this->membershipType = membershipType;
 }
+
+/**
+ * @brief set Expiration Date
+ * @param expiration Date
+ * @return expiration Date
+ */
+
 /*******************************************************************************/
 
 
@@ -446,6 +578,11 @@ void MemberPurchaseData::setExpirationDate(QString expirationDate)
 {
     this->expirationDate = expirationDate;
 }
+
+/**
+ * @brief set Total Spent
+ * @param totalSpent
+ */
 /*******************************************************************************/
 
 
@@ -462,10 +599,16 @@ void MemberPurchaseData::setExpirationDate(QString expirationDate)
  *      @return  N/A
 *******************************************************************************/
 
+
 void MemberPurchaseData::setTotalSpent(double totalSpent)
 {
     this->totalSpent = totalSpent;
 }
+/**
+ * @brief set Rebate Amount
+ * @param rebateAmount
+ */
+
 /*******************************************************************************/
 
 
