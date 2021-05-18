@@ -103,8 +103,8 @@ void MainWindow::userLogin()
         this->ui->adminBtn->show();
         this->ui->loginPanel->hide();
         this->ui->memberTable->setColumnHidden(5, false);
-
-        this->ui->manageInventoryPanel->raise();
+        this->ui->memberTotalPromoDisplay->show();
+        this->ui->memberTotalDemoDisplay->show();
     }
     else if (this->ui->usernameInput->text() == managerUsername && this->ui->passwordInput->text() == managerPassword)
     {
@@ -112,6 +112,8 @@ void MainWindow::userLogin()
         this->ui->adminBtn->hide();
         this->ui->loginPanel->hide();
         this->ui->memberTable->setColumnHidden(5, true);
+        this->ui->memberTotalPromoDisplay->hide();
+        this->ui->memberTotalDemoDisplay->hide();
     }
 
     this->ui->usernameInput->clear();
@@ -168,6 +170,9 @@ void MainWindow::displayMembers()
     this->ui->salesBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
     this->ui->membersBtn->setStyleSheet("border: none; background-color: rgb(0, 128, 128); color: rgb(178, 216, 216);");
     this->ui->adminBtn->setStyleSheet("border: none; background-color: rgb(0, 76, 76); color: rgb(178, 216, 216);");
+
+    int promoteCount = 0;
+    int demoteCount = 0;
 
     this->ui->memberTable->setRowCount(0);
 
@@ -246,6 +251,7 @@ void MainWindow::displayMembers()
             if (totalSpentAmountWithoutTaxes * 0.02 < 55)
             {
                 recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+                ++demoteCount;
             }
             else
             {
@@ -257,6 +263,7 @@ void MainWindow::displayMembers()
             if (totalSpentAmountWithoutTaxes * 0.02 > 55)
             {
                 recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
+                ++promoteCount;
             }
             else
             {
@@ -272,6 +279,8 @@ void MainWindow::displayMembers()
         grandTotal += totalSpentAmount;
     }
 
+    this->ui->memberTotalPromoDisplay->setText(QString::number(promoteCount));
+    this->ui->memberTotalDemoDisplay->setText(QString::number(demoteCount));
     this->ui->memberTotalDisplay->setText("$" + QString::number(grandTotal, 'f', 2));
 
     this->ui->memberMainPanel->raise();
@@ -989,6 +998,9 @@ void MainWindow::on_memberSearchInput_textChanged()
     }
     else
     {
+        int promoteCount = 0;
+        int demoteCount = 0;
+
         this->ui->memberTable->setRowCount(0);
 
         QVector<MemberPurchaseData> purchaseDataList = this->database_manager.get_report_all_purchases_per_member();
@@ -1069,6 +1081,7 @@ void MainWindow::on_memberSearchInput_textChanged()
                 if (totalSpentAmountWithoutTaxes * 0.02 < 55)
                 {
                     recommendedConversion->setData(Qt::EditRole, "Executive 🠒 Regular");
+                    ++demoteCount;
                 }
                 else
                 {
@@ -1080,6 +1093,7 @@ void MainWindow::on_memberSearchInput_textChanged()
                 if (totalSpentAmountWithoutTaxes * 0.02 > 55)
                 {
                     recommendedConversion->setData(Qt::EditRole, "Regular 🠒 Executive");
+                    ++promoteCount;
                 }
                 else
                 {
@@ -1092,6 +1106,8 @@ void MainWindow::on_memberSearchInput_textChanged()
             grandTotal += totalSpentAmount;
         }
 
+        this->ui->memberTotalPromoDisplay->setText(QString::number(promoteCount));
+        this->ui->memberTotalDemoDisplay->setText(QString::number(demoteCount));
         this->ui->memberTotalDisplay->setText("$" + QString::number(grandTotal, 'f', 2));
     }
 }

@@ -397,7 +397,7 @@ QPushButton:hover {
          <x>10</x>
          <y>10</y>
          <width>1111</width>
-         <height>661</height>
+         <height>641</height>
         </rect>
        </property>
        <property name="styleSheet">
@@ -426,7 +426,7 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
        </column>
        <column>
         <property name="text">
-         <string>Total purchases</string>
+         <string>Total spent</string>
         </property>
        </column>
        <column>
@@ -435,42 +435,135 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
         </property>
        </column>
       </widget>
-      <widget class="QLabel" name="memberTotalLabel">
+      <widget class="QFrame" name="frame">
        <property name="geometry">
         <rect>
-         <x>890</x>
-         <y>680</y>
-         <width>91</width>
-         <height>31</height>
+         <x>10</x>
+         <y>660</y>
+         <width>1111</width>
+         <height>51</height>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">color: rgb(0, 76, 76);
+        <string notr="true">QFrame {
+	border: 3px solid rgb(0, 76, 76);
+}
+
+QLabel {
+	border: none;
+}</string>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::StyledPanel</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QLabel" name="memberTotalLabel">
+        <property name="geometry">
+         <rect>
+          <x>870</x>
+          <y>10</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 76, 76);
 font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
-       </property>
-       <property name="text">
-        <string>Grand total:</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="memberTotalDisplay">
-       <property name="geometry">
-        <rect>
-         <x>990</x>
-         <y>680</y>
-         <width>121</width>
-         <height>31</height>
-        </rect>
-       </property>
-       <property name="styleSheet">
-        <string notr="true">color: rgb(0, 76, 76);
+        </property>
+        <property name="text">
+         <string>Grand total:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="memberTotalDisplay">
+        <property name="geometry">
+         <rect>
+          <x>980</x>
+          <y>10</y>
+          <width>121</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 76, 76);
 font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+       <widget class="QLabel" name="memberTotalPromoLabel">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>10</y>
+          <width>141</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Total promotions:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="memberTotalPromoDisplay">
+        <property name="geometry">
+         <rect>
+          <x>160</x>
+          <y>10</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+       <widget class="QLabel" name="memberTotalDemoLabel">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>10</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Total demotions:</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="memberTotalDemoDisplay">
+        <property name="geometry">
+         <rect>
+          <x>410</x>
+          <y>10</y>
+          <width>101</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 76, 76);
+font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
       </widget>
      </widget>
      <widget class="QFrame" name="memberRebatesPanel">
@@ -519,12 +612,12 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;
        </column>
        <column>
         <property name="text">
-         <string>Total purchases (w/o tax)</string>
+         <string>Total spent (w/o tax)</string>
         </property>
        </column>
        <column>
         <property name="text">
-         <string>Total purchases (w/ tax)</string>
+         <string>Total spent (w/ tax)</string>
         </property>
        </column>
        <column>
@@ -786,11 +879,11 @@ font: 87 12pt &quot;Segoe UI Semibold&quot;;</string>
      <zorder>memberRebatesBtn</zorder>
      <zorder>memberExpirationBtn</zorder>
      <zorder>memberBackBtn</zorder>
-     <zorder>memberExpirationPanel</zorder>
      <zorder>memberSearchInput</zorder>
      <zorder>memberSearchLabel</zorder>
-     <zorder>memberMainPanel</zorder>
      <zorder>memberRebatesPanel</zorder>
+     <zorder>memberExpirationPanel</zorder>
+     <zorder>memberMainPanel</zorder>
     </widget>
     <widget class="QFrame" name="admin">
      <property name="geometry">
@@ -2472,6 +2565,10 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
       </item>
      </widget>
     </widget>
+    <zorder>sidebar</zorder>
+    <zorder>admin</zorder>
+    <zorder>sales</zorder>
+    <zorder>members</zorder>
    </widget>
   </widget>
  </widget>
