@@ -407,9 +407,16 @@ void DatabaseManager::delete_item(QString item_name) const
 void DatabaseManager::update_item(QString item_name, QString item_price) const
 {
     QSqlQuery query(database);
-    QString sql_command = "UPDATE Items SET item_price = '"+item_price+"' WHERE item_name = '"+item_name+"'";
+    QString sql_command1 = "UPDATE Items SET item_price = '"+item_price+"' WHERE item_name = '"+item_name+"'";
+    QString sql_command2 = "UPDATE Purchase SET price = '"+item_price+"' WHERE product = '"+item_name+"'";
 
-    query.prepare(sql_command);
+    query.prepare(sql_command1);
+    if(!query.exec())
+    {
+        qDebug() << query.lastError();
+    }
+
+    query.prepare(sql_command2);
     if(!query.exec())
     {
         qDebug() << query.lastError();
