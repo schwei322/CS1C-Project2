@@ -453,10 +453,16 @@ void MainWindow::displaySalesByDate()
         {
             QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-            if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
-                    || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+            if (memberInfo.size() != 0)
             {
-                tempMemberVec.append(data.getMembershipNumber());
+                if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                        || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+                {
+                    if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                    {
+                        tempMemberVec.append(data.getMembershipNumber());
+                    }
+                }
             }
         }
 
@@ -538,25 +544,46 @@ void MainWindow::displayMembersByDate()
     {
         QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-        if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
-                || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+        if (memberInfo.size() == 0)
         {
+            if (!tempMemberVec.contains(data.getMembershipNumber()))
+            {
+                this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
 
-            this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
+                this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem("Deleted"));
 
-            this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem(memberInfo.at(0)));
+                QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+                membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+                membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+                this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
 
-            QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
-            membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
-            membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
-            this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
+                tempMemberVec.append(data.getMembershipNumber());
 
-            tempMemberVec.append(data.getMembershipNumber());
-
-            if (memberInfo.at(2) == "Regular")
                 ++regularShoppersCount;
-            else
-                ++executiveShoppersCount;
+            }
+        }
+        else
+        {
+            if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                    || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+            {
+
+                this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
+
+                this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem(memberInfo.at(0)));
+
+                QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+                membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+                membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+                this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
+
+                tempMemberVec.append(data.getMembershipNumber());
+
+                if (memberInfo.at(2) == "Regular")
+                    ++regularShoppersCount;
+                else
+                    ++executiveShoppersCount;
+            }
         }
     }
 
@@ -767,7 +794,8 @@ void MainWindow::on_salesSearchInput_textChanged()
 
                 if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
                 {
-                    if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                    if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1
+                            || QString::number(data.getMembershipNumber()).toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
                     {
                         PurchaseData purchase;
 
@@ -827,12 +855,15 @@ void MainWindow::on_salesSearchInput_textChanged()
             {
                 QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-                if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
-                        || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+                if (memberInfo.size() != 0)
                 {
-                    if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                    if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                            || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
                     {
-                        tempMemberVec.append(data.getMembershipNumber());
+                        if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                        {
+                            tempMemberVec.append(data.getMembershipNumber());
+                        }
                     }
                 }
             }
@@ -889,11 +920,30 @@ void MainWindow::on_salesSearchInput_textChanged()
         {
             QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-            if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
-                    || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+            if (memberInfo.size() == 0)
             {
-                if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)
+                if (!tempMemberVec.contains(data.getMembershipNumber()))
                 {
+                    this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
+
+                    this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem("Deleted"));
+
+                    QTableWidgetItem  *membershipNumber = new QTableWidgetItem;
+                    membershipNumber->setData(Qt::EditRole, data.getMembershipNumber());
+                    membershipNumber->setTextAlignment(Qt::AlignVCenter | Qt::AlignRight);
+                    this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 1, membershipNumber);
+
+                    tempMemberVec.append(data.getMembershipNumber());
+
+                    ++regularShoppersCount;
+                }
+            }
+            else
+            {
+                if ((memberSelectionIndex == 0 && !tempMemberVec.contains(data.getMembershipNumber()))
+                        || (memberSelectionIndex != 0 && !tempMemberVec.contains(data.getMembershipNumber()) && memberOptions[memberSelectionIndex] == memberInfo.at(2)))
+                {
+
                     this->ui->salesTable2->insertRow(this->ui->salesTable2 ->rowCount());
 
                     this->ui->salesTable2->setItem(this->ui->salesTable2->rowCount() - 1, 0, new QTableWidgetItem(memberInfo.at(0)));
@@ -1503,7 +1553,7 @@ void MainWindow::on_addPurchaseOkBtn_clicked()
     product_name = this->ui->addPurNameInput->text();
     product_price = this->ui->addPurPriceInput->text();
     quantity = this->ui->addPurQuantInput->text();
-    date = this->ui->addPurDateInput->text();
+    date = this->ui->addPurDateSelect->currentText();
 
     // Check if any lineEdits left empty. check_lineEdits returns true if lineEdit found to be empty.
     if (checkLineEdits(memberID, product_name, product_price, quantity, date))
@@ -1526,7 +1576,6 @@ void MainWindow::on_addPurchaseOkBtn_clicked()
     this->ui->addPurNameInput->clear();
     this->ui->addPurPriceInput->clear();
     this->ui->addPurQuantInput->clear();
-    this->ui->addPurDateInput->clear();
 
     this->ui->addPurchasePanel->hide();
     this->displayAdmin();
@@ -1545,7 +1594,6 @@ void MainWindow::on_addPurchaseCancelBtn_clicked()
     this->ui->addPurNameInput->clear();
     this->ui->addPurPriceInput->clear();
     this->ui->addPurQuantInput->clear();
-    this->ui->addPurDateInput->clear();
 
     this->ui->addPurchasePanel->hide();
 }

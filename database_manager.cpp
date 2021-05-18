@@ -519,7 +519,7 @@ bool DatabaseManager::check_item_existance(QString item_name, QString item_id) c
 void DatabaseManager::add_member(QString member_name, QString membership_type) const
 {
     QSqlQuery query(database);
-    QString sql_command = "INSERT INTO Member (name, membership_type) VALUES('"+member_name+"','"+membership_type+"')";
+    QString sql_command = "INSERT INTO Member (name, membership_type, expiration_date) VALUES('"+member_name+"','"+membership_type+"', '05/17/2022')";
 
     query.prepare(sql_command);
     if(!query.exec())
