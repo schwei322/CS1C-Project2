@@ -148,6 +148,9 @@ void MainWindow::displaySales()
 
     this->ui->sales->raise();
 
+    this->ui->salesFilterSelect->setCurrentIndex(0);
+    this->ui->membersFilterSelect->setCurrentIndex(0);
+
     this->displaySalesByDate();
     this->displayMembersByDate();
 }
@@ -394,7 +397,7 @@ void MainWindow::displaySalesByDate()
         {
             QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-            if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
+            if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberInfo.size() != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
             {
                 PurchaseData purchase;
 
@@ -768,7 +771,7 @@ void MainWindow::on_salesSearchInput_textChanged()
 
         QStringList memberOptions;
 
-        memberOptions << "All members" << "Regular" << "Executive";
+        memberOptions << "All members" << "Regular" << "Executive" << "Deleted";
 
         int memberSelectionIndex = memberOptions.indexOf(this->ui->membersFilterSelect->currentText());
 
@@ -792,7 +795,7 @@ void MainWindow::on_salesSearchInput_textChanged()
             {
                 QStringList memberInfo = this->database_manager.get_memberInfo(QString::number(data.getMembershipNumber()));
 
-                if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
+                if (!tempProductVec.contains(data.getProduct()) && (memberSelectionIndex == 0 || (memberSelectionIndex != 0 && memberInfo.size() != 0 && memberOptions[memberSelectionIndex] == memberInfo.at(2))))
                 {
                     if (data.getProduct().toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1
                             || QString::number(data.getMembershipNumber()).toLower().indexOf(this->ui->salesSearchInput->text().toLower(), 0) != -1)

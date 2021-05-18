@@ -2465,12 +2465,13 @@ font: 87 12pt &quot;Segoe UI&quot;;</string>
         <string>Executive</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>Deleted</string>
+       </property>
+      </item>
      </widget>
     </widget>
-    <zorder>sidebar</zorder>
-    <zorder>members</zorder>
-    <zorder>sales</zorder>
-    <zorder>admin</zorder>
    </widget>
   </widget>
  </widget>
